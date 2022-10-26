@@ -1,7 +1,0 @@
- <Button
-        variant="contained"
-        color="secondary"
-        startIcon={<Avatar src={'http://www.wpsimplesponsorships.com/wp-content/uploads/2019/05/cropped-icon-256x256.png'} />}
-      >
-        Delete
-      </Button>
