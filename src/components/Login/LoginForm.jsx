@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect, useContext } from "react";
 
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -12,25 +11,48 @@ import Alert from "@mui/material/Alert";
 
 import styles from "./LoginGrid.scss";
 import axios from "../../api/axios";
+import AuthContext from "../../Context/AuthProvider";
 import { Button, Divider } from "@mui/material";
 // import Button from "@mui/joy/Button";
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 export default function LoginForm() {
-  const userRef = useRef();
-  const errRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [cookies, setCookie] = useCookies();
+  const { auth, setAuth } = useContext(AuthContext);
 
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
+  const from = location.state?.from?.pathname || "/"; // to get where they came from
+  const userRef = useRef();
+
   // set focus in the first input
   const formObj = {
-    usernameRef: useRef(),
+    emailRef: useRef(),
     passwordRef: useRef(),
   };
-  const loginSubmit = () => {
-    console.log("submit");
+  const loginSubmit = async () => {
+    const email = formObj.emailRef.current.value;
+    const password = formObj.passwordRef.current.value;
+    try {
+      const response = await axios.post("/auth/login", {
+        email,
+        password,
+      });
+      const { accessToken, refreshToken } = response?.data;
+      setCookie("refreshToken", refreshToken);
+      setCookie("accessToken", accessToken);
+      setCookie("email", email);
+      setAuth({ accessToken, email });
+
+      // navigate(from, { replace: true });
+    } catch (err) {
+      if (!err?.response) {
+        console.log("No Server Response");
+      } else if (err.response?.status === 400) {
+        console.log(err?.response?.data?.error);
+      }
+      return;
+    }
   };
 
   return (
@@ -73,12 +95,13 @@ export default function LoginForm() {
             required
             hiddenLabel
             fullWidth
+            type="email"
             variant="filled"
             size="small"
             form="login-form"
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
-            inputRef={formObj.usernameRef}
+            inputRef={formObj.emailRef}
             ref={userRef}
           />
           <Typography variant="subtitle1" gutterBottom>

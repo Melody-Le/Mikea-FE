@@ -21,7 +21,6 @@ function App() {
           <Route path="/login" element={<AuthGrid formType="login" />} />
           <Route path="/products" element={<ProductsIndex />} />
           <Route path="/user" element={<User />} />
-
           <Route
             path="*"
             element={
