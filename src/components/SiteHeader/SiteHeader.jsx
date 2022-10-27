@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { useTheme } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -21,22 +21,25 @@ import "./SiteHeader.css";
 import DrawerComponent from "./DrawerComponent";
 import MenuBar from "./MenuBar";
 import SearchBar from "./SearchBar";
-// import axios from "../../api/axios";
+import axios from "../../api/axios";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import useRefreshToken from "../../Hooks/useRefreshToken";
 
-// import AuthContext from "../../context/AuthProvider";
+import AuthContext from "../../Context/AuthProvider";
 
 function SiteHeader() {
-  // const { auth } = useContext(AuthContext);
-  // const isAuth = !!auth?.username;
-  const isAuth = false;
+  const { auth } = useContext(AuthContext);
+  const refresh = useRefreshToken();
+  const isAuth = !!auth?.email;
+  const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
-  // useEffect(() => {
-  //   if (auth?.username) {
-  //     axios.get(`/users/${auth?.username}`).then((response) => {
-  //       setProfile(response.data);
-  //     });
-  //   }
-  // }, [auth]);
+  useEffect(() => {
+    if (auth?.email) {
+      axiosPrivate.get(`/user`).then((response) => {
+        setProfile(response.data);
+      });
+    }
+  }, [auth]);
   let profileAvatarUrl;
   const defaultProfileAvatarUrl =
     "https://i.pinimg.com/564x/ea/69/33/ea693365e361f25b639914ef32f26de4.jpg";
@@ -86,7 +89,7 @@ function SiteHeader() {
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-
+  const name = profile?.email || "refresh";
   return (
     <AppBar
       position="sticky"
@@ -96,6 +99,9 @@ function SiteHeader() {
       }}
       className="site-header"
     >
+      <Button variant="text" onClick={() => refresh()}>
+        {name}
+      </Button>
       <Toolbar sx={{ backgroundColor: "rgba(var(--colorwhite)),var(--alpha)" }}>
         {isMatch ? (
           <>
@@ -243,6 +249,7 @@ function SiteHeader() {
                   profileAvatarUrl={profileAvatarUrl}
                   marginTop={1}
                 />
+                <Typography>hahah</Typography>
               </Box>
             )}
           </>

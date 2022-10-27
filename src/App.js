@@ -9,6 +9,7 @@ import ProductsIndex from "./Pages/ProductsIndex/ProductsIndex";
 import AuthGrid from "./Pages/Auth/AuthPage";
 import SiteHeader from "./Components/SiteHeader/SiteHeader";
 import User from "./Components/User";
+import LogOut from "./Components/Logout/Logout";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<AuthGrid formType="register" />} />
           <Route path="/login" element={<AuthGrid formType="login" />} />
+          <Route path="/logout" element={<LogOut />} />
           <Route path="/products" element={<ProductsIndex />} />
-          <Route path="/user" element={<User />} />
+          <Route path="/user" element={<Home />} />
           <Route
             path="*"
             element={

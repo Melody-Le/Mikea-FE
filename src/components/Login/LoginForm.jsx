@@ -15,6 +15,7 @@ import AuthContext from "../../Context/AuthProvider";
 import { Button, Divider } from "@mui/material";
 // import Button from "@mui/joy/Button";
 import { useCookies } from "react-cookie";
+import Home from "../../Pages/Dashboard/Dashboard";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ export default function LoginForm() {
       setCookie("accessToken", accessToken);
       setCookie("email", email);
       setAuth({ accessToken, email });
+      console.log(cookies.email);
 
       // navigate(from, { replace: true });
     } catch (err) {
@@ -54,6 +56,30 @@ export default function LoginForm() {
       return;
     }
   };
+  if (auth?.email) {
+    return (
+      <Box className={styles["form"]}>
+        <Typography
+          variant="h4"
+          component="h1"
+          textAlign={"center"}
+          className={styles["title"]}
+          gutterBottom
+        >
+          You have logged in as&nbsp;
+          <span className="highlight-text">{auth.email}</span>
+        </Typography>
+        <Box textAlign={"center"}>
+          <Button variant="contained" route="/">
+            Back to Home
+          </Button>
+          <Button variant="outlined" href="/user">
+            Visit your Dashboard
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box className={styles["form"]}>

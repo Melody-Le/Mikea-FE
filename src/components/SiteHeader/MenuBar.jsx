@@ -18,8 +18,8 @@ function MenuBar(props) {
   const navigate = useNavigate();
   // const axiosPrivate = useAxiosPrivate();
   // const { auth } = useContext(AuthContext);
-  const { profile, logout } = props.pageLinks;
-  const pages = [profile, logout];
+  const { dashboard, logout } = props.pageLinks;
+  const pages = [dashboard, logout];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleOpenUserMenu = (event) => {
