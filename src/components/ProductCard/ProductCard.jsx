@@ -4,12 +4,12 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import useMediaQuery from "@mui/material/useMediaQuery";
+// import useMediaQuery from "@mui/material/useMediaQuery";
 import AspectRatio from "@mui/joy/AspectRatio";
 // import Image from "next/image";
 
 const ProductCard = () => {
-  const matches = useMediaQuery("(max-width:600px)");
+  // const matches = useMediaQuery("(max-width:600px)");
   return (
     <Grid item xs={3}>
       <Paper elevation={5} sx={{ borderRadius: 4 }}>
