@@ -1,0 +1,37 @@
+.form {
+  color: var(--color4);
+
+  .title {
+    color: var(--color3);
+  }
+
+  .link {
+    color: var(--color3);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .input-text {
+    background-color: var(--color2);
+    input[type="text"],
+    input[type="password"] {
+      color: var(--disable-color);
+    }
+  }
+
+  .or {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--color4);
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+  }
+
+  // .or span {
+  //   background: var(--color1);
+  //   padding:0 10px;
+  // }
+}

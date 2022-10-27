@@ -10,10 +10,12 @@ import Typography from "@mui/material/Typography";
 import AdbIcon from "@mui/icons-material/Adb";
 import Grid from "@mui/material/Grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 import "./SiteHeader.css";
 import DrawerComponent from "./DrawerComponent";
@@ -87,15 +89,17 @@ function SiteHeader() {
 
   return (
     <AppBar
-      position="relative"
-      sx={{ backgroundColor: "var(--color1)" }}
+      position="sticky"
+      sx={{
+        boxShadow: 1,
+        backgroundColor: "rgba(var(--colorwhite)),var(--alpha)",
+      }}
       className="site-header"
     >
-      <Toolbar sx={{ backgroundColor: "var(--color1)" }}>
+      <Toolbar sx={{ backgroundColor: "rgba(var(--colorwhite)),var(--alpha)" }}>
         {isMatch ? (
           <>
             <Grid container sx={{ placeItems: "center" }}>
-              <AdbIcon sx={{ mr: 1 }} />
               <Typography
                 variant="h6"
                 marginTop="6"
@@ -105,6 +109,7 @@ function SiteHeader() {
                 sx={{
                   mr: 2,
                   textDecoration: "none",
+                  color: "var(--color4)",
                 }}
               >
                 MIKEA
@@ -128,7 +133,6 @@ function SiteHeader() {
         ) : (
           <>
             <Grid container sx={{ placeItems: "center" }}>
-              <AdbIcon sx={{ mr: 1 }} />
               <Typography
                 variant="h6"
                 noWrap
@@ -137,6 +141,7 @@ function SiteHeader() {
                 sx={{
                   mr: 2,
                   textDecoration: "none",
+                  color: "var(--color4)",
                 }}
               >
                 MIKEA
@@ -164,7 +169,7 @@ function SiteHeader() {
                         sx={{
                           borderBottom: "0",
                           "&:hover": {
-                            backgroundColor: "var(--color2)",
+                            backgroundColor: "var(--color4)",
                           },
                         }}
                         divider
@@ -184,6 +189,41 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
+
+                  <IconButton
+                    aria-label="add to shopping cart"
+                    size="small"
+                    href="/"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "var(--color4-transparent)",
+                      color: "var(--color4a)",
+                      borderRadius: 1,
+                      // width: "2.5rem",
+                      position: "relative",
+                    }}
+                  >
+                    <ShoppingBasketIcon />
+                    <Box
+                      sx={{
+                        borderRadius: 5,
+                        backgroundColor: "var(--color6)",
+                        width: "1.5rem",
+                        height: "1.5rem",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        transform: "translate(25%, 50%)",
+                        display: "flex",
+                        fontSize: "1rem",
+                        color: "var(--colorwhite)",
+                      }}
+                    >
+                      1
+                    </Box>
+                  </IconButton>
                 </Box>
               </Grid>
             </Grid>

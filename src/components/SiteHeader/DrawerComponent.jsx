@@ -24,7 +24,6 @@ function DrawerComponent(props) {
   const {
     products,
     inspiration,
-    cart,
     login,
     signup,
     dashboard,
@@ -32,8 +31,8 @@ function DrawerComponent(props) {
     deleteAccount,
   } = props.pageLinks;
   const pages = props.isAuth
-    ? [cart, products, inspiration, logout]
-    : [login, signup, cart, products, inspiration];
+    ? [products, inspiration, logout]
+    : [login, signup, products, inspiration];
 
   const [open, setOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);

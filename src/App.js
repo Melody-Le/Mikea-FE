@@ -6,7 +6,9 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Home from "./Pages/Home/Home";
 import ProductsIndex from "./Pages/ProductsIndex/ProductsIndex";
+import AuthGrid from "./Pages/Auth/AuthPage";
 import SiteHeader from "./Components/SiteHeader/SiteHeader";
+import User from "./Components/User";
 
 function App() {
   return (
@@ -15,7 +17,10 @@ function App() {
       <Container mb={1}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/register" element={<AuthGrid formType="register" />} />
+          <Route path="/login" element={<AuthGrid formType="login" />} />
           <Route path="/products" element={<ProductsIndex />} />
+          <Route path="/user" element={<User />} />
 
           <Route
             path="*"
@@ -27,13 +32,13 @@ function App() {
           />
         </Routes>
 
-        <Grid container spacing={3}>
+        {/* <Grid container spacing={3}>
           <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
-        </Grid>
+        </Grid> */}
       </Container>
     </div>
   );
