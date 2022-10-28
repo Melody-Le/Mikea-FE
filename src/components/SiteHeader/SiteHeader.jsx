@@ -7,7 +7,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import AdbIcon from "@mui/icons-material/Adb";
 import Grid from "@mui/material/Grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import IconButton from "@mui/material/IconButton";
@@ -34,6 +33,7 @@ function SiteHeader() {
     if (auth?.email) {
       axiosPrivate.get(`/user`).then((response) => {
         setProfile(response.data);
+        console.log(profile);
       });
     }
   }, [auth]);
@@ -91,7 +91,7 @@ function SiteHeader() {
       position="sticky"
       sx={{
         boxShadow: 1,
-        backgroundColor: "rgba(var(--colorwhite)),var(--alpha)",
+        backgroundColor: "rgba(255,255,255, 0.9)",
       }}
       className="site-header"
     >
@@ -230,11 +230,14 @@ function SiteHeader() {
             {isAuth && (
               <Box
                 sx={{
-                  flexGrow: 1,
+                  // flexGrow: 1,
                   marginLeft: 1,
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
-                  gap: 3,
+                  justifyContent: "center",
+                  color: "var(--color4a)",
+                  minWidth: "6rem",
                 }}
               >
                 <MenuBar
@@ -242,7 +245,9 @@ function SiteHeader() {
                   profileAvatarUrl={profileAvatarUrl}
                   marginTop={1}
                 />
-                <Typography>hahah</Typography>
+                <Typography sx={{ fontSize: "1rem" }}>
+                  Hi {profile?.username.toUpperCase()}
+                </Typography>
               </Box>
             )}
           </>

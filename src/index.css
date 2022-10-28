@@ -12,6 +12,7 @@
   --colorGreen: #bddee2;
   --colorbgw: #ffffff; /* BACKGROUND*/
   --colorwhite: #ffffff; /* WHITE ALL CASES*/
+  --colorwhite-transparent: rgba(255,255,255, 0.9) /* WHITE ALL CASES*/
   --disable-color: #858c97;
   --alpha: 0.1;
 }

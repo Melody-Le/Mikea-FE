@@ -11,28 +11,30 @@ import Avatar from "@mui/material/Avatar";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/material";
-// import useMediaQuery from "@mui/material/useMediaQuery";
-
 import { formatCurrency } from "../../Utilities/formatCurrency";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 const ProductCard = (props) => {
-  // const matches = useMediaQuery("(max-width:600px)");
-  const {
-    productName,
-    category,
-    productDescription,
-    productImages,
-    variants,
-    variantImage,
-    variantPrice,
-  } = props.product;
-  const [isLoading, setIsLoading] = useState(false);
+  const { productName, category, productImages, variants } = props.product;
+
+  const defaultVariant = {
+    id: variants[0]?.id,
+    price: variants[0]?.price,
+    image: variants[0]?.variantImage,
+  };
+
+  const [price, setPrice] = useState(defaultVariant.price || 0);
+  const [variantId, setVariantId] = useState(variants[0]?.id);
+
+  const getCartItemQty = useShoppingCart();
+  // const cartItemQty = getCartItemQty(variantId);
+  // console.log("getCartItemQty is:", getCartItemQty);
+  // console.log(getCartItemQty.getqty(1));
+
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
   }, [props.product?.productImages]);
 
-  const defaultPrice = variants[0]?.price;
-  const [price, setPrice] = useState(defaultPrice || 0);
   const addToCart = (evnt) => {
     evnt.preventDefault();
     console.log("add");
@@ -44,11 +46,12 @@ const ProductCard = (props) => {
   let variantBox = "";
   if (variants?.length) {
     variantBox = variants?.map((variant, idx) => {
-      const { variantImage, price } = variant;
+      const { id, variantImage, price } = variant;
       const getPrice = (evnt) => {
         evnt.preventDefault();
         setPrice(price);
         setProductImage(variantImage);
+        setVariantId(id);
       };
       return (
         <Button key={idx} onClick={getPrice}>
@@ -75,7 +78,7 @@ const ProductCard = (props) => {
     <Paper elevation={5} sx={{ borderRadius: 4 }}>
       <Box padding={1}>
         <AspectRatio ratio="1" objectFit="cover" variant="square">
-          {isLoading ? (
+          {props.product ? (
             <Avatar
               alt={productName}
               src={productImage}
@@ -83,12 +86,11 @@ const ProductCard = (props) => {
               variant="rounded"
               sx={{
                 width: "100%",
-                // height: matches ? "10rem" : "30rem",
                 borderRadius: 4,
                 transition: "all 3s ease", //FIXME: not work
               }}
               onMouseOver={(evnt) => {
-                setProductImage(variants[0]?.variantImage || productImages);
+                setProductImage(defaultVariant.image || productImages);
               }}
               onMouseLeave={(evnt) => {
                 setProductImage(productImages);
@@ -100,7 +102,7 @@ const ProductCard = (props) => {
         </AspectRatio>
 
         <Box mt={1}>
-          <Typography variant="body" className="category-label">
+          <Typography variant="subtitle1" className="category-label">
             {category || "Ikea Clone"}
           </Typography>
         </Box>
@@ -113,7 +115,7 @@ const ProductCard = (props) => {
           <Typography variant="body" className="product-name">
             {productName || "Mikea"}
           </Typography>
-          <Typography variant="h6" className="price">
+          <Typography variant="subtitle1" className="price">
             {formatCurrency(price) || formatCurrency(0)}
           </Typography>
         </Box>

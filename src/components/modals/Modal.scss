@@ -1,0 +1,84 @@
+.modal {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color1);
+  padding: 2em;
+  z-index: 100;
+  width: 400px;
+  max-width: 80%;
+  text-align: center;
+  color: white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .7);
+  z-index: 100;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: var(--color3);
+}
+
+.modal-text {
+  color: var(--color4);
+}
+
+.modal-content {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5em;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color3);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.modal-footnote {
+  color: var(--color4);
+}
+
+.input-text {
+  background-color: var(--color2);
+  input[type="text"],
+  input[type="password"] {
+    color: var(--disable-color);
+  }
+}
+
+.or {
+  width: 100%; 
+  text-align: center; 
+  border-bottom: 1px solid var(--color4); 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+}
+
+.or span { 
+  background: var(--color1); 
+  padding:0 10px; 
+}
+
+.modal-error { 
+  background-color: var(--color7);
+  color: var(--color2); 
+}
+
+.input-text {
+  background-color: var(--color1);
+  input[type="text"],
+  input[type="password"] {
+    color: var(--disable-color);
+  }
+}

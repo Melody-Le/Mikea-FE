@@ -10,16 +10,16 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Avatar from "@mui/material/Avatar";
 
-// import ConfirmModal from "../modals/ConfirmModal";
-// import AuthContext from "../../context/AuthProvider";
-// import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import ConfirmModal from "../modals/ConfirmModal";
+import AuthContext from "../../Context/AuthProvider";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 function DrawerComponent(props) {
   const navigate = useNavigate();
-  // const axiosPrivate = useAxiosPrivate();
-  // const { auth } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useContext(AuthContext);
 
   const {
     products,
@@ -43,26 +43,26 @@ function DrawerComponent(props) {
     setOpen(false);
     setModalIsOpen(true);
   };
-  // const handleConfirm = () => {
-  //   setModalIsOpen(false);
-  //   axiosPrivate.delete(`/users/${auth?.username}`).then(
-  //     (response) => {
-  //       setSnackOpen(true);
-  //       setSeverity("success");
-  //       setMessage("Successfully deleted account");
-  //       setTimeout(() => {
-  //         navigate("/logout", { replace: true });
-  //       }, 1000);
-  //     },
-  //     (error) => {
-  //       setSeverity("error");
-  //       setMessage("Failed to delete account");
-  //     }
-  //   );
-  // };
-  // const handleClose = () => {
-  //   setModalIsOpen(false);
-  // };
+  const handleConfirm = () => {
+    setModalIsOpen(false);
+    axiosPrivate.delete("/user").then(
+      (response) => {
+        setSnackOpen(true);
+        setSeverity("success");
+        setMessage("Successfully deleted account");
+        setTimeout(() => {
+          navigate("/logout", { replace: true });
+        }, 1000);
+      },
+      (error) => {
+        setSeverity("error");
+        setMessage("Failed to delete account");
+      }
+    );
+  };
+  const handleClose = () => {
+    setModalIsOpen(false);
+  };
   return (
     <>
       <Drawer
@@ -119,12 +119,12 @@ function DrawerComponent(props) {
       >
         <MenuOutlinedIcon />
       </IconButton>
-      {/* <ConfirmModal
+      <ConfirmModal
         isOpen={modalIsOpen}
         onConfirm={handleConfirm}
         onClose={handleClose}
-      /> */}
-      {/* <Snackbar
+      />
+      <Snackbar
         open={open}
         autoHideDuration={6000}
         onClose={(event, reason) => {
@@ -136,7 +136,7 @@ function DrawerComponent(props) {
         <Alert severity={severity}>
           This is an error alert — check it out!
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </>
   );
 }

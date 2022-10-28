@@ -8,16 +8,17 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 
-// import ConfirmModal from "../modals/ConfirmModal";
-// import AuthContext from "../../context/AuthProvider";
-// import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import ConfirmModal from "../modals/ConfirmModal";
+import AuthContext from "../../Context/AuthProvider";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 function MenuBar(props) {
   const navigate = useNavigate();
-  // const axiosPrivate = useAxiosPrivate();
-  // const { auth } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useContext(AuthContext);
   const { dashboard, logout } = props.pageLinks;
   const pages = [dashboard, logout];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -38,20 +39,20 @@ function MenuBar(props) {
   };
   const handleConfirm = () => {
     setModalIsOpen(false);
-    // axiosPrivate.delete(`/users/${auth?.username}`).then(
-    //   (response) => {
-    //     setOpen(true);
-    //     setSeverity("success");
-    //     setMessage("Successfully deleted account");
-    //     setTimeout(() => {
-    //       navigate("/logout", { replace: true });
-    //     }, 1000);
-    //   },
-    //   (error) => {
-    //     setSeverity("error");
-    //     setMessage("Failed to delete account");
-    //   }
-    // );
+    axiosPrivate.delete("/user").then(
+      (response) => {
+        setOpen(true);
+        setSeverity("success");
+        setMessage("Successfully deleted account");
+        setTimeout(() => {
+          navigate("/logout", { replace: true });
+        }, 1000);
+      },
+      (error) => {
+        setSeverity("error");
+        setMessage("Failed to delete account");
+      }
+    );
   };
   const handleClose = () => {
     setModalIsOpen(false);
@@ -93,12 +94,12 @@ function MenuBar(props) {
           <Typography textAlign="center">Delete Account</Typography>
         </MenuItem>
       </Menu>
-      {/* <ConfirmModal
+      <ConfirmModal
         isOpen={modalIsOpen}
         onConfirm={handleConfirm}
         onClose={handleClose}
-      /> */}
-      {/* <Snackbar
+      />
+      <Snackbar
         open={open}
         autoHideDuration={6000}
         onClose={(event, reason) => {
@@ -110,7 +111,7 @@ function MenuBar(props) {
         <Alert variant="filled" severity={severity} sx={{ width: "100%" }}>
           {message}
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </div>
   );
 }

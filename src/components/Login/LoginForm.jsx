@@ -26,7 +26,6 @@ export default function LoginForm() {
   const from = location.state?.from?.pathname || "/"; // to get where they came from
   const userRef = useRef();
 
-  // set focus in the first input
   const formObj = {
     emailRef: useRef(),
     passwordRef: useRef(),
@@ -44,9 +43,8 @@ export default function LoginForm() {
       setCookie("accessToken", accessToken);
       setCookie("email", email);
       setAuth({ accessToken, email });
-      console.log(cookies.email);
 
-      // navigate(from, { replace: true });
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         console.log("No Server Response");
@@ -146,13 +144,6 @@ export default function LoginForm() {
             inputRef={formObj.passwordRef}
           />
           <Box textAlign={"center"}>
-            {/* <Button
-              variant="contained"
-              title="Log in"
-              category="action"
-              isFullWidth={true}
-              onClick={loginSubmit}
-            /> */}
             <Button
               onClick={loginSubmit}
               variant="contained"
