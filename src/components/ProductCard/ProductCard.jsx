@@ -4,6 +4,7 @@ import "./ProductCard.css";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { Skeleton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 // import useMediaQuery from "@mui/material/useMediaQuery";
@@ -21,6 +22,7 @@ const ProductCard = (props) => {
     variantImage,
     variantPrice,
   } = props.product;
+  const { isLoading } = props.isLoading;
   const defaultPrice = variants[0]?.price;
   const [price, setPrice] = useState(defaultPrice || 0);
   const [productImage, setProductImage] = useState(
@@ -61,25 +63,30 @@ const ProductCard = (props) => {
     <Paper elevation={5} sx={{ borderRadius: 4 }}>
       <Box padding={1}>
         <AspectRatio ratio="1" objectFit="cover" variant="square">
-          <Avatar
-            alt={productName}
-            src={productImage}
-            layout="fill"
-            variant="rounded"
-            sx={{
-              width: "100%",
-              // height: matches ? "10rem" : "30rem",
-              borderRadius: 4,
-              transition: "all 3s ease", //FIXME: not work
-            }}
-            onMouseOver={(evnt) => {
-              setProductImage(variants[0]?.variantImage || productImages);
-            }}
-            onMouseLeave={(evnt) => {
-              setProductImage(productImages);
-            }}
-          />
+          {isLoading ? (
+            <Avatar
+              alt={productName}
+              src={productImage}
+              layout="fill"
+              variant="rounded"
+              sx={{
+                width: "100%",
+                // height: matches ? "10rem" : "30rem",
+                borderRadius: 4,
+                transition: "all 3s ease", //FIXME: not work
+              }}
+              onMouseOver={(evnt) => {
+                setProductImage(variants[0]?.variantImage || productImages);
+              }}
+              onMouseLeave={(evnt) => {
+                setProductImage(productImages);
+              }}
+            />
+          ) : (
+            <Skeleton variant="rectangle" animation="wave" width={"100%"} />
+          )}
         </AspectRatio>
+
         <Box mt={1}>
           <Typography variant="body" className="category-label">
             {categoryLabel || "Ikea Clone"}
