@@ -21,7 +21,6 @@ import "./SiteHeader.css";
 import DrawerComponent from "./DrawerComponent";
 import MenuBar from "./MenuBar";
 import SearchBar from "./SearchBar";
-import axios from "../../api/axios";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import useRefreshToken from "../../Hooks/useRefreshToken";
 

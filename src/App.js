@@ -32,14 +32,6 @@ function App() {
             }
           />
         </Routes>
-
-        {/* <Grid container spacing={3}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </Grid> */}
       </Container>
     </div>
   );
