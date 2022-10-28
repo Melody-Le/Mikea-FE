@@ -7,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import { Skeleton } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-
 import Avatar from "@mui/material/Avatar";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-// import useMediaQuery from "@mui/material/useMediaQuery";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/material";
+// import useMediaQuery from "@mui/material/useMediaQuery";
+
+import { formatCurrency } from "../../Utilities/formatCurrency";
 
 const ProductCard = (props) => {
   // const matches = useMediaQuery("(max-width:600px)");
@@ -113,7 +114,7 @@ const ProductCard = (props) => {
             {productName || "Mikea"}
           </Typography>
           <Typography variant="h6" className="price">
-            ${price || "free"}
+            {formatCurrency(price) || formatCurrency(0)}
           </Typography>
         </Box>
         <Box
