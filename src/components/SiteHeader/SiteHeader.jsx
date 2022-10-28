@@ -22,13 +22,11 @@ import DrawerComponent from "./DrawerComponent";
 import MenuBar from "./MenuBar";
 import SearchBar from "./SearchBar";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import useRefreshToken from "../../Hooks/useRefreshToken";
 
 import AuthContext from "../../Context/AuthProvider";
 
 function SiteHeader() {
   const { auth } = useContext(AuthContext);
-  const refresh = useRefreshToken();
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
@@ -88,7 +86,6 @@ function SiteHeader() {
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const name = profile?.email || "refresh";
   return (
     <AppBar
       position="sticky"
@@ -98,9 +95,6 @@ function SiteHeader() {
       }}
       className="site-header"
     >
-      <Button variant="text" onClick={() => refresh()}>
-        {name}
-      </Button>
       <Toolbar sx={{ backgroundColor: "rgba(var(--colorwhite)),var(--alpha)" }}>
         {isMatch ? (
           <>

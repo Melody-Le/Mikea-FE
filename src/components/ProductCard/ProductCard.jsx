@@ -5,8 +5,11 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Skeleton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
+
 import Avatar from "@mui/material/Avatar";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 // import useMediaQuery from "@mui/material/useMediaQuery";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/material";
@@ -15,16 +18,24 @@ const ProductCard = (props) => {
   // const matches = useMediaQuery("(max-width:600px)");
   const {
     productName,
-    categoryLabel,
+    category,
     productDescription,
     productImages,
     variants,
     variantImage,
     variantPrice,
   } = props.product;
-  const { isLoading } = props.isLoading;
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+  }, [props.product?.productImages]);
+
   const defaultPrice = variants[0]?.price;
   const [price, setPrice] = useState(defaultPrice || 0);
+  const addToCart = (evnt) => {
+    evnt.preventDefault();
+    console.log("add");
+  };
   const [productImage, setProductImage] = useState(
     productImages ||
       "https://i.pinimg.com/564x/2e/ed/c2/2eedc27581a1364e7a44760cb3171e25.jpg"
@@ -89,10 +100,15 @@ const ProductCard = (props) => {
 
         <Box mt={1}>
           <Typography variant="body" className="category-label">
-            {categoryLabel || "Ikea Clone"}
+            {category || "Ikea Clone"}
           </Typography>
         </Box>
-        <Box display={"flex"} justifyContent={"space-between"} marginY={1}>
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          marginY={1}
+          alignItems={"flex-start"}
+        >
           <Typography variant="body" className="product-name">
             {productName || "Mikea"}
           </Typography>
@@ -100,7 +116,28 @@ const ProductCard = (props) => {
             ${price || "free"}
           </Typography>
         </Box>
-        <Box>{variantBox}</Box>
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          onClick={addToCart}
+        >
+          <Box>{variantBox}</Box>
+          <IconButton
+            aria-label="add to shopping cart"
+            size="small"
+            href="/"
+            variant="rounded"
+            sx={{
+              backgroundColor: "var(--color4-transparent)",
+              color: "var(--color4a)",
+              borderRadius: 30,
+              // width: "2.5rem",
+            }}
+          >
+            <ShoppingBasketOutlinedIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Paper>
   );
