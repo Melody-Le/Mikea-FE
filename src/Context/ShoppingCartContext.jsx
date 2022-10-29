@@ -38,17 +38,17 @@ export function ShoppingCartProvider({ children }) {
     }
   }, [auth, cartQty]);
 
+  function getCartItemQty(id) {
+    return cartItems?.find((item) => item.variantId === id)?.qty || 0;
+  }
+
   const value = {
     cartItems,
     cartQty,
     openCart,
     closeCart,
+    getCartItemQty,
   };
-
-  function getCartItemQty(id) {
-    return cartItems?.find((item) => item.variantId === id)?.qty || 0;
-  }
-
   return (
     <ShoppingCartContext.Provider value={value}>
       {children}

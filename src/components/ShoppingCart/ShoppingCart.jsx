@@ -38,9 +38,10 @@ function ShoppingCart({ isOpen }) {
   //     variantImage,
   //   },
   // } = lineItem;
+
   const itemValue = {
-    variantImage:
-      "https://www.ikea.com/sg/en/images/products/monazit-ceiling-spotlight-with-3-spots-nickel-plated__0967409_pe810125_s5.jpg?f=xl",
+    variantImage: lineItem?.variant.variantImage,
+    variantId: lineItem?.variant?.id,
   };
   const cartItemBox = () => {
     return (
