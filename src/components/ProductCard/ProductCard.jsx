@@ -45,9 +45,9 @@ const ProductCard = (props) => {
         console.log(error);
       });
     // try {
-    //   console.log("1 ADD CART", variantId);
     //   await axiosPrivate.post(`/cart/add/${variantId}`);
     //   console.log("2 ADD CART", variantId);
+    //   return;
     // } catch (error) {
     //   console.log(error);
     // }

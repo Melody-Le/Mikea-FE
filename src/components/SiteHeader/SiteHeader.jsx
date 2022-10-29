@@ -36,7 +36,7 @@ function SiteHeader() {
         setProfile(response.data);
       });
     }
-  }, [auth]);
+  }, [auth, cartQty]);
   let profileAvatarUrl;
   const defaultProfileAvatarUrl =
     "https://i.pinimg.com/564x/ea/69/33/ea693365e361f25b639914ef32f26de4.jpg";
@@ -188,41 +188,42 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
-
-                  <IconButton
-                    onClick={openCart}
-                    aria-label="add to shopping cart"
-                    size="small"
-                    // href="/"
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "var(--color4-transparent)",
-                      color: "var(--color4a)",
-                      borderRadius: 1,
-                      position: "relative",
-                    }}
-                  >
-                    <ShoppingBasketIcon />
-                    <Box
+                  {cartQty > 0 && (
+                    <IconButton
+                      onClick={openCart}
+                      aria-label="add to shopping cart"
+                      size="small"
+                      // href="/"
+                      variant="contained"
                       sx={{
-                        borderRadius: 5,
-                        backgroundColor: "var(--color6)",
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        position: "absolute",
-                        bottom: 0,
-                        right: 0,
-                        transform: "translate(25%, 50%)",
-                        display: "flex",
-                        fontSize: "1rem",
-                        color: "var(--colorwhite)",
+                        backgroundColor: "var(--color4-transparent)",
+                        color: "var(--color4a)",
+                        borderRadius: 1,
+                        position: "relative",
                       }}
                     >
-                      {cartQty}
-                    </Box>
-                  </IconButton>
+                      <ShoppingBasketIcon />
+                      <Box
+                        sx={{
+                          borderRadius: 5,
+                          backgroundColor: "var(--color6)",
+                          width: "1.5rem",
+                          height: "1.5rem",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          position: "absolute",
+                          bottom: 0,
+                          right: 0,
+                          transform: "translate(25%, 50%)",
+                          display: "flex",
+                          fontSize: "1rem",
+                          color: "var(--colorwhite)",
+                        }}
+                      >
+                        {cartQty}
+                      </Box>
+                    </IconButton>
+                  )}
                 </Box>
               </Grid>
             </Grid>

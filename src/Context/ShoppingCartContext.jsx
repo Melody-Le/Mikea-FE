@@ -29,7 +29,6 @@ export function ShoppingCartProvider({ children }) {
           setCartItems(response.data.lineItems);
           setCartQty(response.data.count);
         });
-        console.log("cartQty:", cartQty);
       } catch (error) {
         console.log(error);
         return;
@@ -37,8 +36,7 @@ export function ShoppingCartProvider({ children }) {
     } else {
       navigate("/login");
     }
-  }, [auth]);
-  console.log("cartQty:", cartQty);
+  }, [auth, cartQty]);
 
   const value = {
     cartItems,

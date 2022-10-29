@@ -67,7 +67,7 @@ function DrawerComponent(props) {
     <>
       <Drawer
         PaperProps={{
-          sx: { backgroundColor: "var(--color1)" },
+          sx: { backgroundColor: "var(--colorGreen)" },
         }}
         anchor="right"
         open={open}
