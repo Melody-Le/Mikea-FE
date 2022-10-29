@@ -84,7 +84,7 @@ function ShoppingCart({ isOpen }) {
           padding={3}
           // mt={1}
           sx={{
-            height: "85vh",
+            height: "calc(100% - 5rem)",
             overflow: "auto",
           }}
         >
@@ -101,7 +101,7 @@ function ShoppingCart({ isOpen }) {
           <CartItem item={itemValue} />
           <CartItem item={itemValue} />
         </Grid>
-        <Box sx={{ paddingX: 3, marginTop: 1 }}>
+        <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
           <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
             Total price:
           </Typography>

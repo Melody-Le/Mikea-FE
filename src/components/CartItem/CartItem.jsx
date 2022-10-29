@@ -11,6 +11,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
+import { formatCurrency } from "../../Utilities/formatCurrency";
+import { titleCase } from "../../Utilities/titleCase";
+import "./CartItem.scss";
+
 import IconButton from "@mui/material/IconButton";
 
 function CartItem(props) {
@@ -100,17 +104,33 @@ function CartItem(props) {
               >
                 {productName}
               </Typography>
-              <Typography>Variant description</Typography>
-              <Typography>Variant detail</Typography>
+              <Typography className="variant-detail">
+                {variantDescription}
+              </Typography>
+              {color && (
+                <Typography className="variant-detail">
+                  {titleCase(color)}
+                </Typography>
+              )}
+              {size && (
+                <Typography className="variant-detail">
+                  {titleCase(size) + " cm"}
+                </Typography>
+              )}
+              {material && (
+                <Typography className="variant-detail">
+                  {titleCase(material)}
+                </Typography>
+              )}
             </Box>
             <Typography marginRight={1} sx={{ color: "var(--color6)" }}>
-              {price}
+              {formatCurrency(price) || "free"}
             </Typography>
           </Box>
           <Box
             sx={{
               display: "flex",
-              alignItems: "flex-start",
+              alignItems: "center",
             }}
           >
             <FormControl sx={{ m: 2, minWidth: 120 }}>

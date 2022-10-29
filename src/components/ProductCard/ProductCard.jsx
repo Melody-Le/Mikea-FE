@@ -129,7 +129,7 @@ const ProductCard = (props) => {
             {productName || "Mikea"}
           </Typography>
           <Typography variant="subtitle1" className="price">
-            {formatCurrency(price) || formatCurrency(0)}
+            {formatCurrency(price) || "free"}
           </Typography>
         </Box>
         <Box

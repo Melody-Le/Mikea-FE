@@ -23,6 +23,7 @@ import SearchBar from "./SearchBar";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import { titleCase } from "../../Utilities/titleCase";
 
 function SiteHeader() {
   const { auth } = useContext(AuthContext);
@@ -247,7 +248,7 @@ function SiteHeader() {
                   marginTop={1}
                 />
                 <Typography sx={{ fontSize: "1rem" }}>
-                  Hi {profile?.username.toUpperCase()}
+                  Hi {titleCase(profile?.username)}
                 </Typography>
               </Box>
             )}
