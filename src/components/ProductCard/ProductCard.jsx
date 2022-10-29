@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "./ProductCard.css";
 import Paper from "@mui/material/Paper";
@@ -15,8 +16,13 @@ import { formatCurrency } from "../../Utilities/formatCurrency";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import axios from "../../api/axios";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import AuthContext from "../../Context/AuthProvider";
 
 const ProductCard = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { auth } = useContext(AuthContext);
+  const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const { productName, category, productImages, variants } = props.product;
 
@@ -31,14 +37,18 @@ const ProductCard = (props) => {
 
   const addToCart = async (evnt) => {
     evnt.preventDefault();
-    axiosPrivate
-      .post(`/cart/add/${variantId}`)
-      .then(() => {
-        return;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isAuth) {
+      axiosPrivate
+        .post(`/cart/add/${variantId}`)
+        .then(() => {
+          return;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      navigate("/login", { replace: true });
+    }
   };
   const [productImage, setProductImage] = useState(
     productImages ||

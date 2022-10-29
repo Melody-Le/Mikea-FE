@@ -57,6 +57,7 @@ function RegisterForm() {
         return;
       });
   };
+
   if (auth?.email) {
     return (
       <Box className={styles["form"]}>
