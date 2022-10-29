@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { titleCase } from "../../Utilities/titleCase";
 import "./CartItem.scss";
@@ -18,6 +19,7 @@ import "./CartItem.scss";
 import IconButton from "@mui/material/IconButton";
 
 function CartItem(props) {
+  const axiosPrivate = useAxiosPrivate();
   const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
   const {
     lineItemId,
@@ -49,16 +51,28 @@ function CartItem(props) {
   const handleSelectOpen = () => {
     setOpenSelect(true);
   };
+  const removeCartItem = (evnt) => {
+    evnt.preventDefault();
+    axiosPrivate
+      .delete(`/cart/${variantId}`)
+      .then(() => {
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Paper
       sx={{
         color: "var(--color4a)",
         width: "100%",
+        maxHeight: "12rem",
         marginBottom: 1,
         marginLeft: "1rem",
       }}
     >
-      <Grid container spacing={0} margin={0}>
+      <Grid container spacing={0} margin={0} alignItems={"center"} gap={1}>
         <Grid item xs={3} padding={2}>
           {props.item ? (
             <AspectRatio ratio="1" objectFit="cover" variant="square">
@@ -82,7 +96,7 @@ function CartItem(props) {
             <Skeleton variant="rectangle" animation="wave" width={"100%"} />
           )}
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={8}>
           <Box
             sx={{
               display: "flex",
@@ -152,7 +166,14 @@ function CartItem(props) {
                 ))}
               </Select>
             </FormControl>
-            <Button>Remove</Button>
+            <Button
+              onClick={removeCartItem}
+              sx={{
+                color: "var(--color4a)",
+              }}
+            >
+              Remove
+            </Button>
           </Box>
         </Grid>
       </Grid>

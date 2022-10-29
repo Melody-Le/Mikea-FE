@@ -24,41 +24,26 @@ function ShoppingCart({ isOpen }) {
   const { auth } = useContext(AuthContext);
   const pages = ["products", "inspiration", "logout"];
   const lineItem = cartItems[0];
-  // const {
-  //   // id,
-  //   cartId,
-  //   variantId,
-  //   qty,
-  //   variant: {
-  //     id: sku,
-  //     productId,
-  //     qtyInStock,
-  //     variantDescription,
 
-  //     variantImage,
-  //   },
-  // } = lineItem;
-
-  const itemValue = {
-    lineItemId: lineItem?.id,
-    cartId: lineItem?.cartId,
-    variantImage: lineItem?.variant?.variantImage,
-    variantId: lineItem?.variant?.id,
-    productName: lineItem?.variant?.product.productName,
-    variantDescription: lineItem?.variant?.variantDescription,
-    price: lineItem?.variant?.price,
-    color: lineItem?.variant?.color,
-    size: lineItem?.variant?.size,
-    material: lineItem?.variant?.material,
-    qtyInStock: lineItem?.variant?.qtyInStock,
-  };
-  const cartItemBox = () => {
-    return (
-      <Grid xs={6} sm={4} md={3} item>
-        <CartItem item={itemValue} />
-      </Grid>
-    );
-  };
+  let cartItemToShow = [];
+  if (cartItems?.length) {
+    cartItemToShow = cartItems.map((cardItem, idx) => {
+      const cartItemDetail = {
+        lineItemId: cardItem?.id,
+        cartId: cardItem?.cartId,
+        variantImage: cardItem?.variant?.variantImage,
+        variantId: cardItem?.variant?.id,
+        productName: cardItem?.variant?.product.productName,
+        variantDescription: cardItem?.variant?.variantDescription,
+        price: cardItem?.variant?.price,
+        color: cardItem?.variant?.color,
+        size: cardItem?.variant?.size,
+        material: cardItem?.variant?.material,
+        qtyInStock: cardItem?.variant?.qtyInStock,
+      };
+      return <CartItem key={idx} item={cartItemDetail} />;
+    });
+  }
 
   const handleConfirm = () => {};
   const checkout = () => {};
@@ -82,7 +67,6 @@ function ShoppingCart({ isOpen }) {
           container
           spacing={3}
           padding={3}
-          // mt={1}
           sx={{
             height: "calc(100% - 5rem)",
             overflow: "auto",
@@ -92,14 +76,11 @@ function ShoppingCart({ isOpen }) {
             variant="subtitle1"
             sx={{ fontSize: "1.3rem" }}
             marginLeft={2}
+            marginTop={1}
           >
             Your Cart
           </Typography>
-          <CartItem item={itemValue} />
-          <CartItem item={itemValue} />
-          <CartItem item={itemValue} />
-          <CartItem item={itemValue} />
-          <CartItem item={itemValue} />
+          {cartItemToShow}
         </Grid>
         <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
           <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>

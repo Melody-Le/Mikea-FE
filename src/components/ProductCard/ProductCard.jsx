@@ -29,28 +29,16 @@ const ProductCard = (props) => {
   const [price, setPrice] = useState(defaultVariant.price || 0);
   const [variantId, setVariantId] = useState(variants[0]?.id);
 
-  useEffect(() => {
-    // setIsLoading(true);
-  }, [props.product?.productImages]);
-
   const addToCart = async (evnt) => {
     evnt.preventDefault();
     axiosPrivate
       .post(`/cart/add/${variantId}`)
       .then(() => {
-        console.log("add cart", variantId);
         return;
       })
       .catch((error) => {
         console.log(error);
       });
-    // try {
-    //   await axiosPrivate.post(`/cart/add/${variantId}`);
-    //   console.log("2 ADD CART", variantId);
-    //   return;
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
   const [productImage, setProductImage] = useState(
     productImages ||

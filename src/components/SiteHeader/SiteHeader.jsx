@@ -42,7 +42,8 @@ function SiteHeader() {
   const defaultProfileAvatarUrl =
     "https://i.pinimg.com/564x/ea/69/33/ea693365e361f25b639914ef32f26de4.jpg";
   if (profile) {
-    profileAvatarUrl = profile?.profile_pic_url;
+    profileAvatarUrl =
+      "https://i.pinimg.com/564x/ea/69/33/ea693365e361f25b639914ef32f26de4.jpg";
   } else profileAvatarUrl = defaultProfileAvatarUrl;
 
   const pageLinks = {
@@ -248,7 +249,7 @@ function SiteHeader() {
                   marginTop={1}
                 />
                 <Typography sx={{ fontSize: "1rem" }}>
-                  Hi {titleCase(profile?.username)}
+                  Hi {titleCase(profile?.username || "username")}
                 </Typography>
               </Box>
             )}
