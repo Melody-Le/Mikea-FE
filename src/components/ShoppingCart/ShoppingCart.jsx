@@ -40,8 +40,17 @@ function ShoppingCart({ isOpen }) {
   // } = lineItem;
 
   const itemValue = {
-    variantImage: lineItem?.variant.variantImage,
+    lineItemId: lineItem?.id,
+    cartId: lineItem?.cartId,
+    variantImage: lineItem?.variant?.variantImage,
     variantId: lineItem?.variant?.id,
+    productName: lineItem?.variant?.product.productName,
+    variantDescription: lineItem?.variant?.variantDescription,
+    price: lineItem?.variant?.price,
+    color: lineItem?.variant?.color,
+    size: lineItem?.variant?.size,
+    material: lineItem?.variant?.material,
+    qtyInStock: lineItem?.variant?.qtyInStock,
   };
   const cartItemBox = () => {
     return (

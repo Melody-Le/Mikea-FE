@@ -15,7 +15,22 @@ import IconButton from "@mui/material/IconButton";
 
 function CartItem(props) {
   const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
-  const { variantImage, variantId } = props?.item;
+  const {
+    lineItemId,
+    cartId,
+    variantImage,
+    variantId,
+    productName,
+    variantDescription,
+    price,
+    color,
+    size,
+    material,
+    qtyInStock,
+  } = props?.item;
+  const selectionCartItemQtyArray = [...Array(qtyInStock).keys()].map(
+    (i) => i + 1
+  );
   const currentCartItemQty = getCartItemQty(variantId);
   const [cartItemQty, setCartItemQty] = useState(currentCartItemQty);
   const [openSelect, setOpenSelect] = useState(false);
@@ -83,13 +98,13 @@ function CartItem(props) {
                   color: "var(--color4a)",
                 }}
               >
-                Product Name
+                {productName}
               </Typography>
               <Typography>Variant description</Typography>
               <Typography>Variant detail</Typography>
             </Box>
             <Typography marginRight={1} sx={{ color: "var(--color6)" }}>
-              Price
+              {price}
             </Typography>
           </Box>
           <Box
@@ -98,8 +113,7 @@ function CartItem(props) {
               alignItems: "flex-start",
             }}
           >
-            <Typography>{cartItemQty}</Typography>
-            <FormControl sx={{ m: 5, minWidth: 120 }}>
+            <FormControl sx={{ m: 2, minWidth: 120 }}>
               <InputLabel id="select-cart-item-qty-label">Quantity</InputLabel>
               <Select
                 labelId="select-cart-item-qty-label"
@@ -111,12 +125,11 @@ function CartItem(props) {
                 label="cartItemQty"
                 onChange={handleSelectChange}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
+                {selectionCartItemQtyArray.map((value, idx) => (
+                  <MenuItem key={idx} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <Button>Remove</Button>
