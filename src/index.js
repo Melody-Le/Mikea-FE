@@ -12,9 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <ShoppingCartProvider>
-          <App />
-        </ShoppingCartProvider>
+        <App />
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

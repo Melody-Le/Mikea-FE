@@ -67,7 +67,6 @@ function CartItem(props) {
       sx={{
         color: "var(--color4a)",
         width: "100%",
-        maxHeight: "12rem",
         marginBottom: 1,
         marginLeft: "1rem",
       }}

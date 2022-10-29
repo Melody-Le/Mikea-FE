@@ -54,8 +54,12 @@ function ShoppingCart({ isOpen }) {
           sx: {
             backgroundColor: "var(--colorGreen)",
             width: "50%",
+            maxWidth: "50rem",
             height: "100vh",
             border: 1,
+            // alignItems: "flex-start",
+            justifyContent: "flex-start",
+            // top: "20px",
           },
         }}
         anchor="right"
@@ -68,8 +72,9 @@ function ShoppingCart({ isOpen }) {
           spacing={3}
           padding={3}
           sx={{
-            height: "calc(100% - 5rem)",
+            maxHeight: "calc(100% - 5rem)",
             overflow: "auto",
+            alignItems: "flex-start",
           }}
         >
           <Typography

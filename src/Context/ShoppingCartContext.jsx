@@ -36,7 +36,7 @@ export function ShoppingCartProvider({ children }) {
     } else {
       navigate("/login");
     }
-  }, [auth, cartQty]);
+  }, [cartItems]);
 
   function getCartItemQty(id) {
     return cartItems?.find((item) => item.variantId === id)?.qty || 0;
