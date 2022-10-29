@@ -21,11 +21,12 @@ import DrawerComponent from "./DrawerComponent";
 import MenuBar from "./MenuBar";
 import SearchBar from "./SearchBar";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-
 import AuthContext from "../../Context/AuthProvider";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 function SiteHeader() {
   const { auth } = useContext(AuthContext);
+  const { openCart, cartQty } = useShoppingCart();
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
@@ -33,7 +34,6 @@ function SiteHeader() {
     if (auth?.email) {
       axiosPrivate.get(`/user`).then((response) => {
         setProfile(response.data);
-        console.log(profile);
       });
     }
   }, [auth]);
@@ -190,15 +190,15 @@ function SiteHeader() {
                   </List>
 
                   <IconButton
+                    onClick={openCart}
                     aria-label="add to shopping cart"
                     size="small"
-                    href="/"
+                    // href="/"
                     variant="contained"
                     sx={{
                       backgroundColor: "var(--color4-transparent)",
                       color: "var(--color4a)",
                       borderRadius: 1,
-                      // width: "2.5rem",
                       position: "relative",
                     }}
                   >
@@ -220,7 +220,7 @@ function SiteHeader() {
                         color: "var(--colorwhite)",
                       }}
                     >
-                      1
+                      {cartQty}
                     </Box>
                   </IconButton>
                 </Box>

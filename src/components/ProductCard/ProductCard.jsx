@@ -13,8 +13,11 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/material";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import axios from "../../api/axios";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 
 const ProductCard = (props) => {
+  const axiosPrivate = useAxiosPrivate();
   const { productName, category, productImages, variants } = props.product;
 
   const defaultVariant = {
@@ -26,18 +29,28 @@ const ProductCard = (props) => {
   const [price, setPrice] = useState(defaultVariant.price || 0);
   const [variantId, setVariantId] = useState(variants[0]?.id);
 
-  const getCartItemQty = useShoppingCart();
-  // const cartItemQty = getCartItemQty(variantId);
-  // console.log("getCartItemQty is:", getCartItemQty);
-  // console.log(getCartItemQty.getqty(1));
-
   useEffect(() => {
     // setIsLoading(true);
   }, [props.product?.productImages]);
 
-  const addToCart = (evnt) => {
+  const addToCart = async (evnt) => {
     evnt.preventDefault();
-    console.log("add");
+    axiosPrivate
+      .post(`/cart/add/${variantId}`)
+      .then(() => {
+        console.log("add cart", variantId);
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // try {
+    //   console.log("1 ADD CART", variantId);
+    //   await axiosPrivate.post(`/cart/add/${variantId}`);
+    //   console.log("2 ADD CART", variantId);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   const [productImage, setProductImage] = useState(
     productImages ||
@@ -47,14 +60,14 @@ const ProductCard = (props) => {
   if (variants?.length) {
     variantBox = variants?.map((variant, idx) => {
       const { id, variantImage, price } = variant;
-      const getPrice = (evnt) => {
+      const setVariantTarget = (evnt) => {
         evnt.preventDefault();
         setPrice(price);
         setProductImage(variantImage);
         setVariantId(id);
       };
       return (
-        <Button key={idx} onClick={getPrice}>
+        <Button key={idx} onClick={setVariantTarget}>
           <Avatar
             alt={productName}
             src={
@@ -135,7 +148,6 @@ const ProductCard = (props) => {
               backgroundColor: "var(--color4-transparent)",
               color: "var(--color4a)",
               borderRadius: 30,
-              // width: "2.5rem",
             }}
           >
             <ShoppingBasketOutlinedIcon />

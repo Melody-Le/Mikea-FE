@@ -43,7 +43,6 @@ export default function LoginForm() {
       setCookie("accessToken", accessToken);
       setCookie("email", email);
       setAuth({ accessToken, email });
-
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {

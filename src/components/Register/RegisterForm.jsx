@@ -56,7 +56,6 @@ function RegisterForm() {
         setSeverity("error");
         return;
       });
-    Login(email, password);
   };
   if (auth?.email) {
     return (
