@@ -49,58 +49,64 @@ function ShoppingCart({ isOpen }) {
   const checkout = () => {};
   return (
     <>
-      <Drawer
-        PaperProps={{
-          sx: {
-            backgroundColor: "var(--colorGreen)",
-            width: "50%",
-            maxWidth: "50rem",
-            height: "100vh",
-            border: 1,
-            // alignItems: "flex-start",
-            justifyContent: "flex-start",
-            // top: "20px",
-          },
-        }}
-        anchor="right"
-        open={isOpen}
-        onClose={closeCart}
-        padding={1}
-      >
-        <Grid
-          container
-          spacing={3}
-          padding={3}
-          sx={{
-            maxHeight: "calc(100% - 5rem)",
-            overflow: "auto",
-            alignItems: "flex-start",
+      {cartItemToShow.length && (
+        <Drawer
+          PaperProps={{
+            sx: {
+              backgroundColor: "var(--colorGreen)",
+              width: "50%",
+              maxWidth: "50rem",
+              height: "100vh",
+              border: 1,
+              // alignItems: "flex-start",
+              justifyContent: "flex-start",
+              // top: "20px",
+            },
           }}
+          anchor="right"
+          open={isOpen}
+          onClose={closeCart}
+          padding={1}
         >
-          <Typography
-            variant="subtitle1"
-            sx={{ fontSize: "1.3rem" }}
-            marginLeft={2}
-            marginTop={1}
+          <Grid
+            container
+            spacing={3}
+            padding={3}
+            sx={{
+              maxHeight: "calc(100% - 5rem)",
+              overflow: "auto",
+              alignItems: "flex-start",
+            }}
           >
-            Your Cart
-          </Typography>
-          {cartItemToShow}
-        </Grid>
-        <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
-          <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
-            Total price:
-          </Typography>
-          <Button
-            onClick={checkout}
-            variant="contained"
-            fullWidth
-            sx={{ backgroundColor: "var(--color4)", marginTop: 1, padding: 1 }}
-          >
-            Check out
-          </Button>
-        </Box>
-      </Drawer>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontSize: "1.3rem" }}
+              marginLeft={2}
+              marginTop={1}
+            >
+              Your Cart
+            </Typography>
+            {cartItemToShow}
+          </Grid>
+          <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
+            <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
+              Total price:
+            </Typography>
+            <Button
+              onClick={checkout}
+              variant="contained"
+              fullWidth
+              sx={{
+                backgroundColor: "var(--color4)",
+                marginTop: 1,
+                padding: 1,
+              }}
+            >
+              Check out
+            </Button>
+          </Box>
+        </Drawer>
+      )}
     </>
   );
 }
