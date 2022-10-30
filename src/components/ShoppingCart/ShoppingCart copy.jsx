@@ -4,10 +4,6 @@ import Drawer from "@mui/material/Drawer";
 
 import Box from "@mui/material/Box";
 import { Button, Grid, Typography } from "@mui/material";
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
-import Checkbox, { checkboxClasses } from "@mui/joy/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 
 import CartItem from "../CartItem/CartItem";
 import AuthContext from "../../Context/AuthProvider";
@@ -16,17 +12,6 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 function ShoppingCart({ isOpen }) {
   const { cartQty, closeCart, cartItems } = useShoppingCart();
   const { auth } = useContext(AuthContext);
-  const cartVariantIds = [];
-  const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value
-
-  const [variantsOrder, setVariantsOrder] = useState(
-    initialCartVariantIdsBoolean
-  );
-  const toggleVariantOrder = (index) => (event) => {
-    const newVariants = [...variantsOrder];
-    newVariants[index] = event.target.checked;
-    setVariantsOrder(newVariants);
-  };
 
   let cartItemToShow = [];
   if (cartItems?.length) {
@@ -44,21 +29,7 @@ function ShoppingCart({ isOpen }) {
         material: cardItem?.variant?.material,
         qtyInStock: cardItem?.variant?.qtyInStock,
       };
-      cartVariantIds.push(cartItemDetail?.variantId);
-      return (
-        <ListItem key={idx}>
-          <CartItem key={idx} item={cartItemDetail} />
-          <FormControlLabel
-            label="Parent"
-            control={
-              <Checkbox
-                checked={variantsOrder[idx] || false}
-                onChange={toggleVariantOrder(idx)}
-              />
-            }
-          />
-        </ListItem>
-      );
+      return <CartItem key={idx} item={cartItemDetail} />;
     });
   }
 
@@ -100,21 +71,7 @@ function ShoppingCart({ isOpen }) {
             >
               Your Cart
             </Typography>
-            <Box role="group" aria-labelledby="member">
-              <List
-                sx={{
-                  [`& .${checkboxClasses.root}`]: {
-                    mr: "auto",
-                    flexGrow: 1,
-                    alignItems: "center",
-                    flexDirection: "row-reverse",
-                    gap: 1.5,
-                  },
-                }}
-              >
-                {cartItemToShow}
-              </List>
-            </Box>
+            {cartItemToShow}
           </Grid>
           <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
             <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>

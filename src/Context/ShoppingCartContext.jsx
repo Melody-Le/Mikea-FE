@@ -42,7 +42,7 @@ export function ShoppingCartProvider({ children }) {
       // setCartItems([]);
       return;
     }
-  }, [auth]);
+  }, [auth, cartItems]);
 
   function getCartItemQty(id) {
     return cartItems?.find((item) => item.variantId === id)?.qty || 0;

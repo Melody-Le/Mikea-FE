@@ -16,6 +16,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import { Button } from "@mui/material";
 import ProfileEdit from "./Pages/Dashboard/ProfileEdit";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import CheckboxTest from "./Components/ShoppingCart/Checkbox";
 const theme = createTheme({});
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="/login" element={<AuthGrid formType="login" />} />
             <Route path="/logout" element={<LogOut />} />
             <Route path="/products" element={<ProductsIndex />} />
+            <Route path="/checkbox" element={<CheckboxTest />} />
             <Route path="/user" element={<Dashboard />} />
             <Route path="/user/edit" element={<ProfileEdit />} />
             <Route path="*" element={<PageNotFound />} />
