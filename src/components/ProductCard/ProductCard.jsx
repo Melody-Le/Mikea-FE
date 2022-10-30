@@ -91,7 +91,7 @@ const ProductCard = (props) => {
               width: "100%",
               borderRadius: 1,
               border: "solid 1px var(--color4)",
-              padding: "0.2rem",
+              padding: "0.5rem",
             }}
           />
         </Button>

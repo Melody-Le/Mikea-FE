@@ -15,6 +15,7 @@ import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { Button } from "@mui/material";
 import ProfileEdit from "./Pages/Dashboard/ProfileEdit";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 const theme = createTheme({});
 
 function App() {
@@ -35,16 +36,7 @@ function App() {
             <Route path="/products" element={<ProductsIndex />} />
             <Route path="/user" element={<Dashboard />} />
             <Route path="/user/edit" element={<ProfileEdit />} />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p style={{ color: "var(--color1)" }}>
-                    There's nothing here!
-                  </p>
-                </main>
-              }
-            />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Container>
       </ShoppingCartProvider>
