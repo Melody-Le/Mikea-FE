@@ -14,7 +14,7 @@ import LogOut from "./Components/Logout/Logout";
 import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { Button } from "@mui/material";
-
+import ProfileEdit from "./Pages/Dashboard/ProfileEdit";
 const theme = createTheme({});
 
 function App() {
@@ -34,6 +34,7 @@ function App() {
             <Route path="/logout" element={<LogOut />} />
             <Route path="/products" element={<ProductsIndex />} />
             <Route path="/user" element={<Dashboard />} />
+            <Route path="/user/edit" element={<ProfileEdit />} />
             <Route
               path="*"
               element={
