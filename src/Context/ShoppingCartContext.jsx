@@ -24,19 +24,25 @@ export function ShoppingCartProvider({ children }) {
   const closeCart = () => setIsOpen(false);
   useEffect(() => {
     if (isAuth) {
-      try {
-        axiosPrivate.get(`/cart`).then((response) => {
-          setCartItems(response.data.lineItems);
-          setCartQty(response.data.count);
-        });
-      } catch (error) {
-        console.log(error);
-        return;
+      async function getData() {
+        try {
+          const cartItemsResponse = await axiosPrivate.get(`/cart`);
+          if (cartItemsResponse?.data) {
+            setCartItems(cartItemsResponse.data.lineItems);
+            setCartQty(cartItemsResponse.data.count);
+          }
+          return;
+        } catch (error) {
+          console.log(error);
+          return;
+        }
       }
+      getData();
     } else {
-      navigate("/login");
+      // setCartItems([]);
+      return;
     }
-  }, [cartItems]);
+  }, [auth]);
 
   function getCartItemQty(id) {
     return cartItems?.find((item) => item.variantId === id)?.qty || 0;

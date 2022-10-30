@@ -1,29 +1,17 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import IconButton from "@mui/material/IconButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import Avatar from "@mui/material/Avatar";
+
 import Box from "@mui/material/Box";
 import { Button, Grid, Typography } from "@mui/material";
 
 import CartItem from "../CartItem/CartItem";
 import AuthContext from "../../Context/AuthProvider";
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 function ShoppingCart({ isOpen }) {
   const { cartQty, closeCart, cartItems } = useShoppingCart();
-  const navigate = useNavigate();
-  const axiosPrivate = useAxiosPrivate();
   const { auth } = useContext(AuthContext);
-  const pages = ["products", "inspiration", "logout"];
-  const lineItem = cartItems[0];
 
   let cartItemToShow = [];
   if (cartItems?.length) {
@@ -45,7 +33,6 @@ function ShoppingCart({ isOpen }) {
     });
   }
 
-  const handleConfirm = () => {};
   const checkout = () => {};
   return (
     <>
@@ -58,9 +45,7 @@ function ShoppingCart({ isOpen }) {
               maxWidth: "50rem",
               height: "100vh",
               border: 1,
-              // alignItems: "flex-start",
               justifyContent: "flex-start",
-              // top: "20px",
             },
           }}
           anchor="right"
@@ -100,6 +85,9 @@ function ShoppingCart({ isOpen }) {
                 backgroundColor: "var(--color4)",
                 marginTop: 1,
                 padding: 1,
+                ":hover": {
+                  bgcolor: "var(--color4a)",
+                },
               }}
             >
               Check out

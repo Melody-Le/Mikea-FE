@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { Button, useTheme } from "@mui/material";
 
@@ -26,6 +26,7 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { titleCase } from "../../Utilities/titleCase";
 
 function SiteHeader() {
+  const location = useLocation();
   const { auth } = useContext(AuthContext);
   const { openCart, cartQty } = useShoppingCart();
   const isAuth = !!auth?.email;
@@ -38,6 +39,7 @@ function SiteHeader() {
       });
     }
   }, [auth, cartQty]);
+
   let profileAvatarUrl;
   const defaultProfileAvatarUrl =
     "https://i.pinimg.com/564x/ea/69/33/ea693365e361f25b639914ef32f26de4.jpg";
@@ -54,10 +56,6 @@ function SiteHeader() {
     inspiration: {
       pageName: "Inspiration",
       pageLink: "/",
-    },
-    cart: {
-      pageName: "Cart",
-      pageLink: "/cart",
     },
 
     login: {
@@ -81,10 +79,10 @@ function SiteHeader() {
       pageLink: "/delete",
     },
   };
-  const { products, inspiration, cart, login, signup } = pageLinks;
+  const { products, inspiration, login, signup } = pageLinks;
   const pages = isAuth
-    ? [products, inspiration, cart]
-    : [products, inspiration, cart, login, signup];
+    ? [products, inspiration]
+    : [products, inspiration, login, signup];
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -190,7 +188,7 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
-                  {cartQty > 0 && (
+                  {cartQty > 0 ? (
                     <IconButton
                       onClick={openCart}
                       aria-label="add to shopping cart"
@@ -225,6 +223,8 @@ function SiteHeader() {
                         {cartQty}
                       </Box>
                     </IconButton>
+                  ) : (
+                    ""
                   )}
                 </Box>
               </Grid>

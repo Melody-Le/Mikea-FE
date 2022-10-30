@@ -1,11 +1,7 @@
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
 
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -17,6 +13,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ProfileTab from "./ProfileTab";
@@ -26,16 +23,17 @@ import axios from "../../api/axios";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 
-export default function LabTabs() {
-  const [value, setValue] = useState("1");
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+function Dashboard() {
+  const matches = useMediaQuery("(max-width:600px)");
+  const params = useParams();
+  const location = useLocation();
 
   const { auth } = useContext(AuthContext);
   const isAuth = !!auth?.email;
   const [profile, setProfile] = useState(null);
+  const [tabValue, setTabValue] = useState("1");
+  const [panel, setPanel] = useState(null);
+
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
     if (auth?.email) {
@@ -43,14 +41,34 @@ export default function LabTabs() {
         setProfile(response.data);
       });
     }
-  }, [auth]);
+  });
+  useEffect(() => {
+    if (profile) {
+      setTabValue("2");
+      return setPanel(<MyPurchaseTab />);
+    }
+  }, [location.pathname]);
+
+  const handleTabChange = (event, newTabValue) => {
+    setTabValue(newTabValue);
+    switch (newTabValue) {
+      case "1":
+        setPanel(<ProfileTab profile={profile} />);
+        break;
+      case "2":
+        setPanel(<MyPurchaseTab />);
+        break;
+
+      default:
+        setPanel(<ProfileTab profile={profile} />);
+    }
+  };
   const themeTab = createTheme({
     components: {
       MuiTabs: {
         styleOverrides: {
           indicator: {
             // display: "none",
-            backgroundColor: "var(--color4a)",
           },
         },
       },
@@ -82,55 +100,48 @@ export default function LabTabs() {
           },
         },
       },
-      MuiTabPanel: {
-        styleOverrides: {
-          root: {
-            padding: 0,
-            marginTop: "1rem",
-          },
-        },
-      },
     },
   });
 
-  return (
-    <ThemeProvider theme={themeTab}>
-      <Box sx={{ width: "100%", typography: "body1" }}>
-        <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="My profile" value="1" />
-              <Tab label="My purchase" value="2" />
-            </TabList>
-          </Box>
-          <TabPanel value="1" padding={0}>
-            <Box
-              border={"solid 1px var(--color4)"}
-              sx={{
-                borderRadius: 1,
-                height: "60vh",
-                border: "1",
-              }}
-              className="tab-box"
-            >
-              <ProfileTab profile={profile} />
-            </Box>
-          </TabPanel>
-          <TabPanel value="2" padding={0}>
-            <Box
-              border={"solid 1px var(--color4)"}
-              sx={{
-                borderRadius: 1,
-                height: "60vh",
-                border: "1",
-              }}
-              className="tab-box"
-            >
-              <MyPurchaseTab />
-            </Box>
-          </TabPanel>
-        </TabContext>
-      </Box>
-    </ThemeProvider>
+  return profile ? (
+    <>
+      <Container>
+        <ThemeProvider theme={themeTab}>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            allowScrollButtonsMobile
+            aria-label="scrollable force tabs example"
+            sx={{
+              [`& .${tabsClasses.scrollButtons}`]: {
+                "&.Mui-disabled": { opacity: 0.3 },
+              },
+              marginBottom: 2,
+            }}
+          >
+            <Tab value="1" label="My Profile" />
+            <Tab value="2" label="My Purchase" />
+          </Tabs>
+        </ThemeProvider>
+        <Box
+          padding={1}
+          border={"solid 1px var(--color4)"}
+          sx={{
+            borderRadius: 1,
+            height: "60vh",
+            border: "1",
+          }}
+          className="tab-box"
+        >
+          {panel}
+        </Box>
+      </Container>
+    </>
+  ) : (
+    ""
   );
 }
+
+export default Dashboard;

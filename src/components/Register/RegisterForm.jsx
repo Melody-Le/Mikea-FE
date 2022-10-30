@@ -181,7 +181,13 @@ function RegisterForm() {
               onClick={registerSubmit}
               variant="contained"
               fullWidth
-              sx={{ backgroundColor: "var(--color4)", marginTop: 2 }}
+              sx={{
+                backgroundColor: "var(--color4)",
+                marginTop: 2,
+                ":hover": {
+                  bgcolor: "var(--color4a)",
+                },
+              }}
             >
               Sign up
             </Button>

@@ -8,13 +8,19 @@ import Home from "./Pages/Home/Home";
 import ProductsIndex from "./Pages/ProductsIndex/ProductsIndex";
 import AuthGrid from "./Pages/Auth/AuthPage";
 import SiteHeader from "./Components/SiteHeader/SiteHeader";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import User from "./Components/User";
 import LogOut from "./Components/Logout/Logout";
 import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import { Button } from "@mui/material";
+
+const theme = createTheme({});
 
 function App() {
   return (
     <div className="App">
+      {/* <ThemeProvider theme={theme}> */}
       <ShoppingCartProvider>
         <SiteHeader />
         <Container mb={1}>
@@ -27,7 +33,7 @@ function App() {
             <Route path="/login" element={<AuthGrid formType="login" />} />
             <Route path="/logout" element={<LogOut />} />
             <Route path="/products" element={<ProductsIndex />} />
-            <Route path="/user" element={<Home />} />
+            <Route path="/user" element={<Dashboard />} />
             <Route
               path="*"
               element={
@@ -41,6 +47,7 @@ function App() {
           </Routes>
         </Container>
       </ShoppingCartProvider>
+      {/* </ThemeProvider> */}
     </div>
   );
 }

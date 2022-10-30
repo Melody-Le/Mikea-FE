@@ -147,7 +147,13 @@ export default function LoginForm() {
               onClick={loginSubmit}
               variant="contained"
               fullWidth
-              sx={{ backgroundColor: "var(--color4)", marginTop: 2 }}
+              sx={{
+                backgroundColor: "var(--color4)",
+                marginTop: 2,
+                ":hover": {
+                  bgcolor: "var(--color4a)",
+                },
+              }}
             >
               Login
             </Button>
