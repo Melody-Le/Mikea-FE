@@ -21,14 +21,14 @@ function ShoppingCart({ isOpen }) {
   const cartVariantIds = [];
   const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value
 
-  const [variantsOrder, setVariantsOrder] = useState(
-    initialCartVariantIdsBoolean
-  );
   const toggleVariantOrder = (index) => (event) => {
     const newVariants = [...variantsOrder];
     newVariants[index] = event.target.checked;
     setVariantsOrder(newVariants);
   };
+  const [variantsOrder, setVariantsOrder] = useState(
+    initialCartVariantIdsBoolean
+  );
 
   let cartItemToShow = [];
   if (cartItems?.length) {
@@ -51,7 +51,6 @@ function ShoppingCart({ isOpen }) {
         <ListItem key={idx}>
           {cartItemDetail?.qtyInStock > 0 ? (
             <FormControlLabel
-              // label="Parent"
               control={
                 <Checkbox
                   checked={variantsOrder[idx] || false}
@@ -86,6 +85,13 @@ function ShoppingCart({ isOpen }) {
       );
     });
   }
+  const OrderVariantIndex = variantsOrder.flatMap((bool, index) =>
+    bool ? index : []
+  );
+  const orderVariantList = cartVariantIds.map((item, idx) => {
+    return [variantsOrder].at(idx) > 0;
+  });
+  console.log("orderVariantList", orderVariantList);
 
   const checkout = () => {};
   return (
