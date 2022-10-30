@@ -8,6 +8,8 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Checkbox, { checkboxClasses } from "@mui/joy/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 import CartItem from "../CartItem/CartItem";
 import AuthContext from "../../Context/AuthProvider";
@@ -47,16 +49,39 @@ function ShoppingCart({ isOpen }) {
       cartVariantIds.push(cartItemDetail?.variantId);
       return (
         <ListItem key={idx}>
+          {cartItemDetail?.qtyInStock > 0 ? (
+            <FormControlLabel
+              // label="Parent"
+              control={
+                <Checkbox
+                  checked={variantsOrder[idx] || false}
+                  onChange={toggleVariantOrder(idx)}
+                  checkedIcon={<LocalMallIcon />}
+                  sx={{
+                    color: "var(--color4a)",
+                    "&.Mui-checked": {
+                      color: "var(--colorGreen)",
+                      border: "solid 1px var(--colorGreen)",
+                    },
+                  }}
+                />
+              }
+            />
+          ) : (
+            <FormControlLabel
+              // label="Parent"
+              control={
+                <Checkbox
+                  checked={false}
+                  sx={{
+                    color: "grey",
+                  }}
+                />
+              }
+            />
+          )}
+
           <CartItem key={idx} item={cartItemDetail} />
-          <FormControlLabel
-            label="Parent"
-            control={
-              <Checkbox
-                checked={variantsOrder[idx] || false}
-                onChange={toggleVariantOrder(idx)}
-              />
-            }
-          />
         </ListItem>
       );
     });
@@ -100,21 +125,21 @@ function ShoppingCart({ isOpen }) {
             >
               Your Cart
             </Typography>
-            <Box role="group" aria-labelledby="member">
-              <List
-                sx={{
-                  [`& .${checkboxClasses.root}`]: {
-                    mr: "auto",
-                    flexGrow: 1,
-                    alignItems: "center",
-                    flexDirection: "row-reverse",
-                    gap: 1.5,
-                  },
-                }}
-              >
-                {cartItemToShow}
-              </List>
-            </Box>
+            {/* <Box role="group" aria-labelledby="member"> */}
+            <List
+              sx={{
+                [`& .${checkboxClasses.root}`]: {
+                  mr: "auto",
+                  flexGrow: 1,
+                  alignItems: "center",
+                  flexDirection: "row-reverse",
+                  gap: 1.5,
+                },
+              }}
+            >
+              {cartItemToShow}
+            </List>
+            {/* </Box> */}
           </Grid>
           <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
             <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
