@@ -17,23 +17,29 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import axios from "../../api/axios";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
+import CartItem from "../CartItem/CartItem";
+import OutOfStock from "../Button/OutOfStock";
+import { typography } from "@mui/system";
 
 const ProductCard = (props) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { auth } = useContext(AuthContext);
+  const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const { productName, category, productImages, variants } = props.product;
-
   const defaultVariant = {
     id: variants[0]?.id,
     price: variants[0]?.price,
     image: variants[0]?.variantImage,
+    qtyInStock: variants[0]?.qtyInStock,
   };
-
   const [price, setPrice] = useState(defaultVariant.price || 0);
-  const [variantId, setVariantId] = useState(variants[0]?.id);
+  const [variantId, setVariantId] = useState(defaultVariant.id);
+  const [variantQtyInStock, setVariantQtyInStock] = useState(
+    defaultVariant.qtyInStock
+  );
+  const cartItemQty = getCartItemQty(variantId);
 
   const addToCart = async (evnt) => {
     evnt.preventDefault();
@@ -41,7 +47,6 @@ const ProductCard = (props) => {
       axiosPrivate
         .post(`/cart/add/${variantId}`)
         .then(() => {
-          console.log("add item", variantId);
           return;
         })
         .catch((error) => {
@@ -58,16 +63,22 @@ const ProductCard = (props) => {
   let variantBox = "";
   if (variants?.length) {
     variantBox = variants?.map((variant, idx) => {
-      const { id, variantImage, price } = variant;
+      const { id, variantImage, price, qtyInStock } = variant;
+
       const setVariantTarget = (evnt) => {
         evnt.preventDefault();
-        console.log("set variant target:", variantId);
         setPrice(price);
         setProductImage(variantImage);
         setVariantId(id);
+        setVariantQtyInStock(qtyInStock);
       };
       return (
-        <Button key={idx} onClick={setVariantTarget}>
+        <Button
+          key={idx}
+          onClick={setVariantTarget}
+          position={"relative"}
+          sx={{ padding: 0.2 }}
+        >
           <Avatar
             alt={productName}
             src={
@@ -128,6 +139,7 @@ const ProductCard = (props) => {
           <Typography variant="body" className="product-name">
             {productName || "Mikea"}
           </Typography>
+
           <Typography variant="subtitle1" className="price">
             {formatCurrency(price) || "free"}
           </Typography>
@@ -137,21 +149,28 @@ const ProductCard = (props) => {
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Box>{variantBox}</Box>
-          <IconButton
-            aria-label="add to shopping cart"
-            size="small"
-            href="/"
-            variant="rounded"
-            onClick={addToCart}
-            sx={{
-              backgroundColor: "var(--color4-transparent)",
-              color: "var(--color4a)",
-              borderRadius: 30,
-            }}
-          >
-            <ShoppingBasketOutlinedIcon />
-          </IconButton>
+          <Box minWidth={"8rem"}>{variantBox}</Box>
+          <Box>
+            {variantQtyInStock === 0 ? (
+              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
+            ) : cartItemQty === variantQtyInStock ? (
+              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
+            ) : (
+              <IconButton
+                aria-label="add to shopping cart"
+                size="small"
+                variant="rounded"
+                onClick={addToCart}
+                sx={{
+                  backgroundColor: "var(--color4-transparent)",
+                  color: "var(--color4a)",
+                  borderRadius: 30,
+                }}
+              >
+                <ShoppingBasketOutlinedIcon />
+              </IconButton>
+            )}
+          </Box>
         </Box>
       </Box>
     </Paper>

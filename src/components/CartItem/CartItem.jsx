@@ -171,7 +171,7 @@ function CartItem(props) {
                 </Select>
               </FormControl>
             ) : (
-              <OutOfStock />
+              <OutOfStock content="OUT OF STOCK" />
             )}
             <Button
               onClick={removeCartItem}

@@ -1,19 +1,22 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-function OutOfStock() {
+function OutOfStock(props) {
+  const { marginRight, content, fontSize } = props;
   return (
     <Typography
       sx={{
         color: "var(--color4a)",
-        marginRight: 3,
+        marginRight: { marginRight },
         backgroundColor: "var(--color5)",
-        paddingX: 2,
+        paddingX: 1,
         paddingY: "0.2rem",
         borderRadius: 2,
+        fontSize: { fontSize },
+        textAlign: "center",
       }}
     >
-      Out of Stock
+      {content}
     </Typography>
   );
 }
