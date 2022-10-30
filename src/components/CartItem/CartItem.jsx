@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Avatar, Typography, Box, Grid } from "@mui/material";
+import { Avatar, Box, Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Skeleton } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -14,6 +15,7 @@ import Button from "@mui/material/Button";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { titleCase } from "../../Utilities/titleCase";
+import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
 import IconButton from "@mui/material/IconButton";
@@ -146,25 +148,31 @@ function CartItem(props) {
               alignItems: "center",
             }}
           >
-            <FormControl sx={{ m: 2, minWidth: 120 }}>
-              <InputLabel id="select-cart-item-qty-label">Quantity</InputLabel>
-              <Select
-                labelId="select-cart-item-qty-label"
-                id="select-cart-item-qty"
-                open={openSelect}
-                onClose={handleSelectClose}
-                onOpen={handleSelectOpen}
-                value={cartItemQty}
-                label="cartItemQty"
-                onChange={handleSelectChange}
-              >
-                {selectionCartItemQtyArray.map((value, idx) => (
-                  <MenuItem key={idx} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            {qtyInStock > 0 ? (
+              <FormControl sx={{ m: 2, minWidth: 120 }}>
+                <InputLabel id="select-cart-item-qty-label">
+                  Quantity
+                </InputLabel>
+                <Select
+                  labelId="select-cart-item-qty-label"
+                  id="select-cart-item-qty"
+                  open={openSelect}
+                  onClose={handleSelectClose}
+                  onOpen={handleSelectOpen}
+                  value={cartItemQty}
+                  label="cartItemQty"
+                  onChange={handleSelectChange}
+                >
+                  {selectionCartItemQtyArray.map((value, idx) => (
+                    <MenuItem key={idx} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : (
+              <OutOfStock />
+            )}
             <Button
               onClick={removeCartItem}
               sx={{

@@ -41,6 +41,7 @@ const ProductCard = (props) => {
       axiosPrivate
         .post(`/cart/add/${variantId}`)
         .then(() => {
+          console.log("add item", variantId);
           return;
         })
         .catch((error) => {
@@ -60,6 +61,7 @@ const ProductCard = (props) => {
       const { id, variantImage, price } = variant;
       const setVariantTarget = (evnt) => {
         evnt.preventDefault();
+        console.log("set variant target:", variantId);
         setPrice(price);
         setProductImage(variantImage);
         setVariantId(id);
@@ -134,7 +136,6 @@ const ProductCard = (props) => {
           display={"flex"}
           justifyContent={"space-between"}
           alignItems={"center"}
-          onClick={addToCart}
         >
           <Box>{variantBox}</Box>
           <IconButton
@@ -142,6 +143,7 @@ const ProductCard = (props) => {
             size="small"
             href="/"
             variant="rounded"
+            onClick={addToCart}
             sx={{
               backgroundColor: "var(--color4-transparent)",
               color: "var(--color4a)",
