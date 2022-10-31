@@ -1,63 +1,186 @@
+import React, { useEffect, useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import "./ProductCard.css";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { Skeleton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import AspectRatio from "@mui/joy/AspectRatio";
-// import Image from "next/image";
+import { Button } from "@mui/material";
+import { formatCurrency } from "../../Utilities/formatCurrency";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import axios from "../../api/axios";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import AuthContext from "../../Context/AuthProvider";
+import CartItem from "../CartItem/CartItem";
+import OutOfStock from "../Button/OutOfStock";
+import { typography } from "@mui/system";
 
-const ProductCard = () => {
-  const matches = useMediaQuery("(max-width:600px)");
+const ProductCard = (props) => {
+  const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
+  const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
+  const isAuth = !!auth?.email;
+  const axiosPrivate = useAxiosPrivate();
+  const { productName, category, productImages, variants } = props.product;
+  const defaultVariant = {
+    id: variants[0]?.id,
+    price: variants[0]?.price,
+    image: variants[0]?.variantImage,
+    qtyInStock: variants[0]?.qtyInStock,
+  };
+  const [price, setPrice] = useState(defaultVariant.price || 0);
+  const [variantId, setVariantId] = useState(defaultVariant.id);
+  const [variantQtyInStock, setVariantQtyInStock] = useState(
+    defaultVariant.qtyInStock
+  );
+  const cartItemQty = getCartItemQty(variantId);
+
+  const addToCart = async (evnt) => {
+    evnt.preventDefault();
+    if (isAuth) {
+      axiosPrivate
+        .post(`/cart/add/${variantId}`)
+        .then(() => {
+          return;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      navigate("/login", { replace: true });
+    }
+  };
+  const [productImage, setProductImage] = useState(
+    productImages ||
+      "https://i.pinimg.com/564x/2e/ed/c2/2eedc27581a1364e7a44760cb3171e25.jpg"
+  );
+  let variantBox = "";
+  if (variants?.length) {
+    variantBox = variants?.map((variant, idx) => {
+      const { id, variantImage, price, qtyInStock } = variant;
+
+      const setVariantTarget = (evnt) => {
+        evnt.preventDefault();
+        setPrice(price);
+        setProductImage(variantImage);
+        setVariantId(id);
+        setVariantQtyInStock(qtyInStock);
+      };
+      return (
+        <Button
+          key={idx}
+          onClick={setVariantTarget}
+          position={"relative"}
+          sx={{ padding: 0.5 }}
+        >
+          <Avatar
+            alt={productName}
+            src={
+              variantImage ||
+              "https://i.pinimg.com/564x/2e/ed/c2/2eedc27581a1364e7a44760cb3171e25.jpg"
+            }
+            layout="fill"
+            variant="rounded"
+            sx={{
+              width: "100%",
+              borderRadius: 1,
+              border: "solid 1px var(--color4)",
+              padding: "0.3rem",
+              // height: "3rem",
+              objectFit: "cover",
+            }}
+          />
+        </Button>
+      );
+    });
+  }
   return (
-    <Grid item xs={3}>
-      <Paper elevation={5} sx={{ borderRadius: 4 }}>
-        <Box padding={1}>
-          <AspectRatio ratio="1" objectFit="cover" variant="square">
+    <Paper elevation={5} sx={{ borderRadius: 4 }}>
+      <Box padding={1}>
+        <AspectRatio ratio="1" objectFit="cover" variant="square">
+          {props.product ? (
             <Avatar
-              alt="Mountains"
-              src="https://www.ikea.com/sg/en/images/products/svenarum-side-table-bamboo-white__1061735_pe850534_s5.jpg?f=xl"
+              alt={productName}
+              src={productImage}
               layout="fill"
               variant="rounded"
               sx={{
                 width: "100%",
-                // height: matches ? "10rem" : "30rem",
                 borderRadius: 4,
+                transition: "all 3s ease", //FIXME: not work
+              }}
+              onMouseOver={(evnt) => {
+                setProductImage(defaultVariant.image || productImages);
+              }}
+              onMouseLeave={(evnt) => {
+                setProductImage(productImages);
               }}
             />
-          </AspectRatio>
-          <Box mt={1}>
-            <Typography variant="body" className="category-label">
-              Side Table
-            </Typography>
+          ) : (
+            <Skeleton variant="rectangle" animation="wave" width={"100%"} />
+          )}
+        </AspectRatio>
+
+        <Box mt={1}>
+          <Typography variant="subtitle1" className="category-label">
+            {category || "Ikea Clone"}
+          </Typography>
+        </Box>
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          marginY={1}
+          alignItems={"flex-start"}
+        >
+          <Typography variant="body" className="product-name">
+            {productName || "Mikea"}
+          </Typography>
+
+          <Typography variant="subtitle1" className="price">
+            {formatCurrency(price) || "free"}
+          </Typography>
+        </Box>
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Box
+            minWidth={"8rem"}
+            // sx={{ display: "flex", justifyContent: "flex-start", padding: 0 }}
+          >
+            {variantBox}
           </Box>
-          <Box display={"flex"} justifyContent={"space-between"} marginY={1}>
-            <Typography variant="body" className="product-name">
-              SVENARUM
-            </Typography>
-            <Typography variant="h6" className="price">
-              30$
-            </Typography>
-          </Box>
-          <Box display={"flex"} justifyContent={"space-between"} marginY={1}>
-            <AspectRatio ratio="1" objectFit="cover" variant="square">
-              <Avatar
-                alt="Mountains"
-                src="https://www.ikea.com/sg/en/images/products/svenarum-side-table-bamboo-white__1061735_pe850534_s5.jpg?f=xl"
-                layout="fill"
+          <Box>
+            {variantQtyInStock === 0 ? (
+              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
+            ) : cartItemQty === variantQtyInStock ? (
+              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
+            ) : (
+              <IconButton
+                aria-label="add to shopping cart"
+                size="small"
                 variant="rounded"
+                onClick={addToCart}
                 sx={{
-                  width: "100%",
-                  // height: matches ? "10rem" : "30rem",
-                  borderRadius: 4,
+                  backgroundColor: "var(--color4-transparent)",
+                  color: "var(--color4a)",
+                  borderRadius: 30,
                 }}
-              />
-            </AspectRatio>
+              >
+                <ShoppingBasketOutlinedIcon />
+              </IconButton>
+            )}
           </Box>
         </Box>
-      </Paper>
-    </Grid>
+      </Box>
+    </Paper>
   );
 };
 export default ProductCard;
