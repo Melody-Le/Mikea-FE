@@ -122,6 +122,10 @@ function CartItem(props) {
               <Typography className="variant-detail">
                 {variantDescription}
               </Typography>
+              <Typography className="variant-detail">
+                {" "}
+                SKU: {variantId}
+              </Typography>
               {color && (
                 <Typography className="variant-detail">
                   {titleCase(color)}

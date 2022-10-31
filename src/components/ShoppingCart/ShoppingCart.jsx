@@ -88,12 +88,13 @@ function ShoppingCart({ isOpen }) {
   const OrderVariantIndex = variantsOrder.flatMap((bool, index) =>
     bool ? index : []
   );
-  const orderVariantList = cartVariantIds.map((item, idx) => {
-    return [variantsOrder].at(idx) > 0;
-  });
-  console.log("orderVariantList", orderVariantList);
 
-  const checkout = () => {};
+  const orderVariantList = OrderVariantIndex.map((idx) => cartVariantIds[idx]);
+
+  const checkout = async (evnt) => {
+    evnt.preventDefault();
+    console.log("orderVariantList:", orderVariantList);
+  };
   return (
     <>
       {cartItemToShow.length && (

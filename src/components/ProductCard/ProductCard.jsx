@@ -77,7 +77,7 @@ const ProductCard = (props) => {
           key={idx}
           onClick={setVariantTarget}
           position={"relative"}
-          sx={{ padding: 0.2 }}
+          sx={{ padding: 0.5 }}
         >
           <Avatar
             alt={productName}
@@ -91,7 +91,9 @@ const ProductCard = (props) => {
               width: "100%",
               borderRadius: 1,
               border: "solid 1px var(--color4)",
-              padding: "0.5rem",
+              padding: "0.3rem",
+              // height: "3rem",
+              objectFit: "cover",
             }}
           />
         </Button>
@@ -149,7 +151,12 @@ const ProductCard = (props) => {
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Box minWidth={"8rem"}>{variantBox}</Box>
+          <Box
+            minWidth={"8rem"}
+            // sx={{ display: "flex", justifyContent: "flex-start", padding: 0 }}
+          >
+            {variantBox}
+          </Box>
           <Box>
             {variantQtyInStock === 0 ? (
               <OutOfStock content="OUT OF STOCK" fontSize="10px" />
