@@ -1,5 +1,4 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import ShoppingCart from "../Components/ShoppingCart/ShoppingCart";
 
 import useAxiosPrivate from "../Hooks/useAxiosPrivate";
@@ -12,11 +11,9 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }) {
-  const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
-  const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [cartQty, setCartQty] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +39,7 @@ export function ShoppingCartProvider({ children }) {
       // setCartItems([]);
       return;
     }
-  }, [auth]);
+  }, [auth, cartItems]);
 
   function getCartItemQty(id) {
     return cartItems?.find((item) => item.variantId === id)?.qty || 0;
