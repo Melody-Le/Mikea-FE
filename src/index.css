@@ -9,7 +9,8 @@
   --color4a: #005555; /* GREEN DARK*/
   --color5: #fce01a; /* YELLOW*/
   --color6: #cf4217; /* RED PRICE*/
-  --colorGreen: #bddee2;
+  /* --colorGreen: #bddee2; */
+  --colorGreen: #E7FDF2;
   --colorbgw: #ffffff; /* BACKGROUND*/
   --colorwhite: #ffffff; /* WHITE ALL CASES*/
   --colorwhite-transparent: rgba(255,255,255, 0.9) /* WHITE ALL CASES*/

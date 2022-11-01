@@ -8,6 +8,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Grid from "@mui/material/Grid";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
+import LoadingBtn from "../Button/LoadingBtn";
 
 import styles from "./LoginGrid.scss";
 import axios from "../../api/axios";
@@ -16,6 +18,10 @@ import { Button, Divider } from "@mui/material";
 import { useCookies } from "react-cookie";
 
 export default function LoginForm() {
+  const [openSnack, setOpenSnack] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("success");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [cookies, setCookie] = useCookies();
@@ -28,9 +34,10 @@ export default function LoginForm() {
     emailRef: useRef(),
     passwordRef: useRef(),
   };
-  const loginSubmit = async () => {
+  const handleLoginSubmit = async () => {
     const email = formObj.emailRef.current.value;
     const password = formObj.passwordRef.current.value;
+    setIsLoading(true);
     try {
       const response = await axios.post("/auth/login", {
         email,
@@ -41,13 +48,16 @@ export default function LoginForm() {
       setCookie("accessToken", accessToken);
       setCookie("email", email);
       setAuth({ accessToken, email });
+      setIsLoading(false);
+      setOpenSnack(true);
+      setMessage("Login successful. Redirecting to homepage...");
+      setSeverity("success");
       navigate(from, { replace: true });
     } catch (err) {
-      if (!err?.response) {
-        console.log("No Server Response");
-      } else if (err.response?.status === 400) {
-        console.log(err?.response?.data?.error);
-      }
+      setIsLoading(false);
+      setOpenSnack(true);
+      setMessage(err?.response?.data?.error);
+      setSeverity("error");
       return;
     }
   };
@@ -141,20 +151,16 @@ export default function LoginForm() {
             inputRef={formObj.passwordRef}
           />
           <Box textAlign={"center"}>
-            <Button
-              onClick={loginSubmit}
+            <LoadingBtn
+              loading={isLoading}
+              onClick={handleLoginSubmit}
               variant="contained"
-              fullWidth
-              sx={{
-                backgroundColor: "var(--color4)",
-                marginTop: 2,
-                ":hover": {
-                  bgcolor: "var(--color4a)",
-                },
-              }}
-            >
-              Login
-            </Button>
+              fullWidth={true}
+              backgroundcolor={`var(--color4)`}
+              marginTop="2"
+              hoverBackgroundColor="var(--color4a)"
+              title="Login"
+            />
           </Box>
         </form>
         <Box textAlign={"center"} mt={2} mb={2}>
@@ -172,6 +178,33 @@ export default function LoginForm() {
             <Typography>Sign up</Typography>
           </Link>
         </Box>
+        <Snackbar
+          sx={{
+            "& .SnackbarItem-variantSuccess": {
+              backgroundColor: "green",
+            },
+            "& .SnackbarItem-variantError": {
+              backgroundColor: "blue",
+            },
+            "& .SnackbarItem-variantWarning": {
+              backgroundColor: "green",
+            },
+            "& .SnackbarItem-variantInfo": {
+              backgroundColor: "green",
+            },
+          }}
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={(event, reason) => {
+            if (reason === "timeout") {
+              setOpenSnack(false);
+            }
+          }}
+        >
+          <Alert severity={severity} sx={{ width: "100%" }}>
+            {message}
+          </Alert>
+        </Snackbar>
       </Box>
     </Box>
   );

@@ -21,7 +21,7 @@ function RegisterForm() {
     passwordRef: useRef(),
     confirmPasswordRef: useRef(),
   };
-  const [open, setOpen] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("success");
   const { auth } = useContext(AuthContext);
@@ -32,7 +32,7 @@ function RegisterForm() {
     const password = formObj.passwordRef.current.value;
     const confirmPassword = formObj.confirmPasswordRef.current.value;
     if (password !== confirmPassword) {
-      setOpen(true);
+      setOpenSnack(true);
       setMessage("Your password and Confirmed password not match.");
       setSeverity("error");
       return;
@@ -44,13 +44,13 @@ function RegisterForm() {
         password,
       })
       .then((response) => {
-        setOpen(true);
+        setOpenSnack(true);
         setMessage("Success");
         setSeverity("success");
         return;
       })
       .catch((error) => {
-        setOpen(true);
+        setOpenSnack(true);
         setMessage(error.response.data.error);
         setSeverity("error");
         return;
@@ -208,15 +208,15 @@ function RegisterForm() {
         </form>
       </Box>
       <Snackbar
-        open={open}
+        open={openSnack}
         autoHideDuration={6000}
         onClose={(event, reason) => {
           if (reason === "timeout") {
-            setOpen(false);
+            setOpenSnack(false);
           }
         }}
       >
-        <Alert variant="filled" severity={severity} sx={{ width: "100%" }}>
+        <Alert severity={severity} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>

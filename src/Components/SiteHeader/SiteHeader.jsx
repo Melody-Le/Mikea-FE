@@ -167,7 +167,7 @@ function SiteHeader() {
                         sx={{
                           borderBottom: "0",
                           "&:hover": {
-                            backgroundColor: "var(--color4)",
+                            backgroundColor: "var(--colorGreen)",
                           },
                         }}
                         divider
@@ -177,7 +177,8 @@ function SiteHeader() {
                             sx={{
                               color: "var(--color4)",
                               "&:hover": {
-                                color: "var(--color3)",
+                                color: "var(--color4a)",
+                                fontWeight: 7,
                               },
                             }}
                           >
@@ -195,10 +196,15 @@ function SiteHeader() {
                       // href="/"
                       variant="contained"
                       sx={{
-                        backgroundColor: "var(--color4-transparent)",
+                        backgroundColor: "var(--colorGreen)",
                         color: "var(--color4a)",
                         borderRadius: 1,
                         position: "relative",
+                        "&:hover": {
+                          transition: "all 0.3s ease",
+                          backgroundColor: "var(--color4a)",
+                          fontWeight: 7,
+                        },
                       }}
                     >
                       <ShoppingBasketIcon />
