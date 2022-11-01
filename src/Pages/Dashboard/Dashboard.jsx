@@ -1,4 +1,3 @@
-import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -6,23 +5,11 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-import Typography from "@mui/material/Typography";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import Container from "@mui/material/Container";
-import EditIcon from "@mui/icons-material/Edit";
-import Grid from "@mui/material/Unstable_Grid2";
-import useMediaQuery from "@mui/material/useMediaQuery";
-
-import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ProfileTab from "./ProfileTab";
 import MyPurchaseTab from "./MyPurchaseTab";
 import "./Dashboard.scss";
-import axios from "../../api/axios";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 
@@ -34,7 +21,6 @@ export default function LabTabs() {
   };
 
   const { auth } = useContext(AuthContext);
-  const isAuth = !!auth?.email;
   const [profile, setProfile] = useState(null);
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {

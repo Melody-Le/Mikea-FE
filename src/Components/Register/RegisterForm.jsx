@@ -13,7 +13,6 @@ import { Button, Divider } from "@mui/material";
 import styles from "../Login/LoginGrid.scss";
 import axios from "../../api/axios";
 import AuthContext from "../../Context/AuthProvider";
-import { Login } from "../Login/Login";
 
 function RegisterForm() {
   const formObj = {

@@ -12,27 +12,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { titleCase } from "../../Utilities/titleCase";
 import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
-import IconButton from "@mui/material/IconButton";
-
 function CartItem(props) {
-  const axiosPrivate = useAxiosPrivate();
+  const { closeCart, getLineItemQty, removeFromCart, updateQtyLineItemQty } =
+    useShoppingCart();
   const {
-    totalItemInCart,
-    closeCart,
-    cartItems,
-    getLineItemQty,
-    removeFromCart,
-    updateQtyLineItemQty,
-  } = useShoppingCart();
-  const {
-    lineItemId,
-    cartId,
     variantImage,
     variantId,
     productName,

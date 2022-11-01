@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -11,7 +11,6 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Avatar from "@mui/material/Avatar";
 
 import ConfirmModal from "../modals/ConfirmModal";
-import AuthContext from "../../Context/AuthProvider";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -19,7 +18,6 @@ import Alert from "@mui/material/Alert";
 function DrawerComponent(props) {
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
-  const { auth } = useContext(AuthContext);
 
   const {
     products,

@@ -1,14 +1,10 @@
 import axios from "../../api/axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 
-import AuthContext from "../../Context/AuthProvider";
-// import ProductCard from "../../Components/ProductCard/ProductCard";
-import { Skeleton, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Grid } from "@mui/material";
 
 function ProductsIndex() {
-  const { auth } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -35,7 +31,7 @@ function ProductsIndex() {
       };
       return (
         <Grid key={idx} xs={6} sm={4} md={3} item>
-          {/* <ProductCard product={productCardDetails} /> */}
+          <ProductCard product={productCardDetails} />
         </Grid>
       );
     });

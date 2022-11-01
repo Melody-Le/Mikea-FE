@@ -1,5 +1,4 @@
 import axios from "axios";
-// const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 const BASE_URL = "https://mikea-ikea-clone.herokuapp.com/api/v1";
 
 export default axios.create({

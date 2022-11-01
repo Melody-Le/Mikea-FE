@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,7 +9,6 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 
 import ConfirmModal from "../modals/ConfirmModal";
-import AuthContext from "../../Context/AuthProvider";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 
 import Snackbar from "@mui/material/Snackbar";
@@ -18,7 +17,6 @@ import Alert from "@mui/material/Alert";
 function MenuBar(props) {
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
-  const { auth } = useContext(AuthContext);
   const { dashboard, logout } = props.pageLinks;
   const pages = [dashboard, logout];
   const [anchorElUser, setAnchorElUser] = React.useState(null);

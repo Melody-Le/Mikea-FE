@@ -13,9 +13,7 @@ import styles from "./LoginGrid.scss";
 import axios from "../../api/axios";
 import AuthContext from "../../Context/AuthProvider";
 import { Button, Divider } from "@mui/material";
-// import Button from "@mui/joy/Button";
 import { useCookies } from "react-cookie";
-import Home from "../../Pages/Dashboard/Dashboard";
 
 export default function LoginForm() {
   const navigate = useNavigate();

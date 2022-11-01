@@ -8,27 +8,15 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Checkbox, { checkboxClasses } from "@mui/joy/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 import CartItem from "../CartItem/CartItem";
-import AuthContext from "../../Context/AuthProvider";
 
-// import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 
 function ShoppingCart({ isOpen }) {
-  const {
-    totalItemInCart,
-    closeCart,
-    cartItems,
-    preOrderList,
-    setPreOrderList,
-    createOrder,
-  } = useShoppingCart();
-  const { auth } = useContext(AuthContext);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { closeCart, cartItems, createOrder } = useShoppingCart();
   const cartVariantIds = [];
   const lineItemInOrder = [];
   const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value

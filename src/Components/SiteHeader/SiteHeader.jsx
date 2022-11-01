@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { Button, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -26,7 +26,6 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { titleCase } from "../../Utilities/titleCase";
 
 function SiteHeader() {
-  const location = useLocation();
   const { auth } = useContext(AuthContext);
   const { openCart, totalItemInCart } = useShoppingCart();
   const isAuth = !!auth?.email;

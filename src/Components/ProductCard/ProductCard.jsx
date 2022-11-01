@@ -14,27 +14,10 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import { Button } from "@mui/material";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
-import axios from "../../api/axios";
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import AuthContext from "../../Context/AuthProvider";
-import CartItem from "../CartItem/CartItem";
 import OutOfStock from "../Button/OutOfStock";
-import { typography } from "@mui/system";
-import { Add } from "@mui/icons-material";
 
 const ProductCard = (props) => {
-  const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
-  const {
-    totalItemInCartemInCart,
-    closeCart,
-    cartItems,
-    getLineItemQty,
-    addToCart,
-    fetchCart,
-  } = useShoppingCart();
-  const isAuth = !!auth?.email;
-  const axiosPrivate = useAxiosPrivate();
+  const { getLineItemQty, addToCart } = useShoppingCart();
   const { productName, category, productImages, variants } = props.product;
   const defaultVariant = {
     id: variants[0]?.id,
@@ -95,7 +78,6 @@ const ProductCard = (props) => {
               borderRadius: 1,
               border: "solid 1px var(--color4)",
               padding: "0.3rem",
-              // height: "3rem",
               objectFit: "cover",
             }}
           />

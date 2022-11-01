@@ -1,6 +1,6 @@
 import React from "react";
-import PurchaseCard from "../../Components/PurchaseCard/PurchaseCard";
-import { Grid, Box, Divider, Typography } from "@mui/material";
+import PurchaseCard from "../PurchaseCard/PurchaseCard";
+import { Box, Divider, Typography } from "@mui/material";
 
 function OrderCard() {
   return (
@@ -8,7 +8,6 @@ function OrderCard() {
       sx={{
         width: "90%",
         display: "flex",
-        // justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
         padding: 3,

@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import ShoppingCart from "../Components/ShoppingCart/ShoppingCart";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useAxiosPrivate from "../Hooks/useAxiosPrivate";
 import AuthContext from "./AuthProvider";
