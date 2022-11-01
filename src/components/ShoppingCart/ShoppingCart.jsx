@@ -13,21 +13,33 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 import CartItem from "../CartItem/CartItem";
 import AuthContext from "../../Context/AuthProvider";
+
+// import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import { formatCurrency } from "../../Utilities/formatCurrency";
 
 function ShoppingCart({ isOpen }) {
-  const { totalItemInCart, closeCart, cartItems } = useShoppingCart();
+  const {
+    totalItemInCart,
+    closeCart,
+    cartItems,
+    preOrderList,
+    setPreOrderList,
+    createOrder,
+  } = useShoppingCart();
   const { auth } = useContext(AuthContext);
+  const [totalPrice, setTotalPrice] = useState(0);
   const cartVariantIds = [];
+  const lineItemInOrder = [];
   const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value
+  const [variantsOrder, setVariantsOrder] = useState(
+    initialCartVariantIdsBoolean
+  );
   const toggleVariantOrder = (index) => (event) => {
     const newVariants = [...variantsOrder];
     newVariants[index] = event.target.checked;
     setVariantsOrder(newVariants);
   };
-  const [variantsOrder, setVariantsOrder] = useState(
-    initialCartVariantIdsBoolean
-  );
 
   let cartItemToShow = [];
   if (cartItems?.length) {
@@ -46,6 +58,7 @@ function ShoppingCart({ isOpen }) {
         qtyInStock: cardItem?.variant?.qtyInStock,
       };
       cartVariantIds.push(cartItemDetail?.variantId);
+      lineItemInOrder.push({ id: cartItemDetail?.variantId });
       return (
         <ListItem key={idx}>
           {cartItemDetail?.qtyInStock > 0 ? (
@@ -67,7 +80,6 @@ function ShoppingCart({ isOpen }) {
             />
           ) : (
             <FormControlLabel
-              // label="Parent"
               control={
                 <Checkbox
                   checked={false}
@@ -84,15 +96,25 @@ function ShoppingCart({ isOpen }) {
       );
     });
   }
+
   const OrderVariantIndex = variantsOrder.flatMap((bool, index) =>
     bool ? index : []
-  );
+  ); // return index of item get tick
 
-  const orderVariantList = OrderVariantIndex.map((idx) => cartVariantIds[idx]);
+  const orderVariantIDs = OrderVariantIndex.map((idx) => cartVariantIds[idx]); // get items List accept buy from user
+  const lientItemsOnOrder = cartItems.filter((item) =>
+    orderVariantIDs.includes(item.variantId)
+  ); /// is an array of cartItemObj , have all value
+  const updatedPrice = lientItemsOnOrder.reduce((prevPrice, curItem) => {
+    return prevPrice + curItem?.qty * curItem?.variant?.price;
+  }, 0);
 
   const checkout = async (evnt) => {
     evnt.preventDefault();
-    console.log("orderVariantList:", orderVariantList);
+    try {
+      await createOrder(orderVariantIDs);
+      return;
+    } catch (error) {}
   };
   return (
     <>
@@ -149,7 +171,7 @@ function ShoppingCart({ isOpen }) {
           </Grid>
           <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
             <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
-              Total price:
+              Total price:{formatCurrency(updatedPrice) || "free"}
             </Typography>
             <Button
               onClick={checkout}

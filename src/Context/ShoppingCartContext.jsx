@@ -19,6 +19,7 @@ export function ShoppingCartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalItemInCart, setTotalItemInCart] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [preOrderList, setPreOrderList] = useState([]);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
@@ -44,9 +45,6 @@ export function ShoppingCartProvider({ children }) {
     }
   }, [auth]);
 
-  const getCartItemQty = (id) => {
-    return cartItems?.find((item) => item.variantId === id)?.qty || 0;
-  };
   const fetchCart = async () => {
     try {
       const cartItemsResponse = await axiosPrivate.get(`/cart`);
@@ -85,9 +83,23 @@ export function ShoppingCartProvider({ children }) {
       return;
     }
   };
+
+  const getLineItemQty = (id) => {
+    return cartItems?.find((item) => item.variantId === id)?.qty || 0;
+  };
   const updateQtyLineItemQty = async (variantId, qty) => {
     try {
       await axiosPrivate.put(`/cart/${variantId}`, { updateQty: qty });
+      await fetchCart();
+      return;
+    } catch (error) {}
+  };
+
+  const createOrder = async (orderVariantIDs) => {
+    try {
+      await axiosPrivate.post(`/orders`, {
+        variantIds: orderVariantIDs,
+      });
       await fetchCart();
       return;
     } catch (error) {}
@@ -98,11 +110,14 @@ export function ShoppingCartProvider({ children }) {
     totalItemInCart,
     openCart,
     closeCart,
-    getCartItemQty,
+    getLineItemQty,
     removeFromCart,
     addToCart,
     fetchCart,
     updateQtyLineItemQty,
+    setPreOrderList,
+    preOrderList,
+    createOrder,
   };
   return (
     <ShoppingCartContext.Provider value={value}>

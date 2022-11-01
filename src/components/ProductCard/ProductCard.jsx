@@ -29,7 +29,7 @@ const ProductCard = (props) => {
     totalItemInCartemInCart,
     closeCart,
     cartItems,
-    getCartItemQty,
+    getLineItemQty,
     addToCart,
     fetchCart,
   } = useShoppingCart();
@@ -47,7 +47,7 @@ const ProductCard = (props) => {
   const [variantQtyInStock, setVariantQtyInStock] = useState(
     defaultVariant.qtyInStock
   );
-  const cartItemQty = getCartItemQty(variantId);
+  const cartItemQty = getLineItemQty(variantId);
 
   const handleAddToCart = async (evnt) => {
     evnt.preventDefault();

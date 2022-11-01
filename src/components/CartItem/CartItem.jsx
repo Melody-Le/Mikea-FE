@@ -26,7 +26,7 @@ function CartItem(props) {
     totalItemInCart,
     closeCart,
     cartItems,
-    getCartItemQty,
+    getLineItemQty,
     removeFromCart,
     updateQtyLineItemQty,
   } = useShoppingCart();
@@ -43,16 +43,16 @@ function CartItem(props) {
     material,
     qtyInStock,
   } = props?.item;
-  const selectionCartItemQtyArray = [...Array(qtyInStock).keys()].map(
+  const selectionlineItemQtyArray = [...Array(qtyInStock).keys()].map(
     (i) => i + 1
   );
-  const currentCartItemQty = getCartItemQty(variantId);
-  const [cartItemQty, setCartItemQty] = useState(currentCartItemQty);
+  const currentLineItemQty = getLineItemQty(variantId);
+  const [lineItemQty, setlineItemQty] = useState(currentLineItemQty);
   const [openSelect, setOpenSelect] = useState(false);
   const handleSelectChange = async (event) => {
     const qtyChange = event.target.value;
     await updateQtyLineItemQty(variantId, qtyChange);
-    setCartItemQty(qtyChange);
+    setlineItemQty(qtyChange);
     return;
   };
 
@@ -169,11 +169,11 @@ function CartItem(props) {
                   open={openSelect}
                   onClose={handleSelectClose}
                   onOpen={handleSelectOpen}
-                  value={cartItemQty}
-                  label="cartItemQty"
+                  value={lineItemQty}
+                  label="lineItemQty"
                   onChange={handleSelectChange}
                 >
-                  {selectionCartItemQtyArray.map((value, idx) => (
+                  {selectionlineItemQtyArray.map((value, idx) => (
                     <MenuItem key={idx} value={value}>
                       {value}
                     </MenuItem>
