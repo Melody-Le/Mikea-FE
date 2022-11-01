@@ -2,7 +2,7 @@ import axios from "../../api/axios";
 import React, { useEffect, useState, useContext } from "react";
 
 import AuthContext from "../../Context/AuthProvider";
-import ProductCard from "../../Components/ProductCard/ProductCard";
+// import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Skeleton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Grid } from "@mui/material";
@@ -35,7 +35,7 @@ function ProductsIndex() {
       };
       return (
         <Grid key={idx} xs={6} sm={4} md={3} item>
-          <ProductCard product={productCardDetails} />
+          {/* <ProductCard product={productCardDetails} /> */}
         </Grid>
       );
     });
