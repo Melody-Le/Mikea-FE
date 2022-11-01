@@ -1,7 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
-import ProductCard from "./Components/ProductCard/ProductCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Home from "./Pages/Home/Home";
