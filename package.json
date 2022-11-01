@@ -21,7 +21,8 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "scss": "^0.2.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "sass": "^1.55.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,7 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "sass": "^1.55.0"
-  }
+  "devDependencies": {}
 }
