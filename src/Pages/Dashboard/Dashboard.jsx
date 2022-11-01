@@ -108,7 +108,8 @@ export default function LabTabs() {
               border={"solid 1px var(--color4)"}
               sx={{
                 borderRadius: 1,
-                height: "60vh",
+                height: "100vh",
+                maxHeight: "calc(100vh - 12rem)",
                 border: "1",
               }}
               className="tab-box"
@@ -121,8 +122,11 @@ export default function LabTabs() {
               border={"solid 1px var(--color4)"}
               sx={{
                 borderRadius: 1,
-                height: "60vh",
+                height: "100vh",
+                maxHeight: "calc(100vh - 12rem)",
                 border: "1",
+                display: "flex",
+                justifyContent: "center",
               }}
               className="tab-box"
             >
