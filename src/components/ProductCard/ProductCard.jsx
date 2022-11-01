@@ -20,11 +20,19 @@ import AuthContext from "../../Context/AuthProvider";
 import CartItem from "../CartItem/CartItem";
 import OutOfStock from "../Button/OutOfStock";
 import { typography } from "@mui/system";
+import { Add } from "@mui/icons-material";
 
 const ProductCard = (props) => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-  const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
+  const {
+    totalItemInCartemInCart,
+    closeCart,
+    cartItems,
+    getCartItemQty,
+    addToCart,
+    fetchCart,
+  } = useShoppingCart();
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const { productName, category, productImages, variants } = props.product;
@@ -41,21 +49,16 @@ const ProductCard = (props) => {
   );
   const cartItemQty = getCartItemQty(variantId);
 
-  const addToCart = async (evnt) => {
+  const handleAddToCart = async (evnt) => {
     evnt.preventDefault();
-    if (isAuth) {
-      axiosPrivate
-        .post(`/cart/add/${variantId}`)
-        .then(() => {
-          return;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      navigate("/login", { replace: true });
+    try {
+      await addToCart(variantId);
+      return;
+    } catch (error) {
+      return;
     }
   };
+
   const [productImage, setProductImage] = useState(
     productImages ||
       "https://i.pinimg.com/564x/2e/ed/c2/2eedc27581a1364e7a44760cb3171e25.jpg"
@@ -167,7 +170,7 @@ const ProductCard = (props) => {
                 aria-label="add to shopping cart"
                 size="small"
                 variant="rounded"
-                onClick={addToCart}
+                onClick={handleAddToCart}
                 sx={{
                   backgroundColor: "var(--color4-transparent)",
                   color: "var(--color4a)",

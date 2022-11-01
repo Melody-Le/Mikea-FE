@@ -28,7 +28,7 @@ import { titleCase } from "../../Utilities/titleCase";
 function SiteHeader() {
   const location = useLocation();
   const { auth } = useContext(AuthContext);
-  const { openCart, cartQty } = useShoppingCart();
+  const { openCart, totalItemInCart } = useShoppingCart();
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
@@ -38,7 +38,7 @@ function SiteHeader() {
         setProfile(response.data);
       });
     }
-  }, [auth, cartQty]);
+  }, [auth, totalItemInCart]);
 
   let profileAvatarUrl;
   const defaultProfileAvatarUrl =
@@ -188,7 +188,7 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
-                  {cartQty > 0 ? (
+                  {totalItemInCart > 0 ? (
                     <IconButton
                       onClick={openCart}
                       aria-label="add to shopping cart"
@@ -220,7 +220,7 @@ function SiteHeader() {
                           color: "var(--colorwhite)",
                         }}
                       >
-                        {cartQty}
+                        {totalItemInCart}
                       </Box>
                     </IconButton>
                   ) : (

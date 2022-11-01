@@ -16,11 +16,10 @@ import AuthContext from "../../Context/AuthProvider";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 function ShoppingCart({ isOpen }) {
-  const { cartQty, closeCart, cartItems } = useShoppingCart();
+  const { totalItemInCart, closeCart, cartItems } = useShoppingCart();
   const { auth } = useContext(AuthContext);
   const cartVariantIds = [];
   const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value
-
   const toggleVariantOrder = (index) => (event) => {
     const newVariants = [...variantsOrder];
     newVariants[index] = event.target.checked;

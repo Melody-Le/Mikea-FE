@@ -22,7 +22,14 @@ import IconButton from "@mui/material/IconButton";
 
 function CartItem(props) {
   const axiosPrivate = useAxiosPrivate();
-  const { cartQty, closeCart, cartItems, getCartItemQty } = useShoppingCart();
+  const {
+    totalItemInCart,
+    closeCart,
+    cartItems,
+    getCartItemQty,
+    removeFromCart,
+    updateQtyLineItemQty,
+  } = useShoppingCart();
   const {
     lineItemId,
     cartId,
@@ -42,8 +49,11 @@ function CartItem(props) {
   const currentCartItemQty = getCartItemQty(variantId);
   const [cartItemQty, setCartItemQty] = useState(currentCartItemQty);
   const [openSelect, setOpenSelect] = useState(false);
-  const handleSelectChange = (event) => {
-    setCartItemQty(event.target.value);
+  const handleSelectChange = async (event) => {
+    const qtyChange = event.target.value;
+    await updateQtyLineItemQty(variantId, qtyChange);
+    setCartItemQty(qtyChange);
+    return;
   };
 
   const handleSelectClose = () => {
@@ -53,16 +63,12 @@ function CartItem(props) {
   const handleSelectOpen = () => {
     setOpenSelect(true);
   };
-  const removeCartItem = (evnt) => {
+  const handleRemoveCartItem = async (evnt) => {
     evnt.preventDefault();
-    axiosPrivate
-      .delete(`/cart/${variantId}`)
-      .then(() => {
-        return;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      await removeFromCart(variantId);
+      return;
+    } catch (error) {}
   };
   return (
     <Paper
@@ -178,7 +184,7 @@ function CartItem(props) {
               <OutOfStock content="OUT OF STOCK" />
             )}
             <Button
-              onClick={removeCartItem}
+              onClick={handleRemoveCartItem}
               sx={{
                 color: "var(--color4a)",
               }}

@@ -10,7 +10,7 @@ import AuthContext from "../../Context/AuthProvider";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 function ShoppingCart({ isOpen }) {
-  const { cartQty, closeCart, cartItems } = useShoppingCart();
+  const { totalItemInCart, closeCart, cartItems } = useShoppingCart();
   const { auth } = useContext(AuthContext);
 
   let cartItemToShow = [];
