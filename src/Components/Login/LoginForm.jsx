@@ -179,20 +179,6 @@ export default function LoginForm() {
           </Link>
         </Box>
         <Snackbar
-          sx={{
-            "& .SnackbarItem-variantSuccess": {
-              backgroundColor: "green",
-            },
-            "& .SnackbarItem-variantError": {
-              backgroundColor: "blue",
-            },
-            "& .SnackbarItem-variantWarning": {
-              backgroundColor: "green",
-            },
-            "& .SnackbarItem-variantInfo": {
-              backgroundColor: "green",
-            },
-          }}
           open={openSnack}
           autoHideDuration={6000}
           onClose={(event, reason) => {

@@ -157,6 +157,7 @@ function SiteHeader() {
                     sx={{
                       display: "flex",
                       marginLeft: "auto",
+                      paddingX: 1,
                     }}
                   >
                     {pages.map((page, index) => (
@@ -166,8 +167,10 @@ function SiteHeader() {
                         component={Link}
                         sx={{
                           borderBottom: "0",
+                          borderRadius: 1,
                           "&:hover": {
                             backgroundColor: "var(--colorGreen)",
+                            border: "solid 1px var(--colorGreenBorder)",
                           },
                         }}
                         divider
@@ -178,7 +181,7 @@ function SiteHeader() {
                               color: "var(--color4)",
                               "&:hover": {
                                 color: "var(--color4a)",
-                                fontWeight: 7,
+                                fontWeight: "bold",
                               },
                             }}
                           >
@@ -193,7 +196,6 @@ function SiteHeader() {
                       onClick={openCart}
                       aria-label="add to shopping cart"
                       size="small"
-                      // href="/"
                       variant="contained"
                       sx={{
                         backgroundColor: "var(--colorGreen)",
@@ -202,8 +204,9 @@ function SiteHeader() {
                         position: "relative",
                         "&:hover": {
                           transition: "all 0.3s ease",
-                          backgroundColor: "var(--color4a)",
-                          fontWeight: 7,
+                          color: "var(--color6)",
+                          backgroundColor: "var(--colorGreen)",
+                          border: "solid 1px var(--colorGreenBorder)",
                         },
                       }}
                     >
@@ -221,7 +224,7 @@ function SiteHeader() {
                           right: 0,
                           transform: "translate(25%, 50%)",
                           display: "flex",
-                          fontSize: "1rem",
+                          // fontSize: "1rem",
                           color: "var(--colorwhite)",
                         }}
                       >

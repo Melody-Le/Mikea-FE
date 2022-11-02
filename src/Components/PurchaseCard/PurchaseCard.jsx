@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Avatar, Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import AspectRatio from "@mui/joy/AspectRatio";
 import { Skeleton } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
@@ -43,6 +42,7 @@ function PurchaseCard() {
         color: "var(--color4a)",
         width: "100%",
         marginBottom: 1,
+        backgroundColor: "var(--colorGreen)",
       }}
     >
       <Grid container spacing={0} margin={0} alignItems={"center"} gap={1}>

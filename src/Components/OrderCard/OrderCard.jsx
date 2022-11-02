@@ -1,40 +1,40 @@
 import React from "react";
 import PurchaseCard from "../PurchaseCard/PurchaseCard";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography, Grid } from "@mui/material";
+import { Stack } from "@mui/material";
 
 function OrderCard() {
   return (
     <Box
       sx={{
-        width: "90%",
+        width: "95%",
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
         padding: 3,
-        backgroundColor: "var(--colorGreen)",
+        backgroundColor: "var(--colorTeal)",
         marginTop: 3,
         overflow: "auto",
       }}
     >
-      <Box
+      <Box sx={{ alignSelf: "flex-start" }}>day time</Box>
+
+      <Divider
+        style={{ backgroundColor: "var(--color4a" }}
+        variant="middle"
+        width={"100%"}
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
+          marginLeft: "5%",
+          marginRight: "5%",
+          marginY: 2,
         }}
-      >
-        <Typography> 20 Nov 20022</Typography>
-        <Typography> Total Price: 50$</Typography>
-      </Box>
-      <Divider sx={{ margin: 1 }} />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
-      <PurchaseCard />
+      />
+      <Stack width={"100%"}>
+        <PurchaseCard />
+        <PurchaseCard />
+        <PurchaseCard />
+      </Stack>
+      <Box sx={{ alignSelf: "flex-end" }}>Total Order Price: 100$</Box>
     </Box>
   );
 }
