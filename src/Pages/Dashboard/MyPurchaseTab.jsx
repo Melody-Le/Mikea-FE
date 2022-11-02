@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box } from "@mui/material";
-import OrderCard from "../../Components/OrderCard/OrderCard";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { Stack } from "@mui/material";
+
+import OrderCard from "../../Components/OrderCard/OrderCard";
+import OrderCardSkeleton from "../../Components/OrderCard/OrderCardSkeleton";
 
 function MyPurchaseTab() {
   const axiosPrivate = useAxiosPrivate();
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     async function getData() {
-      setIsLoading(true);
       try {
         const response = await axiosPrivate.get("/orders");
         setOrders(response.data.orderList);
         setIsLoading(false);
       } catch (err) {}
     }
+
     getData();
+    return;
   }, []);
 
   let ordersToShow = [];
@@ -30,14 +33,11 @@ function MyPurchaseTab() {
         orderItems: order?.orderItems,
       };
       return (
-        <OrderCard
-          key={idx}
-          orderDetail={orderDetail}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-        />
+        <OrderCard key={idx} orderDetail={orderDetail} isLoading={false} />
       );
     });
+  } else {
+    return <OrderCardSkeleton />;
   }
   return (
     <Stack

@@ -2,45 +2,36 @@ import React, { useEffect, useState } from "react";
 import PurchaseCard from "../PurchaseCard/PurchaseCard";
 import { Box, Divider, Typography, Grid } from "@mui/material";
 import { Stack } from "@mui/material";
-import { Skeleton } from "@mui/material";
+import OrderCardSkeleton from "./OrderCardSkeleton";
 
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-
-function OrderCard({ orderDetail, isLoading, setIsLoading }) {
-  const axiosPrivate = useAxiosPrivate();
-  const [orders, setOrders] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    setIsLoading(true);
-    async function getData() {
-      try {
-        const response = await axiosPrivate.get("/orders");
-        setOrders(response.data.orderList);
-        setIsLoading(false);
-      } catch (err) {}
-    }
-    getData();
-  }, []);
-
+function OrderCard({ orderDetail, isLoading }) {
   const createdDate = new Date(orderDetail?.createdAt);
   const createdDateNice = createdDate
     .toString()
     .substring(0, createdDate.toString().indexOf("GMT"));
+  // const [totalPrice, setTotalPrice] = useState(0);
 
   let orderedProductToShow = [];
   if (orderDetail?.orderItems?.length) {
-    orderedProductToShow = orders?.map((product, idx) => {
-      const orderedProductDetail = {
+    orderedProductToShow = orderDetail?.orderItems?.map((product, idx) => {
+      const productDetail = {
         variantImage: product?.variantImage,
         productName: product?.productName,
         variantDescription: product?.variantDescription,
         variantId: product?.variantId,
         price: product?.price,
-        qtyInStock: product?.qtyInStock,
+        qty: product?.qty,
       };
-      return <PurchaseCard key={idx} productDetail={orderedProductDetail} />;
+      return <PurchaseCard key={idx} orderDetail={productDetail} />;
     });
+  } else {
+    return <OrderCardSkeleton />;
   }
+
+  const totalPrice = orderDetail?.orderItems.reduce((prevPrice, curItem) => {
+    return prevPrice + curItem?.qty * curItem?.price;
+  }, 0);
+
   return (
     <Box
       sx={{
@@ -54,11 +45,19 @@ function OrderCard({ orderDetail, isLoading, setIsLoading }) {
         overflow: "auto",
       }}
     >
-      {isLoading ? (
-        <Skeleton variant="rectangle" animation="wave" width={"100%"} />
-      ) : (
-        <Box sx={{ alignSelf: "flex-start" }}>{createdDateNice}</Box>
-      )}
+      <Box
+        sx={{
+          alignSelf: "flex-start",
+          backgroundColor: "var(--colorGreen)",
+          border: "solid 1px var(--colorGreenBorder)",
+          paddingY: 1,
+          paddingX: 2,
+          borderRadius: 3,
+          color: "var(--color6)",
+        }}
+      >
+        {createdDateNice}
+      </Box>
       <Divider
         style={{ backgroundColor: "var(--color4a" }}
         variant="middle"
@@ -70,7 +69,25 @@ function OrderCard({ orderDetail, isLoading, setIsLoading }) {
         }}
       />
       <Stack width={"100%"}>{orderedProductToShow}</Stack>
-      <Box sx={{ alignSelf: "flex-end" }}>Total Order Price: 100$</Box>
+      <Box
+        sx={{
+          alignSelf: "flex-end",
+          marginRight: "4rem",
+
+          paddingY: 1,
+          paddingX: 2,
+          borderRadius: 3,
+          color: "var(--color6)",
+          ":hover": {
+            backgroundColor: "var(--colorGreen)",
+            border: "solid 1px var(--colorGreenBorder)",
+            transition: "all 0.5s ease",
+            cursor: "pointer",
+          },
+        }}
+      >
+        Total Order Price: {totalPrice}$
+      </Box>
     </Box>
   );
 }

@@ -9,51 +9,36 @@ import SiteHeader from "./Components/SiteHeader/SiteHeader";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LogOut from "./Components/Logout/Logout";
 import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
+import { OrderedItemsProvider } from "./Context/OrderedItemsContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ProfileEdit from "./Pages/Dashboard/ProfileEdit";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import CheckboxTest from "./Components/ShoppingCart/Checkbox";
 
-const theme = createTheme({
-  // status: {
-  //   danger: "blue",
-  // },
-  // palette: {
-  //   primary: {
-  //     main: "rgb(9, 114, 103)",
-  //     darker: "#005555",
-  //   },
-  //   neutral: {
-  //     main: "#64748B",
-  //     contrastText: "#fff",
-  //   },
-  // },
-});
-
 function App() {
   return (
     <div className="App">
-      {/* <ThemeProvider theme={theme}> */}
-      <ShoppingCartProvider>
-        <SiteHeader />
-        <Container mb={1}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/register"
-              element={<AuthGrid formType="register" />}
-            />
-            <Route path="/login" element={<AuthGrid formType="login" />} />
-            <Route path="/logout" element={<LogOut />} />
-            <Route path="/products" element={<ProductsIndex />} />
-            <Route path="/checkbox" element={<CheckboxTest />} />
-            <Route path="/user" element={<Dashboard />} />
-            <Route path="/user/edit" element={<ProfileEdit />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Container>
-      </ShoppingCartProvider>
-      {/* </ThemeProvider> */}
+      <OrderedItemsProvider>
+        <ShoppingCartProvider>
+          <SiteHeader />
+          <Container mb={1}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/register"
+                element={<AuthGrid formType="register" />}
+              />
+              <Route path="/login" element={<AuthGrid formType="login" />} />
+              <Route path="/logout" element={<LogOut />} />
+              <Route path="/products" element={<ProductsIndex />} />
+              <Route path="/checkbox" element={<CheckboxTest />} />
+              <Route path="/user" element={<Dashboard />} />
+              <Route path="/user/edit" element={<ProfileEdit />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Container>
+        </ShoppingCartProvider>
+      </OrderedItemsProvider>
     </div>
   );
 }
