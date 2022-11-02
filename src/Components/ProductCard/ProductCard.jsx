@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Skeleton } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import { LoadingButton } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -158,6 +157,10 @@ const ProductCard = (props) => {
                 maxWidth: "4rem",
                 minWidth: "0.5rem",
                 padding: "8px",
+                ":hover": {
+                  border: "solid 1px var(--colorGreenBorder)",
+                  backgroundColor: "var(--colorGreen)",
+                },
               }}
             >
               <ShoppingBasketOutlinedIcon />

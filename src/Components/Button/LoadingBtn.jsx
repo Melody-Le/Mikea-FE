@@ -9,16 +9,6 @@ function LoadingBtn(props) {
       onClick={props.onClick}
       variant={props.variant}
       fullWidth={props.fullWidth}
-      sx={
-        {
-          // backgroundColor: "var(--color4)",
-          // marginTop: props.marginTop,
-          // backgroundColor: props.backgroundColor,
-          // ":hover": {
-          //   bgcolor: props.hoverBackgroundColor,
-          // },
-        }
-      }
     >
       {props.title}
     </LoadingButton>
