@@ -10,13 +10,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Sheet from "@mui/joy/Sheet";
 
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { titleCase } from "../../Utilities/titleCase";
 import OutOfStock from "../Button/OutOfStock";
 import "./PurchaseCard.scss";
-import { typography } from "@mui/system";
 
 function PurchaseCard() {
   const item = {
@@ -40,15 +41,16 @@ function PurchaseCard() {
     <Paper
       sx={{
         color: "var(--color4a)",
-        width: "100%",
         marginBottom: 1,
-        backgroundColor: "var(--colorGreen)",
+        boxShadow: 0,
+        backgroundColor: "var(--colorTeal)",
       }}
     >
       <Grid container spacing={0} margin={0} alignItems={"center"} gap={1}>
-        <Grid item xs={3} padding={2}>
+        <Grid item xs={4} md={3} lg={2} padding={2}>
           {1 ? (
             <Avatar
+              // className="product-image"
               alt="haha"
               src={
                 variantImage ||
@@ -59,6 +61,7 @@ function PurchaseCard() {
               padding={1}
               sx={{
                 width: "100%",
+                height: "8rem",
                 borderRadius: 1,
                 border: "1",
               }}
@@ -67,7 +70,7 @@ function PurchaseCard() {
             <Skeleton variant="rectangle" animation="wave" width={"100%"} />
           )}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7} md={8} lg={9}>
           <Box
             sx={{
               display: "flex",
@@ -93,11 +96,8 @@ function PurchaseCard() {
                 SKU: {variantId}
               </Typography>
             </Box>
-            <Typography marginRight={1} sx={{ color: "var(--color6)" }}>
+            <Typography marginRight={1} sx={{ color: "var(--color4a)" }}>
               {formatCurrency(price) || "free"}
-            </Typography>
-            <Typography marginRight={1} sx={{ color: "var(--color6)" }}>
-              Status: progress
             </Typography>
           </Box>
           <Box

@@ -65,7 +65,7 @@ function DrawerComponent(props) {
     <>
       <Drawer
         PaperProps={{
-          sx: { backgroundColor: "var(--colorGreen)" },
+          sx: { backgroundColor: "var(--colorTeal)" },
         }}
         anchor="right"
         open={open}
@@ -96,7 +96,7 @@ function DrawerComponent(props) {
               divider
             >
               <ListItemIcon>
-                <ListItemText sx={{ color: "white" }}>
+                <ListItemText sx={{ color: "var(--color4a" }}>
                   {page.pageName}
                 </ListItemText>
               </ListItemIcon>
@@ -104,7 +104,7 @@ function DrawerComponent(props) {
           ))}
           <ListItemButton divider onClick={handleDeleteClick}>
             <ListItemIcon>
-              <ListItemText sx={{ color: "white" }}>
+              <ListItemText sx={{ color: "var(--color4a" }}>
                 Delete Account
               </ListItemText>
             </ListItemIcon>

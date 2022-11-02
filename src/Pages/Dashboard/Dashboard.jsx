@@ -59,8 +59,8 @@ export default function LabTabs() {
               fontWeight: "bold",
               color: "var(--color4a)",
               ":hover": {
-                backgroundColor: "var(--color4)",
                 transition: "all 0.5s ease",
+                border: "solid 1px var(--colorGreenBorder)",
               },
             },
           },
@@ -106,15 +106,13 @@ export default function LabTabs() {
               border={"solid 1px var(--color4)"}
               sx={{
                 borderRadius: 1,
-                // height: "100vh",
-                // maxHeight: "calc(100vh - 12rem)",
                 border: "1",
                 display: "flex",
                 justifyContent: "center",
               }}
               className="tab-box"
             >
-              {/* <MyPurchaseTab /> */}
+              <MyPurchaseTab />
             </Box>
           </TabPanel>
         </TabContext>

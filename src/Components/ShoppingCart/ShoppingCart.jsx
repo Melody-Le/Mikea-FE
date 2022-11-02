@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 
 import Box from "@mui/material/Box";
@@ -110,7 +110,7 @@ function ShoppingCart({ isOpen }) {
         <Drawer
           PaperProps={{
             sx: {
-              backgroundColor: "var(--colorGreen)",
+              backgroundColor: "var(--colorTeal)",
               width: "50%",
               maxWidth: "50rem",
               height: "100vh",
