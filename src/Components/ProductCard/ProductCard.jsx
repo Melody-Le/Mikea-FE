@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import "./ProductCard.css";
 import Paper from "@mui/material/Paper";
@@ -20,7 +20,8 @@ import OutOfStock from "../Button/OutOfStock";
 const ProductCard = (props) => {
   const { getLineItemQty, addToCart, isLoadingCard, setIsLoadingCart } =
     useShoppingCart();
-  const { productName, category, productImages, variants } = props.product;
+  const { productName, category, productImages, variants, productSlug } =
+    props.product;
   const defaultVariant = {
     id: variants[0]?.id,
     price: variants[0]?.price,
@@ -90,29 +91,33 @@ const ProductCard = (props) => {
   return (
     <Paper elevation={5} sx={{ borderRadius: 4 }}>
       <Box padding={1}>
-        <AspectRatio ratio="1" objectFit="cover" variant="square">
-          {props.product ? (
-            <Avatar
-              alt={productName}
-              src={productImage}
-              layout="fill"
-              variant="rounded"
-              sx={{
-                width: "100%",
-                borderRadius: 4,
-                transition: "all 3s ease", //FIXME: not work
-              }}
-              onMouseOver={(evnt) => {
-                setProductImage(defaultVariant.image || productImages);
-              }}
-              onMouseLeave={(evnt) => {
-                setProductImage(productImages);
-              }}
-            />
-          ) : (
-            <Skeleton variant="rectangle" animation="wave" width={"100%"} />
-          )}
-        </AspectRatio>
+        {props.product ? (
+          <Link to={`/products/${productSlug}`}>
+            <AspectRatio ratio="1" objectFit="cover" variant="square">
+              <Avatar
+                alt={productName}
+                src={productImage}
+                // href={`/projects/${productSlug}`}
+                // component={Link}
+                // layout="fill"
+                variant="rounded"
+                sx={{
+                  width: "100%",
+                  borderRadius: 4,
+                  transition: "all 3s ease", //FIXME: not work
+                }}
+                onMouseOver={(evnt) => {
+                  setProductImage(defaultVariant.image || productImages);
+                }}
+                onMouseLeave={(evnt) => {
+                  setProductImage(productImages);
+                }}
+              />
+            </AspectRatio>
+          </Link>
+        ) : (
+          <Skeleton variant="rectangle" animation="wave" width={"100%"} />
+        )}
 
         <Box mt={1}>
           <Typography variant="subtitle1" className="category-label">

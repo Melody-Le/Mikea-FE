@@ -9,20 +9,20 @@ import SiteHeader from "./Components/SiteHeader/SiteHeader";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LogOut from "./Components/Logout/Logout";
 import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
-import { OrderedItemsProvider } from "./Context/OrderedItemsContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ProfileEdit from "./Pages/Dashboard/ProfileEdit";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
-import CheckboxTest from "./Components/ShoppingCart/Checkbox";
+import ProductShowPage from "./Pages/ProductShowPage/ProductShowPage";
+import Layout from "./Components/Layout/Layout";
 
 function App() {
   return (
     <div className="App">
-      <OrderedItemsProvider>
-        <ShoppingCartProvider>
-          <SiteHeader />
-          <Container mb={1}>
-            <Routes>
+      <ShoppingCartProvider>
+        <SiteHeader />
+        <Container mb={1}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route
                 path="/register"
@@ -31,14 +31,14 @@ function App() {
               <Route path="/login" element={<AuthGrid formType="login" />} />
               <Route path="/logout" element={<LogOut />} />
               <Route path="/products" element={<ProductsIndex />} />
-              <Route path="/checkbox" element={<CheckboxTest />} />
+              <Route path="/products/:slug" element={<ProductShowPage />} />
               <Route path="/user" element={<Dashboard />} />
               <Route path="/user/edit" element={<ProfileEdit />} />
               <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </Container>
-        </ShoppingCartProvider>
-      </OrderedItemsProvider>
+            </Route>
+          </Routes>
+        </Container>
+      </ShoppingCartProvider>
     </div>
   );
 }

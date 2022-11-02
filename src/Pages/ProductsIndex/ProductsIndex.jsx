@@ -20,14 +20,20 @@ function ProductsIndex() {
   let productCardsToShow = [];
   if (products?.length) {
     productCardsToShow = products?.map((product, idx) => {
-      const { productDescription, productImages, productName, variants } =
-        product;
+      const {
+        productDescription,
+        productImages,
+        productName,
+        variants,
+        productSlug,
+      } = product;
       const productCardDetails = {
         category: product?.category?.categoryLabel,
         productDescription,
         productImages: productImages,
         productName,
         variants,
+        productSlug,
       };
       return (
         <Grid key={idx} xs={6} sm={4} md={3} item>
