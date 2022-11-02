@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Skeleton } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import { LoadingButton } from "@mui/lab";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
@@ -17,7 +18,8 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import OutOfStock from "../Button/OutOfStock";
 
 const ProductCard = (props) => {
-  const { getLineItemQty, addToCart } = useShoppingCart();
+  const { getLineItemQty, addToCart, isLoadingCard, setIsLoadingCart } =
+    useShoppingCart();
   const { productName, category, productImages, variants } = props.product;
   const defaultVariant = {
     id: variants[0]?.id,
@@ -143,7 +145,7 @@ const ProductCard = (props) => {
             {variantBox}
           </Box>
           <Box>
-            {variantQtyInStock === 0 ? (
+            {/* {variantQtyInStock === 0 ? (
               <OutOfStock content="OUT OF STOCK" fontSize="10px" />
             ) : cartItemQty === variantQtyInStock ? (
               <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
@@ -161,6 +163,26 @@ const ProductCard = (props) => {
               >
                 <ShoppingBasketOutlinedIcon />
               </IconButton>
+            )} */}
+            {variantQtyInStock === 0 ? (
+              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
+            ) : cartItemQty === variantQtyInStock ? (
+              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
+            ) : (
+              <LoadingButton
+                // size="small"
+                variant="rounded"
+                loading={isLoadingCard}
+                onClick={handleAddToCart}
+                sx={{
+                  backgroundColor: "var(--color4-transparent)",
+                  color: "var(--color4a)",
+                  borderRadius: 1,
+                  width: "1rem",
+                }}
+              >
+                <ShoppingBasketOutlinedIcon />
+              </LoadingButton>
             )}
           </Box>
         </Box>

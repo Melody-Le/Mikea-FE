@@ -62,9 +62,11 @@ export function ShoppingCartProvider({ children }) {
 
   const addToCart = async (variantId) => {
     if (isAuth) {
+      setIsLoadingCart(true);
       try {
         await axiosPrivate.post(`/cart/add/${variantId}`);
         await fetchCart();
+        setIsLoadingCart(false);
         return;
       } catch (error) {
         console.log(error);

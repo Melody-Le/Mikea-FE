@@ -151,13 +151,12 @@ export default function LoginForm() {
           />
           <Box textAlign={"center"}>
             <LoadingBtn
+              className="auth-btn"
               loading={isLoading}
               onClick={handleLoginSubmit}
               variant="contained"
               fullWidth={true}
-              backgroundColor="var(--color4)"
               marginTop="2"
-              hoverBackgroundColor="var(--color4a)"
               title="Login"
             />
           </Box>
