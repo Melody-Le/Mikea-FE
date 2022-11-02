@@ -49,17 +49,18 @@ function PurchaseCard({ orderDetail, isLoading }) {
             />
           ) : (
             <Avatar
+              className="product-image"
               alt={productName}
               src={
                 variantImage ||
                 "https://i.pinimg.com/564x/2e/ed/c2/2eedc27581a1364e7a44760cb3171e25.jpg"
               }
-              // layout="fill"
               variant="rounded"
               sx={{
                 width: "100%",
                 height: "8rem",
                 borderRadius: 3,
+                objectFit: "contain",
               }}
             />
           )}

@@ -97,9 +97,6 @@ const ProductCard = (props) => {
               <Avatar
                 alt={productName}
                 src={productImage}
-                // href={`/projects/${productSlug}`}
-                // component={Link}
-                // layout="fill"
                 variant="rounded"
                 sx={{
                   width: "100%",
@@ -143,53 +140,29 @@ const ProductCard = (props) => {
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Box
-            minWidth={"8rem"}
-            // sx={{ display: "flex", justifyContent: "flex-start", padding: 0 }}
-          >
-            {variantBox}
-          </Box>
-          <Box>
-            {/* {variantQtyInStock === 0 ? (
-              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
-            ) : cartItemQty === variantQtyInStock ? (
-              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
-            ) : (
-              <IconButton
-                aria-label="add to shopping cart"
-                size="small"
-                variant="rounded"
-                onClick={handleAddToCart}
-                sx={{
-                  backgroundColor: "var(--color4-transparent)",
-                  color: "var(--color4a)",
-                  borderRadius: 30,
-                }}
-              >
-                <ShoppingBasketOutlinedIcon />
-              </IconButton>
-            )} */}
-            {variantQtyInStock === 0 ? (
-              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
-            ) : cartItemQty === variantQtyInStock ? (
-              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
-            ) : (
-              <LoadingButton
-                // size="small"
-                variant="rounded"
-                loading={isLoadingCard}
-                onClick={handleAddToCart}
-                sx={{
-                  backgroundColor: "var(--color4-transparent)",
-                  color: "var(--color4a)",
-                  borderRadius: 1,
-                  width: "1rem",
-                }}
-              >
-                <ShoppingBasketOutlinedIcon />
-              </LoadingButton>
-            )}
-          </Box>
+          <Box minWidth={"8rem"}>{variantBox}</Box>
+
+          {variantQtyInStock === 0 ? (
+            <OutOfStock content="OUT OF STOCK" fontSize="10px" />
+          ) : cartItemQty === variantQtyInStock ? (
+            <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
+          ) : (
+            <LoadingButton
+              variant="rounded"
+              loading={isLoadingCard}
+              onClick={handleAddToCart}
+              sx={{
+                backgroundColor: "var(--color4-transparent)",
+                color: "var(--color4a)",
+                borderRadius: 1,
+                maxWidth: "4rem",
+                minWidth: "0.5rem",
+                padding: "8px",
+              }}
+            >
+              <ShoppingBasketOutlinedIcon />
+            </LoadingButton>
+          )}
         </Box>
       </Box>
     </Paper>
