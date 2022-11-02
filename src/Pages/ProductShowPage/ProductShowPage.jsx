@@ -5,7 +5,7 @@ import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
 import OutOfStock from "../../Components/Button/OutOfStock";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { formatCurrency } from "../../Utilities/formatCurrency";
-
+import ProductShowPageSkeleton from "./ProductShowPageSkeleton";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { LoadingButton } from "@mui/lab";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
@@ -22,6 +22,7 @@ function ProductShowPage() {
   const params = useParams();
 
   const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [variantDetail, setVariantDetail] = useState(null);
   const [productImage, setProductImage] = useState(
@@ -47,6 +48,7 @@ function ProductShowPage() {
         productImagesArr = product?.productImages.split(",");
         setProductImgs(productImagesArr);
         setProductImage(productImagesArr[0]);
+        setIsLoading(false);
         return;
       } catch (err) {}
     }
@@ -78,7 +80,6 @@ function ProductShowPage() {
           position={"relative"}
           sx={{ padding: 0.5 }}
           onMouseOver={setVariantTarget}
-          // onMouseLeave={setVariantTargetDefault}
         >
           <Avatar
             alt={product?.productName}
@@ -124,88 +125,94 @@ function ProductShowPage() {
 
   return (
     <>
-      <Typography>
-        Products {">"} Chairs {">"} Office Chair
-      </Typography>
-      <Grid container gap={3} marginTop={4}>
-        <Grid item xs={12} sm={5} md={3}>
-          <AspectRatio ratio="1" objectFit="cover" variant="square">
-            <Avatar
-              className="product-image"
-              alt={product?.productName}
-              src={productImage}
-              onMouseOver={setVariantTargetDefault}
-              variant="rounded"
-              sx={{
-                width: "100%",
-                height: "8rem",
-                borderRadius: 3,
-                objectFit: "contain",
-                border: "solid 1px var(--color4)",
-                transition: "all 0.5s ease",
-              }}
-            />
-          </AspectRatio>
-        </Grid>
-        <Grid item xs={12} sm={6} md={7}>
-          <Typography sx={{ color: "var(--color2)", fontWeight: 500 }}>
-            Category: {product?.category?.categoryLabel}
+      {!isLoading ? (
+        <>
+          <Typography>
+            Products {">"} Chairs {">"} Office Chair
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography sx={{ color: "var(--color4a)", fontWeight: 600 }}>
-              {product?.productName}
-            </Typography>
-            <Typography sx={{ color: "var(--color4a)", fontWeight: 600 }}>
-              Price: {formatCurrency(variantDetail?.price) || "free"}
-            </Typography>
-          </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box minWidth={"8rem"}>{variantBox}</Box>
-            {variantDetail?.qtyInStock === 0 ? (
-              <OutOfStock content="OUT OF STOCK" fontSize="10px" />
-            ) : cartItemQty === variantDetail?.qtyInStock ? (
-              <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
-            ) : (
-              <LoadingButton
-                variant="rounded"
-                loading={isLoadingCard}
-                onClick={handleAddToCart}
-                sx={{
-                  backgroundColor: "var(--color4-transparent)",
-                  color: "var(--color4a)",
-                  borderRadius: 1,
-                  maxWidth: "4rem",
-                  minWidth: "0.5rem",
-                  maxHeight: "2.5rem",
-                  paddingX: "20px",
-                  ":hover": {
-                    border: "solid 1px var(--colorGreenBorder)",
-                    backgroundColor: "var(--colorGreen)",
-                  },
-                }}
+          <Grid container gap={3} marginTop={4}>
+            <Grid item xs={12} sm={5} md={3}>
+              <AspectRatio ratio="1" objectFit="cover" variant="square">
+                <Avatar
+                  className="product-image"
+                  alt={product?.productName}
+                  src={productImage}
+                  onMouseOver={setVariantTargetDefault}
+                  variant="rounded"
+                  sx={{
+                    width: "100%",
+                    height: "8rem",
+                    borderRadius: 3,
+                    objectFit: "contain",
+                    border: "solid 1px var(--color4)",
+                    transition: "all 0.5s ease",
+                  }}
+                />
+              </AspectRatio>
+            </Grid>
+            <Grid item xs={12} sm={6} md={7}>
+              <Typography sx={{ color: "var(--color2)", fontWeight: 500 }}>
+                Category: {product?.category?.categoryLabel}
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography sx={{ color: "var(--color4a)", fontWeight: 600 }}>
+                  {product?.productName}
+                </Typography>
+                <Typography sx={{ color: "var(--color4a)", fontWeight: 600 }}>
+                  Price: {formatCurrency(variantDetail?.price) || "free"}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box minWidth={"8rem"}>{variantBox}</Box>
+                {variantDetail?.qtyInStock === 0 ? (
+                  <OutOfStock content="OUT OF STOCK" fontSize="10px" />
+                ) : cartItemQty === variantDetail?.qtyInStock ? (
+                  <OutOfStock content="ORDER LIMIT REACH" fontSize="8px" />
+                ) : (
+                  <LoadingButton
+                    variant="rounded"
+                    loading={isLoadingCard}
+                    onClick={handleAddToCart}
+                    sx={{
+                      backgroundColor: "var(--color4-transparent)",
+                      color: "var(--color4a)",
+                      borderRadius: 1,
+                      maxWidth: "4rem",
+                      minWidth: "0.5rem",
+                      maxHeight: "2.5rem",
+                      paddingX: "20px",
+                      ":hover": {
+                        border: "solid 1px var(--colorGreenBorder)",
+                        backgroundColor: "var(--colorGreen)",
+                      },
+                    }}
+                  >
+                    <ShoppingBasketOutlinedIcon />
+                  </LoadingButton>
+                )}
+              </Box>
+              <Typography
+                variant="subtitle1"
+                sx={{ color: "var(--color2)", fontWeight: 400 }}
               >
-                <ShoppingBasketOutlinedIcon />
-              </LoadingButton>
-            )}
-          </Box>
-          <Typography
-            variant="subtitle1"
-            sx={{ color: "var(--color2)", fontWeight: 400 }}
-          >
-            Description
-          </Typography>
-          <Typography className="description-note">
-            {variantDetail?.variantDescription}
-          </Typography>
+                Description
+              </Typography>
+              <Typography className="description-note">
+                {variantDetail?.variantDescription}
+              </Typography>
 
-          <Typography className="description-note">
-            {product?.productDescription}
-          </Typography>
-          <Typography className="description-note">
-            Area in use: {product?.room}
-          </Typography>
-        </Grid>
-      </Grid>
+              <Typography className="description-note">
+                {product?.productDescription}
+              </Typography>
+              <Typography className="description-note">
+                Area in use: {product?.room}
+              </Typography>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <ProductShowPageSkeleton />
+      )}
     </>
   );
 }
