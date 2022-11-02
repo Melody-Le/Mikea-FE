@@ -1,3 +1,16 @@
 .variant-detail {
   color: var(--color2);
 }
+.remove-btn {
+  &.MuiButton-contained {
+    background-color: white;
+    color: var(--color2);
+    shadow: none;
+    box-shadow: 0;
+    margin-left: 0.5em;
+    &:hover {
+      background-color: var(--color3a);
+      color: var(--color2);
+    }
+  }
+}

@@ -8,7 +8,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Grid from "@mui/material/Grid";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import LoadingButton from "@mui/lab/LoadingButton";
 import LoadingBtn from "../Button/LoadingBtn";
 
 import styles from "./LoginGrid.scss";
@@ -156,7 +155,7 @@ export default function LoginForm() {
               onClick={handleLoginSubmit}
               variant="contained"
               fullWidth={true}
-              backgroundcolor={`var(--color4)`}
+              backgroundColor="var(--color4)"
               marginTop="2"
               hoverBackgroundColor="var(--color4a)"
               title="Login"

@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import LoadingBtn from "../Button/LoadingBtn";
 
 import { formatCurrency } from "../../Utilities/formatCurrency";
 import { titleCase } from "../../Utilities/titleCase";
@@ -18,8 +19,14 @@ import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
 function CartItem(props) {
-  const { closeCart, getLineItemQty, removeFromCart, updateQtyLineItemQty } =
-    useShoppingCart();
+  const {
+    closeCart,
+    getLineItemQty,
+    removeFromCart,
+    updateQtyLineItemQty,
+    isLoadingCard,
+    setIsLoadingCart,
+  } = useShoppingCart();
   const {
     variantImage,
     variantId,
@@ -53,8 +60,10 @@ function CartItem(props) {
   };
   const handleRemoveCartItem = async (evnt) => {
     evnt.preventDefault();
+    setIsLoadingCart(true);
     try {
       await removeFromCart(variantId);
+      setIsLoadingCart(false);
       return;
     } catch (error) {}
   };
@@ -171,14 +180,15 @@ function CartItem(props) {
             ) : (
               <OutOfStock content="OUT OF STOCK" />
             )}
-            <Button
+            <LoadingBtn
+              className="remove-btn"
+              loading={isLoadingCard}
               onClick={handleRemoveCartItem}
-              sx={{
-                color: "var(--color4a)",
-              }}
-            >
-              Remove
-            </Button>
+              variant="outline"
+              fullWidth={true}
+              marginTop="2"
+              title="Remove"
+            />
           </Box>
         </Grid>
       </Grid>

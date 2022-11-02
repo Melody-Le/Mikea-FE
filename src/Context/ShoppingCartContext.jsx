@@ -17,6 +17,7 @@ export function ShoppingCartProvider({ children }) {
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [cartItems, setCartItems] = useState([]);
+  const [isLoadingCard, setIsLoadingCart] = useState(false);
   const [totalItemInCart, setTotalItemInCart] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [preOrderList, setPreOrderList] = useState([]);
@@ -118,6 +119,8 @@ export function ShoppingCartProvider({ children }) {
     setPreOrderList,
     preOrderList,
     createOrder,
+    isLoadingCard,
+    setIsLoadingCart,
   };
   return (
     <ShoppingCartContext.Provider value={value}>

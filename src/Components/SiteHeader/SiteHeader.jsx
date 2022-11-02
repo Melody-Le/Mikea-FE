@@ -191,26 +191,26 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
-                  {totalItemInCart > 0 ? (
-                    <IconButton
-                      onClick={openCart}
-                      aria-label="add to shopping cart"
-                      size="small"
-                      variant="contained"
-                      sx={{
+
+                  <IconButton
+                    onClick={openCart}
+                    aria-label="add to shopping cart"
+                    size="small"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "var(--colorGreen)",
+                      color: "var(--color4a)",
+                      borderRadius: 1,
+                      position: "relative",
+                      "&:hover": {
+                        transition: "all 0.3s ease",
                         backgroundColor: "var(--colorGreen)",
-                        color: "var(--color4a)",
-                        borderRadius: 1,
-                        position: "relative",
-                        "&:hover": {
-                          transition: "all 0.3s ease",
-                          color: "var(--color6)",
-                          backgroundColor: "var(--colorGreen)",
-                          border: "solid 1px var(--colorGreenBorder)",
-                        },
-                      }}
-                    >
-                      <ShoppingBasketIcon />
+                        border: "solid 1px var(--colorGreenBorder)",
+                      },
+                    }}
+                  >
+                    <ShoppingBasketIcon />
+                    {totalItemInCart > 0 ? (
                       <Box
                         sx={{
                           borderRadius: 5,
@@ -230,10 +230,10 @@ function SiteHeader() {
                       >
                         {totalItemInCart}
                       </Box>
-                    </IconButton>
-                  ) : (
-                    ""
-                  )}
+                    ) : (
+                      ""
+                    )}
+                  </IconButton>
                 </Box>
               </Grid>
             </Grid>
