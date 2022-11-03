@@ -28,7 +28,7 @@ function ProductsIndex() {
         productSlug,
       } = product;
       const productCardDetails = {
-        categoryLable: product?.category?.categoryLable,
+        categoryLabel: product?.category?.categoryLabel,
         productDescription,
         productImages: productImages,
         productName,

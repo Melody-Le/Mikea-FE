@@ -8,20 +8,18 @@ import CategoryBox from "../../Components/Category/CategoryBox";
 import CategorySkeleton from "../Categories/CategorySkeleton";
 
 import ProductCard from "../../Components/ProductCard/ProductCard";
+import BreadcrumbsCustom from "../../Components/BreadcrumbsCustom/BreadcrumbsCustom";
 
 function CategoriesIndex() {
-  const navigate = useNavigate();
   const location = useLocation();
   const currentLocation = location.pathname;
   const currentLocationState = location.state;
-  console.log(currentLocationState);
 
   const params = useParams();
   const matches = useMediaQuery("(max-width:600px)");
   const [isLoading, setIsLoading] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const [isParentCat, setIsparentCat] = useState(false);
   // fetch categories
   useEffect(() => {
     async function getData() {
@@ -29,7 +27,6 @@ function CategoriesIndex() {
         const response = await axios.get(`/categories/${params.slug}`);
         const subCats = response?.data?.subCategories;
         if (subCats?.length) {
-          // setIsparentCat(true);
           setSubCategories(subCats);
           const productsRes = await axios.get(
             `/products?parentCat=${params.slug}`
@@ -47,7 +44,7 @@ function CategoriesIndex() {
       } catch (err) {}
     }
     getData();
-  }, [params?.slug]);
+  }, [params]);
 
   let catToShow = [];
   if (subCategories?.length) {
@@ -89,6 +86,7 @@ function CategoriesIndex() {
         productName,
         variants,
         productSlug,
+        categoryLabel: product?.category?.categoryLabel,
         categorySlug: product?.category?.categorySlug,
         parentCategorySlug: product?.category?.parentCategory?.categorySlug,
       };
@@ -104,10 +102,11 @@ function CategoriesIndex() {
   }
   return (
     <>
+      <BreadcrumbsCustom locationState={currentLocationState} />
       <Grid container spacing={1}>
         {!isLoading ? catToShow : <CategorySkeleton />}
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} marginTop={5}>
         {productCardsToShow}
       </Grid>
     </>

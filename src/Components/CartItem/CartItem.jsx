@@ -13,7 +13,6 @@ import Select from "@mui/material/Select";
 import LoadingBtn from "../Button/LoadingBtn";
 
 import { formatCurrency } from "../../Utilities/formatCurrency";
-import { titleCase } from "../../Utilities/titleCase";
 import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
@@ -124,18 +123,27 @@ function CartItem(props) {
                 SKU: {variantId}
               </Typography>
               {color && (
-                <Typography className="variant-detail">
-                  {titleCase(color)}
+                <Typography
+                  className="variant-detail"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {color}
                 </Typography>
               )}
               {size && (
-                <Typography className="variant-detail">
-                  {titleCase(size) + " cm"}
+                <Typography
+                  className="variant-detail"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {size + " cm"}
                 </Typography>
               )}
               {material && (
-                <Typography className="variant-detail">
-                  {titleCase(material)}
+                <Typography
+                  className="variant-detail"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {material}
                 </Typography>
               )}
             </Box>

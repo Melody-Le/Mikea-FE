@@ -23,7 +23,6 @@ import SearchBar from "./SearchBar";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
-import { titleCase } from "../../Utilities/titleCase";
 
 function SiteHeader() {
   const { auth } = useContext(AuthContext);
@@ -257,8 +256,10 @@ function SiteHeader() {
                   profileAvatarUrl={profileAvatarUrl}
                   marginTop={1}
                 />
-                <Typography sx={{ fontSize: "1rem" }}>
-                  Hi {titleCase(profile?.username || "user")}
+                <Typography
+                  sx={{ fontSize: "1rem", textTransform: "capitalize" }}
+                >
+                  Hi {profile?.username || ""}
                 </Typography>
               </Box>
             )}
