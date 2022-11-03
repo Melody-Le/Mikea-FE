@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Grid } from "@mui/material";
+import ProductsSkeleton from "./ProductsSkeleton";
 
 function ProductsIndex() {
   const [products, setProducts] = useState([]);
@@ -38,7 +39,7 @@ function ProductsIndex() {
         parentCategorySlug: product?.category?.parentCategory?.categorySlug,
       };
       return (
-        <Grid key={idx} xs={6} sm={4} md={3} item>
+        <Grid key={idx} xs={6} sm={4} md={3} item sx={{ paddingTop: 0 }}>
           <ProductCard product={productCardDetails} />
         </Grid>
       );
@@ -47,7 +48,7 @@ function ProductsIndex() {
   return (
     <>
       <Grid container spacing={3}>
-        {productCardsToShow}
+        {!isLoading ? productCardsToShow : <ProductsSkeleton />}
       </Grid>
     </>
   );

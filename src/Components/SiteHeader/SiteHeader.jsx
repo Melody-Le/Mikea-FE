@@ -90,6 +90,7 @@ function SiteHeader() {
       sx={{
         boxShadow: 1,
         backgroundColor: "rgba(255,255,255, 0.9)",
+        marginBottom: "3rem",
       }}
       className="site-header"
     >

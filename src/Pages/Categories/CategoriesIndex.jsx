@@ -9,7 +9,7 @@ import CategorySkeleton from "../Categories/CategorySkeleton";
 
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import BreadcrumbsCustom from "../../Components/BreadcrumbsCustom/BreadcrumbsCustom";
-
+import ProductsSkeleton from "../ProductsIndex/ProductsSkeleton";
 function CategoriesIndex() {
   const location = useLocation();
   const currentLocation = location.pathname;
@@ -24,6 +24,7 @@ function CategoriesIndex() {
   useEffect(() => {
     async function getData() {
       try {
+        setIsLoading(true);
         const response = await axios.get(`/categories/${params.slug}`);
         const subCats = response?.data?.subCategories;
         if (subCats?.length) {
@@ -32,12 +33,13 @@ function CategoriesIndex() {
             `/products?parentCat=${params.slug}`
           );
           setProducts(productsRes?.data);
-          console.log("products prom isParentCat");
+          setIsLoading(false);
         } else {
           const productsRes = await axios.get(
             `/products?subCat=${params.slug}`
           );
           setProducts(productsRes?.data);
+          setIsLoading(false);
         }
         return;
       } catch (err) {}
@@ -106,7 +108,8 @@ function CategoriesIndex() {
         {!isLoading ? catToShow : <CategorySkeleton />}
       </Grid>
       <Grid container spacing={3} marginTop={5}>
-        {productCardsToShow}
+        {/* {productCardsToShow} */}
+        {!isLoading ? productCardsToShow : <ProductsSkeleton />}
       </Grid>
     </>
   );
