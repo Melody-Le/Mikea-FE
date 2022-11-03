@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Skeleton } from "@mui/material";
 import AspectRatio from "@mui/joy/AspectRatio";
-import "./Home.scss";
 export default function CategorySkeleton() {
   const catToShow = [1, 2, 3, 4, 5, 6].map((cat, idx) => {
     return (

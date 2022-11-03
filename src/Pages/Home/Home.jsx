@@ -5,8 +5,10 @@ import { Avatar, Box, Grid, Typography, Button, Skeleton } from "@mui/material";
 import AspectRatio from "@mui/joy/AspectRatio";
 import "./Home.scss";
 import axios from "../../api/axios";
-import CategorySkeleton from "./CategorySkeleton";
+import CategorySkeleton from "../Categories/CategorySkeleton";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CategoryBox from "../../Components/Category/CategoryBox";
+
 export default function Home() {
   const matches = useMediaQuery("(max-width:600px)");
   const [categories, setcategories] = useState([]);
@@ -17,7 +19,6 @@ export default function Home() {
         const response = await axios.get("/categories");
         setcategories(response?.data?.allCategories);
         setIsLoading(false);
-        console.log("response?.data:", response?.data);
       } catch (err) {}
     }
     getData();
@@ -31,37 +32,11 @@ export default function Home() {
         <Grid key={idx} xs={4} sm={2} md={2} item>
           <Link to={`/categories/${categorySlug}`}>
             <Box position={"relative"}>
-              <AspectRatio ratio="1" objectFit="cover" variant="square">
-                <Avatar
-                  alt={categoryLabel}
-                  src={categoryImg}
-                  variant="rounded"
-                  sx={{
-                    width: "100%",
-                    borderRadius: 3,
-                    transition: "all 3s ease",
-                  }}
-                />
-              </AspectRatio>
-              <Typography
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  right: "50%",
-                  textAlign: "center",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontWeight: 600,
-                  fontSize: matches ? "1rem" : "1.3rem",
-                  color: "var(--colorwhite)",
-                  width: "100%",
-                  transform: "translateX(-50%) translateY(-50%)",
-                  textShadow: "2px 2px 4px black",
-                }}
-              >
-                {categoryLabel}
-              </Typography>
+              <CategoryBox
+                categoryLabel={categoryLabel}
+                categoryImg={categoryImg}
+                matches={matches}
+              />
             </Box>
           </Link>
         </Grid>
@@ -103,7 +78,7 @@ export default function Home() {
           sx={{
             width: "70%",
             // height: "20rem",
-            height: matches ? "8rem" : "20rem",
+            height: matches ? "8rem" : "23rem",
             borderRadius: 0,
             objectFit: "contain",
             border: "solid 1px var(--color4)",
@@ -111,16 +86,6 @@ export default function Home() {
           }}
         />
       </Box>
-      <Typography
-        sx={{
-          fontSize: "1.2rem",
-          fontWeight: 500,
-          marginBottom: "1rem",
-          color: "var(--color1)",
-        }}
-      >
-        Caterogies
-      </Typography>
       <Grid container spacing={1}>
         {!isLoading ? catToShow : <CategorySkeleton />}
       </Grid>

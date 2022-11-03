@@ -13,8 +13,6 @@ export default function useRefreshToken() {
     const newAccessToken = response.data.accessToken;
 
     setAuth((prev) => {
-      console.log("JSON.stringify(prev) is:", JSON.stringify(prev));
-      console.log("newAccessToken is:", newAccessToken);
       return { ...prev, accessToken: newAccessToken };
     });
     removeCookie("accessToken");

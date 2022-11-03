@@ -21,7 +21,6 @@ export default function LogOut() {
     }
 
     completeLogout();
-    console.log("Logout done");
 
     navigate("/", { replace: true });
   }, []);
