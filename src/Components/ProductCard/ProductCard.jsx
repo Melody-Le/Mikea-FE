@@ -17,8 +17,7 @@ import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import OutOfStock from "../Button/OutOfStock";
 
 const ProductCard = (props) => {
-  const { getLineItemQty, addToCart, isLoadingCard, setIsLoadingCart } =
-    useShoppingCart();
+  const { getLineItemQty, addToCart } = useShoppingCart();
   const { productName, category, productImages, variants, productSlug } =
     props.product;
   const defaultVariant = {
@@ -29,6 +28,7 @@ const ProductCard = (props) => {
   };
   const [price, setPrice] = useState(defaultVariant.price || 0);
   const [variantId, setVariantId] = useState(defaultVariant.id);
+  const [isLoading, setIsLoading] = useState(false);
   const [variantQtyInStock, setVariantQtyInStock] = useState(
     defaultVariant.qtyInStock
   );
@@ -36,8 +36,10 @@ const ProductCard = (props) => {
 
   const handleAddToCart = async (evnt) => {
     evnt.preventDefault();
+    setIsLoading(true);
     try {
       await addToCart(variantId);
+      setIsLoading(false);
       return;
     } catch (error) {
       return;
@@ -148,7 +150,7 @@ const ProductCard = (props) => {
           ) : (
             <LoadingButton
               variant="rounded"
-              loading={isLoadingCard}
+              loading={isLoading}
               onClick={handleAddToCart}
               sx={{
                 backgroundColor: "var(--color4-transparent)",

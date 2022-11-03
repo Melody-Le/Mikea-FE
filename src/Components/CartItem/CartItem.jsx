@@ -43,6 +43,7 @@ function CartItem(props) {
   const currentLineItemQty = getLineItemQty(variantId);
   const [lineItemQty, setlineItemQty] = useState(currentLineItemQty);
   const [openSelect, setOpenSelect] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSelectChange = async (event) => {
     const qtyChange = event.target.value;
     await updateQtyLineItemQty(variantId, qtyChange);
@@ -59,10 +60,10 @@ function CartItem(props) {
   };
   const handleRemoveCartItem = async (evnt) => {
     evnt.preventDefault();
-    setIsLoadingCart(true);
+    setIsLoading(true);
     try {
       await removeFromCart(variantId);
-      setIsLoadingCart(false);
+      setIsLoading(false);
       return;
     } catch (error) {}
   };
@@ -181,7 +182,7 @@ function CartItem(props) {
             )}
             <LoadingBtn
               className="remove-btn"
-              loading={isLoadingCard}
+              loading={isLoading}
               onClick={handleRemoveCartItem}
               variant="outline"
               fullWidth={true}

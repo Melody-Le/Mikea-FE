@@ -6,7 +6,6 @@ import Home from "./Pages/Home/Home";
 import ProductsIndex from "./Pages/ProductsIndex/ProductsIndex";
 import AuthGrid from "./Pages/Auth/AuthPage";
 import SiteHeader from "./Components/SiteHeader/SiteHeader";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LogOut from "./Components/Logout/Logout";
 import { ShoppingCartProvider } from "./Context/ShoppingCartContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
