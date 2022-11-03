@@ -38,7 +38,6 @@ function CategoriesIndex() {
             `/products?subCat=${params.slug}`
           );
           setProducts(productsRes?.data);
-          console.log("products prom sub cat");
         }
         return;
       } catch (err) {}

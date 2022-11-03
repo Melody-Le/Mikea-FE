@@ -17,12 +17,6 @@ function BreadcrumbsCustom({ locationState }) {
         aria-label="breadcrumb"
       >
         {pathnames?.map((name, index) => {
-          const pathURLState =
-            index === 1
-              ? `/categories/${pathnames[1]}`
-              : index === 2
-              ? `/categories/${pathnames[1]}/${pathnames[2]}`
-              : ``;
           const niceName = name?.replaceAll("-", " ");
           const isLast = index === pathnames.length - 1;
           return index == 0 ? (
@@ -45,12 +39,30 @@ function BreadcrumbsCustom({ locationState }) {
             >
               {niceName}
             </Typography>
+          ) : index === 1 ? (
+            <Link
+              key={index}
+              to={`/categories/${pathnames[index]}`}
+              state={{
+                pathURL: `/categories/${pathnames[index]}`,
+              }}
+              style={{
+                textDecoration: "none",
+                color: "var(--color4a)",
+                textTransform: "capitalize",
+                fontSize: "1.2rem",
+              }}
+            >
+              {niceName}
+            </Link>
           ) : (
             <Link
               key={index}
               to={`/categories/${pathnames[index]}`}
               state={{
-                pathURL: pathURLState,
+                pathURL: `/categories/${pathnames[index - 1]}/${
+                  pathnames[index]
+                }`,
               }}
               style={{
                 textDecoration: "none",
