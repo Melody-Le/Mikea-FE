@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Avatar, Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";

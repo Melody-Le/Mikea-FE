@@ -6,7 +6,7 @@ import axios from "../../api/axios";
 
 export default function LogOut() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, removeCookie] = useCookies();
   const refreshToken = cookies.refreshToken;
   const { setAuth } = useContext(AuthContext);
   console.log("Logout done");

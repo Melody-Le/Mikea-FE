@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import axios from "../../api/axios";
 
 import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
 import OutOfStock from "../../Components/Button/OutOfStock";
@@ -10,7 +11,8 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import { LoadingButton } from "@mui/lab";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import BreadcrumbsCustom from "../../Components/BreadcrumbsCustom/BreadcrumbsCustom";
-import axios from "../../api/axios";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 import("./ProductShowPage.scss");
 
 function ProductShowPage() {
@@ -18,10 +20,7 @@ function ProductShowPage() {
     useShoppingCart();
 
   const location = useLocation();
-  const currentLocation = location.pathname;
   const currentLocationState = location.state;
-  // console.log("currentLocationState", currentLocationState);
-  const navigate = useNavigate();
   const params = useParams();
 
   const [product, setProduct] = useState(null);
@@ -57,6 +56,7 @@ function ProductShowPage() {
     }
     getData();
   }, []);
+  console.log(productImgs);
   const cartItemQty = getLineItemQty(variantDetail?.variantId);
 
   let variantBox = [];
@@ -212,6 +212,25 @@ function ProductShowPage() {
                 Area in use: {product?.room}
               </Typography>
             </Grid>
+            <ImageList
+              sx={{ width: "100%" }}
+              cols={3}
+              rowHeight={164}
+              style={{
+                aspectRatio: 1 / 1,
+              }}
+            >
+              {productImgs.map((item, idx) => (
+                <ImageListItem key={idx}>
+                  <img
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={product?.productSlug}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
           </Grid>
         </>
       ) : (
