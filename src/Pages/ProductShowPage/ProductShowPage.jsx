@@ -9,7 +9,7 @@ import ProductShowPageSkeleton from "./ProductShowPageSkeleton";
 import AspectRatio from "@mui/joy/AspectRatio";
 import { LoadingButton } from "@mui/lab";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-
+import BreadcrumbsCustom from "../../Components/BreadcrumbsCustom/BreadcrumbsCustom";
 import axios from "../../api/axios";
 import("./ProductShowPage.scss");
 
@@ -18,6 +18,9 @@ function ProductShowPage() {
     useShoppingCart();
 
   const location = useLocation();
+  const currentLocation = location.pathname;
+  const currentLocationState = location.state;
+  // console.log("currentLocationState", currentLocationState);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -125,11 +128,9 @@ function ProductShowPage() {
 
   return (
     <>
+      <BreadcrumbsCustom locationState={currentLocationState} />
       {!isLoading ? (
         <>
-          <Typography>
-            Products {">"} Chairs {">"} Office Chair
-          </Typography>
           <Grid container gap={3} marginTop={4}>
             <Grid item xs={12} sm={5} md={3}>
               <AspectRatio ratio="1" objectFit="cover" variant="square">
@@ -191,6 +192,9 @@ function ProductShowPage() {
                   </LoadingButton>
                 )}
               </Box>
+              <Typography className="description-note">
+                SKU: {variantDetail?.id}
+              </Typography>
               <Typography
                 variant="subtitle1"
                 sx={{ color: "var(--color2)", fontWeight: 400 }}

@@ -28,12 +28,14 @@ function ProductsIndex() {
         productSlug,
       } = product;
       const productCardDetails = {
-        category: product?.category?.categoryLabel,
+        categoryLable: product?.category?.categoryLable,
         productDescription,
         productImages: productImages,
         productName,
         variants,
         productSlug,
+        categorySlug: product?.category?.categorySlug,
+        parentCategorySlug: product?.category?.parentCategory?.categorySlug,
       };
       return (
         <Grid key={idx} xs={6} sm={4} md={3} item>

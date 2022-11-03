@@ -18,14 +18,8 @@ import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
 function CartItem(props) {
-  const {
-    closeCart,
-    getLineItemQty,
-    removeFromCart,
-    updateQtyLineItemQty,
-    isLoadingCard,
-    setIsLoadingCart,
-  } = useShoppingCart();
+  const { closeCart, getLineItemQty, removeFromCart, updateQtyLineItemQty } =
+    useShoppingCart();
   const {
     variantImage,
     variantId,

@@ -26,20 +26,30 @@ export default function Home() {
   let catToShow = [];
   if (categories?.length) {
     catToShow = categories?.map((cat, idx) => {
-      const { categoryLabel, categorySlug, parentCategoryId, categoryImg } =
-        cat;
+      const {
+        categoryLabel,
+        categorySlug,
+        parentCategoryId,
+        categoryImg,
+        subCategory,
+      } = cat;
       return (
-        <Grid key={idx} xs={4} sm={2} md={2} item>
-          <Link to={`/categories/${categorySlug}`}>
-            <Box position={"relative"}>
-              <CategoryBox
-                categoryLabel={categoryLabel}
-                categoryImg={categoryImg}
-                matches={matches}
-              />
-            </Box>
-          </Link>
-        </Grid>
+        !parentCategoryId && (
+          <Grid key={idx} xs={4} sm={2} md={2} item>
+            <Link
+              to={`/categories/${categorySlug}`}
+              state={{ pathURL: `/categories/${categoryLabel}` }}
+            >
+              <Box position={"relative"}>
+                <CategoryBox
+                  categoryLabel={categoryLabel}
+                  categoryImg={categoryImg}
+                  matches={matches}
+                />
+              </Box>
+            </Link>
+          </Grid>
+        )
       );
     });
   }

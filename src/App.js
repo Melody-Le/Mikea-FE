@@ -14,6 +14,7 @@ import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import ProductShowPage from "./Pages/ProductShowPage/ProductShowPage";
 import Layout from "./Components/Layout/Layout";
 import CategoriesIndex from "./Pages/Categories/CategoriesIndex";
+import BreadcrumbsCustom from "./Components/BreadcrumbsCustom/BreadcrumbsCustom";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               />
               <Route path="/login" element={<AuthGrid formType="login" />} />
               <Route path="/logout" element={<LogOut />} />
+              <Route path="/breadcrumbs" element={<BreadcrumbsCustom />} />
               <Route path="/categories/:slug" element={<CategoriesIndex />} />
               <Route path="/products" element={<ProductsIndex />} />
               <Route path="/products/:slug" element={<ProductShowPage />} />

@@ -18,8 +18,15 @@ import OutOfStock from "../Button/OutOfStock";
 
 const ProductCard = (props) => {
   const { getLineItemQty, addToCart } = useShoppingCart();
-  const { productName, category, productImages, variants, productSlug } =
-    props.product;
+  const {
+    categoryLabel,
+    productName,
+    productImages,
+    variants,
+    productSlug,
+    categorySlug,
+    parentCategorySlug,
+  } = props.product;
   const defaultVariant = {
     id: variants[0]?.id,
     price: variants[0]?.price,
@@ -45,6 +52,9 @@ const ProductCard = (props) => {
       return;
     }
   };
+  const productPathURL = parentCategorySlug
+    ? `categories/${parentCategorySlug}/${categorySlug}/${productSlug}`
+    : `categories/${categorySlug}/${productSlug}`;
 
   const [productImage, setProductImage] = useState(
     productImages ||
@@ -54,7 +64,6 @@ const ProductCard = (props) => {
   if (variants?.length) {
     variantBox = variants?.map((variant, idx) => {
       const { id, variantImage, price, qtyInStock } = variant;
-
       const setVariantTarget = (evnt) => {
         evnt.preventDefault();
         setPrice(price);
@@ -93,7 +102,10 @@ const ProductCard = (props) => {
     <Paper elevation={5} sx={{ borderRadius: 4 }}>
       <Box padding={1}>
         {props.product ? (
-          <Link to={`/products/${productSlug}`}>
+          <Link
+            to={`/products/${productSlug}`}
+            state={{ pathURL: productPathURL }}
+          >
             <AspectRatio ratio="1" objectFit="cover" variant="square">
               <Avatar
                 alt={productName}
@@ -119,7 +131,7 @@ const ProductCard = (props) => {
 
         <Box mt={1}>
           <Typography variant="subtitle1" className="category-label">
-            {category || "Ikea Clone"}
+            {categoryLabel || "Ikea Clone"}
           </Typography>
         </Box>
         <Box

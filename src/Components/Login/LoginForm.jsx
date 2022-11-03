@@ -51,7 +51,7 @@ export default function LoginForm() {
       setOpenSnack(true);
       setMessage("Login successful. Redirecting to homepage...");
       setSeverity("success");
-      navigate(from, { replace: true });
+      navigate(-1, { replace: true });
     } catch (err) {
       setIsLoading(false);
       setOpenSnack(true);
