@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: "5",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "0",
+      width: 0,
     },
   },
 }));

@@ -166,7 +166,7 @@ function SiteHeader() {
                         to={`${page.pageLink}`}
                         component={Link}
                         sx={{
-                          borderBottom: "0",
+                          borderBottom: 0,
                           borderRadius: 1,
                           "&:hover": {
                             backgroundColor: "var(--colorGreen)",
@@ -191,49 +191,51 @@ function SiteHeader() {
                       </ListItemButton>
                     ))}
                   </List>
-
-                  <IconButton
-                    onClick={openCart}
-                    aria-label="add to shopping cart"
-                    size="small"
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "var(--colorGreen)",
-                      color: "var(--color4a)",
-                      borderRadius: 1,
-                      position: "relative",
-                      "&:hover": {
-                        transition: "all 0.3s ease",
+                  {isAuth ? (
+                    <IconButton
+                      onClick={openCart}
+                      aria-label="add to shopping cart"
+                      size="small"
+                      variant="contained"
+                      sx={{
                         backgroundColor: "var(--colorGreen)",
-                        border: "solid 1px var(--colorGreenBorder)",
-                      },
-                    }}
-                  >
-                    <ShoppingBasketIcon />
-                    {totalItemInCart > 0 ? (
-                      <Box
-                        sx={{
-                          borderRadius: 5,
-                          backgroundColor: "var(--color6)",
-                          width: "1.5rem",
-                          height: "1.5rem",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          position: "absolute",
-                          bottom: 0,
-                          right: 0,
-                          transform: "translate(25%, 50%)",
-                          display: "flex",
-                          // fontSize: "1rem",
-                          color: "var(--colorwhite)",
-                        }}
-                      >
-                        {totalItemInCart}
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                  </IconButton>
+                        color: "var(--color4a)",
+                        borderRadius: 1,
+                        position: "relative",
+                        "&:hover": {
+                          transition: "all 0.3s ease",
+                          backgroundColor: "var(--colorGreen)",
+                          border: "solid 1px var(--colorGreenBorder)",
+                        },
+                      }}
+                    >
+                      <ShoppingBasketIcon />
+                      {totalItemInCart > 0 ? (
+                        <Box
+                          sx={{
+                            borderRadius: 5,
+                            backgroundColor: "var(--color6)",
+                            width: "1.5rem",
+                            height: "1.5rem",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            position: "absolute",
+                            bottom: 0,
+                            right: 0,
+                            transform: "translate(25%, 50%)",
+                            display: "flex",
+                            color: "var(--colorwhite)",
+                          }}
+                        >
+                          {totalItemInCart}
+                        </Box>
+                      ) : (
+                        ""
+                      )}
+                    </IconButton>
+                  ) : (
+                    ""
+                  )}
                 </Box>
               </Grid>
             </Grid>
@@ -241,7 +243,6 @@ function SiteHeader() {
             {isAuth && (
               <Box
                 sx={{
-                  // flexGrow: 1,
                   marginLeft: 1,
                   display: "flex",
                   flexDirection: "column",
@@ -257,7 +258,7 @@ function SiteHeader() {
                   marginTop={1}
                 />
                 <Typography sx={{ fontSize: "1rem" }}>
-                  Hi {titleCase(profile?.username || "username")}
+                  Hi {titleCase(profile?.username || "user")}
                 </Typography>
               </Box>
             )}

@@ -6,13 +6,13 @@ import { Grid } from "@mui/material";
 
 function ProductsIndex() {
   const [products, setProducts] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function getData() {
       try {
         const productResponse = await axios.get("/products");
         setProducts(productResponse.data);
-        // setIsLoading(true);
+        setIsLoading(false);
       } catch (err) {}
     }
     getData();
