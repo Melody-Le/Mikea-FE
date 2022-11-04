@@ -23,7 +23,7 @@ export default function ConfirmModal(props) {
   return (
     <>
       <div className={"overlay"} onClick={onClose}></div>
-      <div className={"modal"}>
+      <div className={"modal"} sx={{ borderRadius: 3 }}>
         <Box className={"modal-content"}>
           <Typography variant={"h6"} className={"modal-title"}>
             {title}
@@ -38,12 +38,44 @@ export default function ConfirmModal(props) {
           </Typography>
         </Box>
 
-        <Box padding={2}>
-          <Button onClick={confirm} variant="contained">
+        <Box
+          padding={2}
+          sx={{ display: "flex", justifyContent: "center", gap: "0.5rem" }}
+        >
+          <Button
+            onClick={confirm}
+            variant="contained"
+            sx={{
+              backgroundColor: "var(--colorGreen)",
+              color: "var(--color4a)",
+              borderRadius: 1,
+              position: "relative",
+              "&:hover": {
+                transition: "all 0.3s ease",
+                backgroundColor: "var(--colorGreen)",
+                border: "solid 1px var(--colorGreenBorder)",
+              },
+            }}
+          >
             Confirm
           </Button>
-          <Button onClick={onClose} variant="contained">
-            Cancel
+          <Button
+            onClick={onClose}
+            variant="contained"
+            sx={{
+              backgroundColor: "var(--color4)",
+              color: "var(--colorwhite)",
+              borderRadius: 1,
+              position: "relative",
+              "&:hover": {
+                transition: "all 0.3s ease",
+                backgroundColor: "var(--colorGreen)",
+                border: "solid 1px var(--colorGreenBorder)",
+                color: "var(--color4a)",
+              },
+            }}
+          >
+            Cancle
           </Button>
         </Box>
       </div>
