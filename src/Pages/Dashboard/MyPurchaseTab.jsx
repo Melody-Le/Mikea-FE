@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 
 import OrderCard from "../../Components/OrderCard/OrderCard";
 import OrderCardSkeleton from "../../Components/OrderCard/OrderCardSkeleton";
-
+import EmptyBox from "../../Components/EmptyBox/EmptyBox";
 function MyPurchaseTab() {
   const axiosPrivate = useAxiosPrivate();
   const [orders, setOrders] = useState([]);
@@ -14,7 +14,8 @@ function MyPurchaseTab() {
     async function getData() {
       try {
         const response = await axiosPrivate.get("/orders");
-        setOrders(response.data.orderList);
+        // setOrders(response?.data?.orderList);
+        setOrders([]);
         setIsLoading(false);
       } catch (err) {}
     }
@@ -36,9 +37,20 @@ function MyPurchaseTab() {
         <OrderCard key={idx} orderDetail={orderDetail} isLoading={false} />
       );
     });
-  } else {
+  } else if (!orders?.length && isLoading) {
     return <OrderCardSkeleton />;
-  }
+  } else
+    return (
+      <Box
+        sx={{
+          minHeight: "calc(100vh - 15rem)",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <EmptyBox />
+      </Box>
+    );
   return (
     <Stack
       alignItems={"center"}

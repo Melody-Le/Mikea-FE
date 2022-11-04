@@ -15,7 +15,7 @@ import ProductShowPage from "./Pages/ProductShowPage/ProductShowPage";
 import Layout from "./Components/Layout/Layout";
 import CategoriesIndex from "./Pages/Categories/CategoriesIndex";
 import BreadcrumbsCustom from "./Components/BreadcrumbsCustom/BreadcrumbsCustom";
-import LoginAuto from "./Components/Login/LoginAuto";
+import OrderPage from "./Pages/OrderPage/OrderPage";
 function App() {
   return (
     <div className="App">
@@ -31,13 +31,14 @@ function App() {
               />
               <Route path="/login" element={<AuthGrid formType="login" />} />
               <Route path="/logout" element={<LogOut />} />
-              <Route path="/loginAuto" element={<LoginAuto />} />
               <Route path="/breadcrumbs" element={<BreadcrumbsCustom />} />
               <Route path="/categories/:slug" element={<CategoriesIndex />} />
               <Route path="/products" element={<ProductsIndex />} />
               <Route path="/products/:slug" element={<ProductShowPage />} />
               <Route path="/user" element={<Dashboard />} />
               <Route path="/user/edit" element={<ProfileEdit />} />
+              <Route path="/order" element={<OrderPage />} />
+
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>

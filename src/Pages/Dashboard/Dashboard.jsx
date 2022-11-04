@@ -109,7 +109,7 @@ export default function LabTabs() {
                 display: "flex",
                 justifyContent: "center",
                 paddingBottom: 3,
-                minHeight: "calc(100% - 5rem)",
+                minHeight: "calc(100% - 15rem)",
               }}
               className="tab-box"
             >

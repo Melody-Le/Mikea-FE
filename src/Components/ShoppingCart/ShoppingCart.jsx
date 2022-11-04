@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
+import { useParams, useLocation, Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import { Button, Grid, Typography } from "@mui/material";
@@ -14,6 +15,7 @@ import CartItem from "../CartItem/CartItem";
 
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { formatCurrency } from "../../Utilities/formatCurrency";
+import EmptyBox from "../EmptyBox/EmptyBox";
 
 function ShoppingCart({ isOpen }) {
   const { closeCart, cartItems, createOrder } = useShoppingCart();
@@ -50,7 +52,7 @@ function ShoppingCart({ isOpen }) {
       lineItemInOrder.push({ id: cartItemDetail?.variantId });
       return (
         <ListItem key={idx}>
-          {cartItemDetail?.qtyInStock > 0 ? (
+          {!!cartItemDetail?.qtyInStock ? (
             <FormControlLabel
               control={
                 <Checkbox
@@ -107,41 +109,39 @@ function ShoppingCart({ isOpen }) {
   };
   return (
     <>
-      {cartItemToShow.length && (
-        <Drawer
-          PaperProps={{
-            sx: {
-              backgroundColor: "var(--colorTeal)",
-              width: "50%",
-              maxWidth: "50rem",
-              height: "100vh",
-              border: 1,
-              justifyContent: "flex-start",
-            },
+      <Drawer
+        PaperProps={{
+          sx: {
+            backgroundColor: "var(--colorTeal)",
+            width: "50%",
+            maxWidth: "50rem",
+            height: "100vh",
+            border: 1,
+            justifyContent: "flex-start",
+          },
+        }}
+        anchor="right"
+        open={isOpen}
+        onClose={closeCart}
+        padding={1}
+      >
+        <Box
+          sx={{
+            // maxHeight: "calc(100% - 5rem)",
+            overflow: "auto",
+            alignItems: "flex-start",
+            flexDirection: "column",
           }}
-          anchor="right"
-          open={isOpen}
-          onClose={closeCart}
-          padding={1}
         >
-          <Grid
-            container
-            spacing={3}
-            padding={3}
-            sx={{
-              maxHeight: "calc(100% - 5rem)",
-              overflow: "auto",
-              alignItems: "flex-start",
-            }}
+          <Typography
+            variant="subtitle1"
+            sx={{ fontSize: "1.3rem" }}
+            marginLeft={2}
+            marginTop={1}
           >
-            <Typography
-              variant="subtitle1"
-              sx={{ fontSize: "1.3rem" }}
-              marginLeft={2}
-              marginTop={1}
-            >
-              Your Cart
-            </Typography>
+            Your Cart
+          </Typography>
+          {cartItemToShow?.length ? (
             <List
               sx={{
                 [`& .${checkboxClasses.root}`]: {
@@ -155,7 +155,11 @@ function ShoppingCart({ isOpen }) {
             >
               {cartItemToShow}
             </List>
-          </Grid>
+          ) : (
+            <EmptyBox />
+          )}
+        </Box>
+        {cartItemToShow?.length && (
           <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
             <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>
               Total price:{formatCurrency(updatedPrice) || "free"}
@@ -176,8 +180,8 @@ function ShoppingCart({ isOpen }) {
               Check out
             </Button>
           </Box>
-        </Drawer>
-      )}
+        )}
+      </Drawer>
     </>
   );
 }

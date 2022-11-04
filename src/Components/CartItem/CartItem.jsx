@@ -157,7 +157,7 @@ function CartItem(props) {
               alignItems: "center",
             }}
           >
-            {qtyInStock > 0 ? (
+            {!!qtyInStock ? (
               <FormControl sx={{ m: 2, minWidth: 120 }}>
                 <InputLabel id="select-cart-item-qty-label">
                   Quantity

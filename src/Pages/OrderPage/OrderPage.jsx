@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
-import "./Dashboard.scss";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,7 +11,7 @@ import Button from "@mui/material/Button";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 
-function ProfileEdit() {
+function OrderPage() {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
   const isAuth = !!auth?.email;
@@ -47,7 +46,6 @@ function ProfileEdit() {
       setTimeout(navigate, 500, `/user`);
     } catch (error) {}
   };
-
   return (
     <Box position={"relative"}>
       <Typography
@@ -212,4 +210,4 @@ function ProfileEdit() {
   );
 }
 
-export default ProfileEdit;
+export default OrderPage;

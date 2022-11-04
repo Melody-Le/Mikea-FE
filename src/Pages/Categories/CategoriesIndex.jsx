@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import { Avatar, Box, Grid, Typography, Button, Skeleton } from "@mui/material";
+import { useParams, useLocation, Link } from "react-router-dom";
+import { Box, Grid } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "../../api/axios";
 import CategoryBox from "../../Components/Category/CategoryBox";

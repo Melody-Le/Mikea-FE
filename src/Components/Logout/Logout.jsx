@@ -23,8 +23,8 @@ export default function LogOut() {
 
     navigate("/", { replace: true });
   }, []);
-  console.log(refreshToken);
-  console.log(cookies);
+  // console.log(refreshToken);
+  // console.log(cookies);
 
   return <></>;
 }
