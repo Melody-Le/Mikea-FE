@@ -63,7 +63,7 @@ export function ShoppingCartProvider({ children }) {
       setIsLoadingCart(true);
       try {
         await axiosPrivate.post(`/cart/add/${variantId}`);
-        // await fetchCart();
+        await fetchCart();
         setIsLoadingCart(false);
         return;
       } catch (error) {
