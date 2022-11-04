@@ -16,6 +16,8 @@ import Layout from "./Components/Layout/Layout";
 import CategoriesIndex from "./Pages/Categories/CategoriesIndex";
 import BreadcrumbsCustom from "./Components/BreadcrumbsCustom/BreadcrumbsCustom";
 import OrderPage from "./Pages/OrderPage/OrderPage";
+import RequireAuth from "./Components/RequireAuth/RequireAuth";
+
 function App() {
   return (
     <div className="App">
@@ -23,22 +25,25 @@ function App() {
         <SiteHeader />
         <Container mb={1}>
           <Routes>
-            <Route path="/order" element={<OrderPage />} />
             <Route path="/" element={<Layout />}>
+              {/* Public Routes:  */}
               <Route path="/" element={<Home />} />
               <Route
                 path="/register"
                 element={<AuthGrid formType="register" />}
               />
               <Route path="/login" element={<AuthGrid formType="login" />} />
-              <Route path="/logout" element={<LogOut />} />
-              <Route path="/breadcrumbs" element={<BreadcrumbsCustom />} />
               <Route path="/categories/:slug" element={<CategoriesIndex />} />
               <Route path="/products" element={<ProductsIndex />} />
               <Route path="/products/:slug" element={<ProductShowPage />} />
-              <Route path="/user" element={<Dashboard />} />
-              <Route path="/user/edit" element={<ProfileEdit />} />
-
+              {/* Protected route  */}
+              <Route element={<RequireAuth />}>
+                <Route path="/order" element={<OrderPage />} />
+                <Route path="/logout" element={<LogOut />} />
+                <Route path="/user" element={<Dashboard />} />
+                <Route path="/user/edit" element={<ProfileEdit />} />
+              </Route>
+              {/* Catch all  */}
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>

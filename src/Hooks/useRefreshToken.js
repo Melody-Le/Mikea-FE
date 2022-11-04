@@ -9,7 +9,7 @@ export default function useRefreshToken() {
     const response = await axios.post("/auth/refresh", {
       refreshToken: cookies.refreshToken,
     });
-    console.log("response?.data", response?.data);
+    // console.log("response?.data", response?.data);
 
     const newAccessToken = response.data.accessToken;
 
@@ -18,7 +18,6 @@ export default function useRefreshToken() {
     });
     removeCookie("accessToken");
     setCookie("accessToken", newAccessToken);
-
     return newAccessToken;
   };
 

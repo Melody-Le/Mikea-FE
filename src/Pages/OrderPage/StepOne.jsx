@@ -1,26 +1,23 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import SaveIcon from "@mui/icons-material/Save";
 
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import EditIcon from "@mui/icons-material/Edit";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
-const steps = ["Check Information", "Review Order Item", "Payment"];
 
 function StepOne(props) {
   const { auth } = useContext(AuthContext);
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
+  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     address: "",
@@ -41,6 +38,14 @@ function StepOne(props) {
       ...formData,
       [evnt.target.name]: evnt.target.value,
     });
+  };
+  const handleUpdateInfo = async (evnt) => {
+    evnt.preventDefault();
+    try {
+      setIsLoadingInfo(true);
+      await axiosPrivate.put("/user", formData);
+      setIsLoadingInfo(false);
+    } catch (error) {}
   };
 
   return (
@@ -90,7 +95,6 @@ function StepOne(props) {
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="username"
           />
@@ -109,7 +113,6 @@ function StepOne(props) {
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="email"
           />
@@ -127,7 +130,6 @@ function StepOne(props) {
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="address"
           />
@@ -145,7 +147,6 @@ function StepOne(props) {
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             name="postalCode"
           />
         </Box>
@@ -162,7 +163,6 @@ function StepOne(props) {
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="phone"
           />
@@ -170,7 +170,28 @@ function StepOne(props) {
         <Box
           sx={{ display: "flex", gap: 3, marginTop: 3 }}
           className="information-box"
-        ></Box>
+        >
+          <LoadingButton
+            size="small"
+            loading={isLoadingInfo}
+            onClick={handleUpdateInfo}
+            startIcon={<SaveIcon />}
+            loadingPosition="start"
+            variant="contained"
+            sx={{
+              backgroundColor: "var(--color4-transparent)",
+              color: "var(--color4a)",
+              borderRadius: 1,
+              padding: "8px",
+              ":hover": {
+                border: "solid 1px var(--colorGreenBorder)",
+                backgroundColor: "var(--colorGreen)",
+              },
+            }}
+          >
+            Save
+          </LoadingButton>
+        </Box>
       </Box>
     </Box>
   );

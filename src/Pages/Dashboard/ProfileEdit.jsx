@@ -89,13 +89,12 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            hiddenLabel
+            // hiddenLabel
             fullWidth
             value={formData?.username || ""}
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="username"
           />
@@ -107,14 +106,13 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            hiddenLabel
+            // hiddenLabel
             fullWidth
             disabled
             value={formData?.email || ""}
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
             autoFocus
             name="email"
           />
@@ -126,14 +124,12 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            hiddenLabel
+            // hiddenLabel
             fullWidth
             value={formData?.address || ""}
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
             name="address"
           />
         </Box>
@@ -144,14 +140,12 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            hiddenLabel
+            // hiddenLabel
             fullWidth
             value={formData?.postalCode || ""}
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
             name="postalCode"
           />
         </Box>
@@ -162,14 +156,12 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            hiddenLabel
+            // hiddenLabel
             fullWidth
             value={formData?.phone || ""}
             variant="filled"
             size="small"
             type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
             name="phone"
           />
         </Box>
