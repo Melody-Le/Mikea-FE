@@ -185,19 +185,19 @@
 //           sx={{ display: "flex", gap: 3, marginTop: 3 }}
 //           className="information-box"
 //         >
-//           <Button
-//             variant="contained"
-//             fullWidth
-//             sx={{
-//               backgroundColor: "var(--color4)",
-//               marginTop: 2,
-//               ":hover": {
-//                 bgcolor: "var(--color4a)",
-//               },
-//             }}
-//             to="/"
-//             component={Link}
-//           >
+// <Button
+//   variant="contained"
+//   fullWidth
+//   sx={{
+//     backgroundColor: "var(--color4)",
+//     marginTop: 2,
+//     ":hover": {
+//       bgcolor: "var(--color4a)",
+//     },
+//   }}
+//   to="/"
+//   component={Link}
+// >
 //             Cancle Order
 //           </Button>
 //           <Button

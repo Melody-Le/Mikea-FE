@@ -108,6 +108,7 @@ function ShoppingCart({ isOpen }) {
             width: "50%",
             maxWidth: "50rem",
             height: "100vh",
+            // maxHeight: "calc(100vh - 20rem)",
             border: 1,
             justifyContent: "flex-start",
           },
@@ -119,7 +120,7 @@ function ShoppingCart({ isOpen }) {
       >
         <Box
           sx={{
-            // maxHeight: "calc(100% - 5rem)",
+            maxHeight: "calc(100% - 8rem)",
             overflow: "auto",
             alignItems: "flex-start",
             flexDirection: "column",

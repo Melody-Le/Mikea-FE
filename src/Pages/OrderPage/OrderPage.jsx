@@ -1,70 +1,39 @@
-import React from "react";
-import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
-import TextField from "@mui/material/TextField";
+import StepThree from "./StepThree";
 import Typography from "@mui/material/Typography";
-import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
 import StepLabel from "@mui/material/StepLabel";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SendIcon from "@mui/icons-material/Send";
 
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import AuthContext from "../../Context/AuthProvider";
 const steps = ["Check Information", "Review Order Item", "Payment"];
-
 function OrderPage() {
   const { createOrder } = useShoppingCart();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { orderList, totalPrice } = location.state || 0;
 
-  const { auth } = useContext(AuthContext);
-  const axiosPrivate = useAxiosPrivate();
-  const [profile, setProfile] = useState(null);
-  const [formData, setFormData] = useState({
-    username: "",
-    address: "",
-    postalCode: "",
-    phone: "",
-  });
-  useEffect(() => {
-    if (auth?.email) {
-      axiosPrivate.get(`/user`).then((response) => {
-        setProfile(response.data);
-        setFormData(response.data);
-      });
-    }
-  }, [auth]);
-
-  const handleInputChange = (evnt) => {
-    setFormData({
-      ...formData,
-      [evnt.target.name]: evnt.target.value,
-    });
-  };
-
   const handleCheckout = async (evnt) => {
     evnt.preventDefault();
     try {
+      setIsLoading(true);
       await createOrder(orderList);
       setTimeout(navigate, 500, `/user`);
+      setIsLoading(false);
     } catch (error) {}
   };
 
   // ----------------------------
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -77,11 +46,7 @@ function OrderPage() {
   const handleReset = () => {
     setActiveStep(0);
   };
-  // let content = "";
-  // if (activeStep === 1) {
-  //   content = <StepOne handleNext={handleNext} />;
-  //   return content;
-  // }
+
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
@@ -117,8 +82,12 @@ function OrderPage() {
               totalPrice={totalPrice}
             />
           )}
+          {activeStep === 2 && (
+            <StepThree handleCheckout={handleCheckout} orderList={orderList} />
+          )}
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
+              className="step-btn"
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
@@ -126,10 +95,41 @@ function OrderPage() {
             >
               Back
             </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            <Button
+              className="step-btn"
+              color="inherit"
+              to={-1}
+              component={Link}
+              sx={{ mr: 1 }}
+            >
+              Cancle
             </Button>
+            <Box sx={{ flex: "1 1 auto" }} />
+            <Button onClick={handleNext} className="step-btn">
+              {activeStep !== steps.length - 1 && "Next"}
+            </Button>
+            {activeStep === 2 && (
+              <LoadingButton
+                size="small"
+                loading={isLoading}
+                onClick={handleCheckout}
+                endIcon={<SendIcon />}
+                loadingPosition="end"
+                variant="contained"
+                sx={{
+                  backgroundColor: "var(--color4-transparent)",
+                  color: "var(--color4a)",
+                  borderRadius: 1,
+                  padding: "8px",
+                  ":hover": {
+                    border: "solid 1px var(--colorGreenBorder)",
+                    backgroundColor: "var(--colorGreen)",
+                  },
+                }}
+              >
+                Submit order
+              </LoadingButton>
+            )}
           </Box>
         </>
       )}

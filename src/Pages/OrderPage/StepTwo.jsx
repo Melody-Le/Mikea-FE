@@ -42,7 +42,13 @@ function StepTwo(props) {
     return <OrderCardSkeleton />;
   }
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "calc(100vh - 20rem)",
+      }}
+    >
       {lineItemsOrderingToShow}
       <Box
         sx={{

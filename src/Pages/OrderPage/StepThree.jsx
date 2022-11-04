@@ -1,77 +1,31 @@
 import React from "react";
-import { useEffect, useState, useContext } from "react";
-import axios from "../../api/axios";
-import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
-
-import { useShoppingCart } from "../../Context/ShoppingCartContext";
-import OrderCard from "../../Components/OrderCard/OrderCard";
-import PurchaseCard from "../../Components/PurchaseCard/PurchaseCard";
-import OrderCardSkeleton from "../../Components/OrderCard/OrderCardSkeleton";
-
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import EditIcon from "@mui/icons-material/Edit";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
+import CardMedia from "@mui/material/CardMedia";
+import "./OrderPage.scss";
 
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import AuthContext from "../../Context/AuthProvider";
-const steps = ["Check Information", "Review Order Item", "Payment"];
-
-function StepTwo(props) {
-  const { auth } = useContext(AuthContext);
-  const axiosPrivate = useAxiosPrivate();
-  const [lineItemsOnOrdering, setLineItemsOnOrdering] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const variantsIdsString = JSON.stringify(props.orderList);
-
-    const getData = async () => {
-      try {
-        const response = await axiosPrivate.get(
-          `/cart/lineItems?q=${variantsIdsString}`
-        );
-        setLineItemsOnOrdering(response?.data);
-        setIsLoading(false);
-        return;
-      } catch (error) {}
-    };
-    getData();
-  }, [auth]);
-  let lineItemsOrderingToShow = [];
-  if (lineItemsOnOrdering?.length) {
-    lineItemsOrderingToShow = lineItemsOnOrdering?.map((lineItem, idx) => {
-      const productDetail = {
-        variantImage: lineItem?.variant?.variantImage,
-        productName: lineItem?.variant?.product?.productName,
-        variantDescription: lineItem?.variant?.variantDescription,
-        variantId: lineItem?.variant?.id,
-        price: lineItem?.variant?.price,
-        qty: lineItem?.qty,
-      };
-      return <PurchaseCard key={idx} orderDetail={productDetail} />;
-    });
-  } else {
-    return <OrderCardSkeleton />;
-  }
+function StepThree() {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      {lineItemsOrderingToShow}
-      <Box
-        sx={{
-          color: "var(--color6)",
-          alignSelf: "flex-end",
-          marginRight: "3rem",
-        }}
-      >
-        Total Price: ${props.totalPrice}
+    <Box sx={{ marginX: "auto", minHeight: "calc(100vh - 20rem)" }}>
+      <CardMedia
+        sx={{ width: "30vh", height: "30vh", marginX: "auto", borderRadius: 5 }}
+        alt="video"
+        image="https://i.pinimg.com/originals/5f/dd/de/5fdddeab2b4d6ddd1c692e98f200148e.gif"
+        title="video"
+        muted=""
+        autoPlay
+        muted
+      />
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Typography sx={{ marginX: "auto", marginTop: "1rem" }} variant="h6">
+          Oops! Payment feature is on the way ... :(
+        </Typography>
+        <Typography sx={{ marginX: "auto", marginTop: "1rem" }} variant="body">
+          You may checkout without payment by the link below then you can review
+          your order in your dashboard!`
+        </Typography>
       </Box>
     </Box>
   );
 }
-
-export default StepTwo;
+export default StepThree;

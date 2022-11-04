@@ -44,7 +44,7 @@ function StepOne(props) {
   };
 
   return (
-    <Box position={"relative"}>
+    <Box position={"relative"} sx={{ minHeight: "calc(100vh - 20rem)" }}>
       <Typography
         variant="h5"
         component="h5"

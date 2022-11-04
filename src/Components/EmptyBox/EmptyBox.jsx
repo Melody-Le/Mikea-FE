@@ -8,10 +8,10 @@ function EmptyBox() {
     <Box sx={{ marginX: "auto", marginTop: 5 }}>
       <CardMedia
         sx={{
-          height: "40vh",
+          height: "30vh",
           marginX: "auto",
           borderRadius: 5,
-          maxWidth: "80%",
+          maxWidth: "30vh",
         }}
         alt="empty cart"
         image="https://cdn.dribbble.com/users/634336/screenshots/2246883/media/21b6eeac8c36a79c6b4b2a1930bd89a6.png"
