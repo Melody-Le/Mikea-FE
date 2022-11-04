@@ -99,6 +99,8 @@ function ShoppingCart({ isOpen }) {
     return prevPrice + curItem?.qty * curItem?.variant?.price;
   }, 0);
 
+  const allowCheckout = !orderVariantIDs?.length;
+
   return (
     <>
       <Drawer
@@ -164,6 +166,7 @@ function ShoppingCart({ isOpen }) {
               state={{ orderList: orderVariantIDs, totalPrice: updatedPrice }}
               variant="contained"
               fullWidth
+              disabled={allowCheckout}
               sx={{
                 backgroundColor: "var(--color4)",
                 marginTop: 1,

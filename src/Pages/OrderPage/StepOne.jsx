@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
 
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
@@ -12,6 +13,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
+import EditIcon from "@mui/icons-material/Edit";
 
 function StepOne(props) {
   const { auth } = useContext(AuthContext);
@@ -62,16 +64,6 @@ function StepOne(props) {
       >
         Please double check your information Step 1
       </Typography>
-      <Typography
-        variant="subtitle1"
-        sx={{
-          color: "var(--color2)",
-          textAlign: "center",
-        }}
-      >
-        Let's filling the empty fields
-      </Typography>
-
       <Box
         sx={{
           paddingX: "1rem",
@@ -87,16 +79,10 @@ function StepOne(props) {
             Name
           </Typography>
           <TextField
-            onChange={handleInputChange}
-            required
             hiddenLabel
             fullWidth
-            value={formData?.username || ""}
-            variant="filled"
+            value={profile?.username || ""}
             size="small"
-            type="text"
-            autoFocus
-            name="username"
           />
         </Box>
         <Box className="information-box">
@@ -104,17 +90,11 @@ function StepOne(props) {
             Email
           </Typography>
           <TextField
-            onChange={handleInputChange}
-            required
             hiddenLabel
             fullWidth
             disabled
-            value={formData?.email || ""}
-            variant="filled"
+            value={profile?.email || ""}
             size="small"
-            type="text"
-            autoFocus
-            name="email"
           />
         </Box>
         <Box className="information-box">
@@ -122,16 +102,10 @@ function StepOne(props) {
             Address
           </Typography>
           <TextField
-            onChange={handleInputChange}
-            required
             hiddenLabel
             fullWidth
-            value={formData?.address || ""}
-            variant="filled"
+            value={profile?.address || ""}
             size="small"
-            type="text"
-            autoFocus
-            name="address"
           />
         </Box>
         <Box className="information-box">
@@ -139,15 +113,10 @@ function StepOne(props) {
             Postal Code
           </Typography>
           <TextField
-            onChange={handleInputChange}
-            required
             hiddenLabel
             fullWidth
-            value={formData?.postalCode || ""}
-            variant="filled"
+            value={profile?.postalCode || ""}
             size="small"
-            type="text"
-            name="postalCode"
           />
         </Box>
         <Box className="information-box">
@@ -155,42 +124,40 @@ function StepOne(props) {
             Phone number
           </Typography>
           <TextField
-            onChange={handleInputChange}
-            required
             hiddenLabel
             fullWidth
-            value={formData?.phone || ""}
-            variant="filled"
+            value={profile?.phone || ""}
             size="small"
-            type="text"
-            autoFocus
-            name="phone"
           />
         </Box>
         <Box
-          sx={{ display: "flex", gap: 3, marginTop: 3 }}
+          sx={{
+            display: "flex",
+            gap: 3,
+            marginTop: 3,
+            justifyContent: "flex-end",
+          }}
           className="information-box"
         >
-          <LoadingButton
-            size="small"
-            loading={isLoadingInfo}
-            onClick={handleUpdateInfo}
-            startIcon={<SaveIcon />}
-            loadingPosition="start"
-            variant="contained"
-            sx={{
-              backgroundColor: "var(--color4-transparent)",
-              color: "var(--color4a)",
-              borderRadius: 1,
-              padding: "8px",
-              ":hover": {
-                border: "solid 1px var(--colorGreenBorder)",
-                backgroundColor: "var(--colorGreen)",
-              },
-            }}
-          >
-            Save
-          </LoadingButton>
+          <Link to={`/user/edit`}>
+            <Button
+              variant="contained"
+              startIcon={<EditIcon />}
+              style={{ textDecoration: "none" }}
+              sx={{
+                backgroundColor: "var(--color4-transparent)",
+                color: "var(--color4a)",
+                borderRadius: 1,
+                padding: "8px",
+                ":hover": {
+                  border: "solid 1px var(--colorGreenBorder)",
+                  backgroundColor: "var(--colorGreen)",
+                },
+              }}
+            >
+              Edit
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>

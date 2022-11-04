@@ -1,23 +1,24 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import "./Dashboard.scss";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 function ProfileEdit() {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-  const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
+  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     address: "",
@@ -43,8 +44,10 @@ function ProfileEdit() {
   const handleSubmit = async (evnt) => {
     evnt.preventDefault();
     try {
+      setIsLoadingInfo(true);
       await axiosPrivate.put("/user", formData);
-      setTimeout(navigate, 500, `/user`);
+      setIsLoadingInfo(false);
+      setTimeout(navigate, 500, -1);
     } catch (error) {}
   };
 
@@ -89,7 +92,7 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            // hiddenLabel
+            hiddenLabel
             fullWidth
             value={formData?.username || ""}
             variant="filled"
@@ -106,7 +109,7 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            // hiddenLabel
+            hiddenLabel
             fullWidth
             disabled
             value={formData?.email || ""}
@@ -124,7 +127,7 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            // hiddenLabel
+            hiddenLabel
             fullWidth
             value={formData?.address || ""}
             variant="filled"
@@ -140,7 +143,7 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            // hiddenLabel
+            hiddenLabel
             fullWidth
             value={formData?.postalCode || ""}
             variant="filled"
@@ -156,7 +159,7 @@ function ProfileEdit() {
           <TextField
             onChange={handleInputChange}
             required
-            // hiddenLabel
+            hiddenLabel
             fullWidth
             value={formData?.phone || ""}
             variant="filled"
@@ -173,31 +176,42 @@ function ProfileEdit() {
             variant="contained"
             fullWidth
             sx={{
-              backgroundColor: "var(--color4)",
-              marginTop: 2,
+              backgroundColor: "var(--color4-transparent)",
+              color: "var(--color4a)",
+              borderRadius: 1,
+              padding: "8px",
               ":hover": {
-                bgcolor: "var(--color4a)",
+                border: "solid 1px var(--colorGreenBorder)",
+                backgroundColor: "var(--colorGreen)",
               },
             }}
-            to="/user"
+            to={-1}
             component={Link}
           >
             Cancle
           </Button>
-          <Button
+
+          <LoadingButton
+            size="small"
+            loading={isLoadingInfo}
             onClick={handleSubmit}
-            variant="contained"
+            endIcon={<SaveIcon />}
+            loadingPosition="end"
             fullWidth
+            variant="contained"
             sx={{
-              backgroundColor: "var(--color4)",
-              marginTop: 2,
+              backgroundColor: "var(--color4-transparent)",
+              color: "var(--color4a)",
+              borderRadius: 1,
+              padding: "8px",
               ":hover": {
-                bgcolor: "var(--color4a)",
+                border: "solid 1px var(--colorGreenBorder)",
+                backgroundColor: "var(--colorGreen)",
               },
             }}
           >
-            Submit
-          </Button>
+            Save
+          </LoadingButton>
         </Box>
       </Box>
     </Box>

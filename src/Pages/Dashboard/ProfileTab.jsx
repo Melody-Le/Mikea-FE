@@ -1,24 +1,15 @@
 import React from "react";
-import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import "./Dashboard.scss";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
 
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-import AuthContext from "../../Context/AuthProvider";
-
 function ProfileTab({ profile }) {
-  const { auth } = useContext(AuthContext);
-  const isAuth = !!auth?.email;
-  const axiosPrivate = useAxiosPrivate();
-
   return (
     <Box position={"relative"}>
-      <Link to={`/user/edit`} sx={{}}>
+      <Link to={`/user/edit`}>
         <EditIcon
           sx={{
             marginY: 1,
