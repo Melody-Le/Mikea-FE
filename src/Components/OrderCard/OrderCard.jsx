@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
 import PurchaseCard from "../PurchaseCard/PurchaseCard";
-import { Box, Divider, Typography, Grid } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { Stack } from "@mui/material";
 import OrderCardSkeleton from "./OrderCardSkeleton";
 
-function OrderCard({ orderDetail, isLoading }) {
+function OrderCard({ orderDetail }) {
   const createdDate = new Date(orderDetail?.createdAt);
   const createdDateNice = createdDate
     .toString()
     .substring(0, createdDate.toString().indexOf("GMT"));
-  // const [totalPrice, setTotalPrice] = useState(0);
 
   let orderedProductToShow = [];
   if (orderDetail?.orderItems?.length) {

@@ -1,7 +1,5 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
-
 import { Avatar, Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -40,7 +38,6 @@ function CartItem(props) {
   const selectionlineItemQtyArray = [...Array(qtyInStock).keys()].map(
     (i) => i + 1
   );
-  const axiosPrivate = useAxiosPrivate();
   const currentLineItemQty = getLineItemQty(variantId);
   const [lineItemQty, setlineItemQty] = useState(currentLineItemQty);
   const [openSelect, setOpenSelect] = useState(false);

@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import "./Modal.scss";
 
 import AuthContext from "../../Context/AuthProvider";
@@ -8,7 +8,6 @@ import { Button } from "@mui/material";
 
 export default function ConfirmModal(props) {
   const [errorMessage, setErrorMessage] = useState("");
-  const { setAuth } = useContext(AuthContext);
   const { onClose, onConfirm, isOpen } = props;
   if (!isOpen) return null;
 

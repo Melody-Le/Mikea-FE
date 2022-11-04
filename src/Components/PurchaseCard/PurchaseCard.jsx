@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { React } from "react";
+import { Link } from "react-router-dom";
 import { Avatar, Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Skeleton } from "@mui/material";
@@ -7,7 +7,6 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 import { formatCurrency } from "../../Utilities/formatCurrency";
-import OutOfStock from "../Button/OutOfStock";
 import "./PurchaseCard.scss";
 
 function PurchaseCard({ orderDetail, isLoading }) {
@@ -117,11 +116,6 @@ function PurchaseCard({ orderDetail, isLoading }) {
               alignItems: "center",
             }}
           >
-            {/* {qtyInStock > 0 ? (
-              <Typography>Buy Again</Typography>
-            ) : (
-              <OutOfStock content="OUT OF STOCK" />
-            )} */}
             <Button
               to={`/`}
               component={Link}

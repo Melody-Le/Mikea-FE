@@ -12,7 +12,6 @@ function StepThree() {
         alt="video"
         image="https://i.pinimg.com/originals/5f/dd/de/5fdddeab2b4d6ddd1c692e98f200148e.gif"
         title="video"
-        muted=""
         autoPlay
         muted
       />

@@ -1,16 +1,11 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import SaveIcon from "@mui/icons-material/Save";
-
-import { useShoppingCart } from "../../Context/ShoppingCartContext";
 
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import LoadingButton from "@mui/lab/LoadingButton";
-
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 import EditIcon from "@mui/icons-material/Edit";
@@ -19,36 +14,13 @@ function StepOne(props) {
   const { auth } = useContext(AuthContext);
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
-  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
-  const [formData, setFormData] = useState({
-    username: "",
-    address: "",
-    postalCode: "",
-    phone: "",
-  });
   useEffect(() => {
     if (auth?.email) {
       axiosPrivate.get(`/user`).then((response) => {
         setProfile(response.data);
-        setFormData(response.data);
       });
     }
   }, [auth]);
-
-  const handleInputChange = (evnt) => {
-    setFormData({
-      ...formData,
-      [evnt.target.name]: evnt.target.value,
-    });
-  };
-  const handleUpdateInfo = async (evnt) => {
-    evnt.preventDefault();
-    try {
-      setIsLoadingInfo(true);
-      await axiosPrivate.put("/user", formData);
-      setIsLoadingInfo(false);
-    } catch (error) {}
-  };
 
   return (
     <Box position={"relative"} sx={{ minHeight: "calc(100vh - 20rem)" }}>

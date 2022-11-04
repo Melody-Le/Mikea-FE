@@ -47,7 +47,7 @@ function ProductShowPage() {
           variantDescription: product?.variants[0]?.variantDescription,
         };
         setVariantDetail(defaultVariant);
-        productImagesArr = product?.productImages.split(",");
+        productImagesArr = product?.productImages?.split(",") || [];
         setProductImgs(productImagesArr);
         setProductImage(productImagesArr[0]);
         setIsLoading(false);
