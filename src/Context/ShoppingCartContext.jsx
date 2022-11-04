@@ -17,7 +17,7 @@ export function ShoppingCartProvider({ children }) {
   const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [cartItems, setCartItems] = useState([]);
-  const [isLoadingCard, setIsLoadingCart] = useState(false);
+  const [isLoadingCard, setIsLoadingCart] = useState(true);
   const [totalItemInCart, setTotalItemInCart] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [preOrderList, setPreOrderList] = useState([]);
@@ -35,7 +35,6 @@ export function ShoppingCartProvider({ children }) {
           }
           return;
         } catch (error) {
-          console.log(error);
           return;
         }
       }
@@ -55,7 +54,6 @@ export function ShoppingCartProvider({ children }) {
       }
       return;
     } catch (error) {
-      console.log(error);
       return;
     }
   };
@@ -65,7 +63,7 @@ export function ShoppingCartProvider({ children }) {
       setIsLoadingCart(true);
       try {
         await axiosPrivate.post(`/cart/add/${variantId}`);
-        await fetchCart();
+        // await fetchCart();
         setIsLoadingCart(false);
         return;
       } catch (error) {
@@ -79,7 +77,7 @@ export function ShoppingCartProvider({ children }) {
   const removeFromCart = async (variantId) => {
     try {
       await axiosPrivate.delete(`/cart/${variantId}`);
-      await fetchCart();
+      // await fetchCart();
       return;
     } catch (error) {
       console.log(error);
@@ -93,7 +91,7 @@ export function ShoppingCartProvider({ children }) {
   const updateQtyLineItemQty = async (variantId, qty) => {
     try {
       await axiosPrivate.put(`/cart/${variantId}`, { updateQty: qty });
-      await fetchCart();
+      // await fetchCart();
       return;
     } catch (error) {}
   };
@@ -103,7 +101,7 @@ export function ShoppingCartProvider({ children }) {
       await axiosPrivate.post(`/orders`, {
         variantIds: orderVariantIDs,
       });
-      await fetchCart();
+      // await fetchCart();
       return;
     } catch (error) {}
   };

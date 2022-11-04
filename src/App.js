@@ -23,6 +23,7 @@ function App() {
         <SiteHeader />
         <Container mb={1}>
           <Routes>
+            <Route path="/order" element={<OrderPage />} />
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route
@@ -37,7 +38,6 @@ function App() {
               <Route path="/products/:slug" element={<ProductShowPage />} />
               <Route path="/user" element={<Dashboard />} />
               <Route path="/user/edit" element={<ProfileEdit />} />
-              <Route path="/order" element={<OrderPage />} />
 
               <Route path="*" element={<PageNotFound />} />
             </Route>

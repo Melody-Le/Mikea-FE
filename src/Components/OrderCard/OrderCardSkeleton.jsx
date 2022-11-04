@@ -32,7 +32,6 @@ function OrderCardSkeleton() {
       <Stack width={"100%"}>
         <PurchaseCardSkeleton />
         <PurchaseCardSkeleton />
-        <PurchaseCardSkeleton />
       </Stack>
       <Skeleton variant="rectangle" animation="wave" width={"100%"} />
     </Box>

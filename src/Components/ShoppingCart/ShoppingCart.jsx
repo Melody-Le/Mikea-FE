@@ -18,7 +18,7 @@ import { formatCurrency } from "../../Utilities/formatCurrency";
 import EmptyBox from "../EmptyBox/EmptyBox";
 
 function ShoppingCart({ isOpen }) {
-  const { closeCart, cartItems, createOrder } = useShoppingCart();
+  const { closeCart, cartItems } = useShoppingCart();
   const cartVariantIds = [];
   const lineItemInOrder = [];
   const initialCartVariantIdsBoolean = cartVariantIds.map((item) => !item); // convert all item in array into false value
@@ -28,7 +28,6 @@ function ShoppingCart({ isOpen }) {
   const toggleVariantOrder = (index) => (event) => {
     const newVariants = [...variantsOrder];
     newVariants[index] = event.target.checked;
-    console.log(event.target.checked);
     setVariantsOrder(newVariants);
   };
 
@@ -100,13 +99,6 @@ function ShoppingCart({ isOpen }) {
     return prevPrice + curItem?.qty * curItem?.variant?.price;
   }, 0);
 
-  const checkout = async (evnt) => {
-    evnt.preventDefault();
-    try {
-      await createOrder(orderVariantIDs);
-      return;
-    } catch (error) {}
-  };
   return (
     <>
       <Drawer
@@ -165,7 +157,10 @@ function ShoppingCart({ isOpen }) {
               Total price:{formatCurrency(updatedPrice) || "free"}
             </Typography>
             <Button
-              onClick={checkout}
+              onClick={closeCart}
+              component={Link}
+              to={`/order`}
+              state={{ orderList: orderVariantIDs, totalPrice: updatedPrice }}
               variant="contained"
               fullWidth
               sx={{

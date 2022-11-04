@@ -1,20 +1,31 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 
-import Box from "@mui/material/Box";
+import { useShoppingCart } from "../../Context/ShoppingCartContext";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
+import StepLabel from "@mui/material/StepLabel";
 
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
+const steps = ["Check Information", "Review Order Item", "Payment"];
 
 function OrderPage() {
+  const { createOrder } = useShoppingCart();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { orderList, totalPrice } = location.state || 0;
+
   const { auth } = useContext(AuthContext);
-  const isAuth = !!auth?.email;
   const axiosPrivate = useAxiosPrivate();
   const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState({
@@ -39,173 +50,89 @@ function OrderPage() {
     });
   };
 
-  const handleSubmit = async (evnt) => {
+  const handleCheckout = async (evnt) => {
     evnt.preventDefault();
     try {
-      await axiosPrivate.put("/user", formData);
+      await createOrder(orderList);
       setTimeout(navigate, 500, `/user`);
     } catch (error) {}
   };
-  return (
-    <Box position={"relative"}>
-      <Typography
-        variant="h5"
-        component="h5"
-        marginTop={2}
-        sx={{
-          color: "var(--color4a)",
-          textTransform: "capitalize",
-          textAlign: "center",
-        }}
-      >
-        Update Profile information!
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        sx={{
-          color: "var(--color2)",
-          textAlign: "center",
-        }}
-      >
-        Let's filling the empty fields or revise the information
-      </Typography>
 
-      <Box
-        sx={{
-          paddingX: "1rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "1rem",
-        }}
-      >
-        <Box className="information-box">
-          <Typography variant="subtitle1" className="text-field-title">
-            Name
+  // ----------------------------
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+  // let content = "";
+  // if (activeStep === 1) {
+  //   content = <StepOne handleNext={handleNext} />;
+  //   return content;
+  // }
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          return (
+            <Step key={label} {...stepProps}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {activeStep === steps.length ? (
+        <>
+          <Typography sx={{ mt: 2, mb: 1 }}>
+            All steps completed - you&apos;re finished
           </Typography>
-          <TextField
-            onChange={handleInputChange}
-            required
-            hiddenLabel
-            fullWidth
-            value={formData?.username || ""}
-            variant="filled"
-            size="small"
-            type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
-            name="username"
-          />
-        </Box>
-        <Box className="information-box">
-          <Typography variant="subtitle1" className="text-field-title">
-            Email
-          </Typography>
-          <TextField
-            onChange={handleInputChange}
-            required
-            hiddenLabel
-            fullWidth
-            disabled
-            value={formData?.email || ""}
-            variant="filled"
-            size="small"
-            type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
-            name="email"
-          />
-        </Box>
-        <Box className="information-box">
-          <Typography variant="subtitle1" className="text-field-title">
-            Address
-          </Typography>
-          <TextField
-            onChange={handleInputChange}
-            required
-            hiddenLabel
-            fullWidth
-            value={formData?.address || ""}
-            variant="filled"
-            size="small"
-            type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
-            name="address"
-          />
-        </Box>
-        <Box className="information-box">
-          <Typography variant="subtitle1" className="text-field-title">
-            Postal Code
-          </Typography>
-          <TextField
-            onChange={handleInputChange}
-            required
-            hiddenLabel
-            fullWidth
-            value={formData?.postalCode || ""}
-            variant="filled"
-            size="small"
-            type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
-            name="postalCode"
-          />
-        </Box>
-        <Box className="information-box">
-          <Typography variant="subtitle1" className="text-field-title">
-            Phone number
-          </Typography>
-          <TextField
-            onChange={handleInputChange}
-            required
-            hiddenLabel
-            fullWidth
-            value={formData?.phone || ""}
-            variant="filled"
-            size="small"
-            type="text"
-            placeholder="Filling your display name on your profile"
-            autoFocus
-            name="phone"
-          />
-        </Box>
-        <Box
-          sx={{ display: "flex", gap: 3, marginTop: 3 }}
-          className="information-box"
-        >
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              backgroundColor: "var(--color4)",
-              marginTop: 2,
-              ":hover": {
-                bgcolor: "var(--color4a)",
-              },
-            }}
-            to="/user"
-            component={Link}
-          >
-            Cancle
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            variant="contained"
-            fullWidth
-            sx={{
-              backgroundColor: "var(--color4)",
-              marginTop: 2,
-              ":hover": {
-                bgcolor: "var(--color4a)",
-              },
-            }}
-          >
-            Submit
-          </Button>
-        </Box>
-      </Box>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
+            <Button onClick={handleReset}>Reset</Button>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+
+          {activeStep === 0 && <StepOne handleNext={handleNext} />}
+          {activeStep === 1 && (
+            <StepTwo
+              handleNext={handleNext}
+              orderList={orderList}
+              totalPrice={totalPrice}
+            />
+          )}
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            <Box sx={{ flex: "1 1 auto" }} />
+            <Button onClick={handleNext}>
+              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            </Button>
+          </Box>
+        </>
+      )}
     </Box>
   );
 }

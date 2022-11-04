@@ -39,13 +39,13 @@ function PurchaseCard({ orderDetail, isLoading }) {
       }}
     >
       <Grid container spacing={0} margin={0} alignItems={"center"} gap={1}>
-        <Grid item xs={4} md={3} lg={2} padding={2}>
+        <Grid item xs={3} md={2} lg={2} padding={2}>
           {isLoading ? (
             <Skeleton
               variant="rectangle"
               animation="wave"
               width={"100%"}
-              height={"8rem"}
+              height={"10rem"}
             />
           ) : (
             <Avatar
@@ -58,7 +58,7 @@ function PurchaseCard({ orderDetail, isLoading }) {
               variant="rounded"
               sx={{
                 width: "100%",
-                height: "8rem",
+                height: "10rem",
                 borderRadius: 3,
                 objectFit: "contain",
               }}
@@ -102,9 +102,13 @@ function PurchaseCard({ orderDetail, isLoading }) {
               <Typography marginRight={1} sx={{ color: "var(--color4a)" }}>
                 Price :{formatCurrency(price) || "free"}
               </Typography>
-              <Typography marginRight={1} sx={{ color: "var(--color4a)" }}>
-                Quantity purchased: {qty}
-              </Typography>
+              {qty ? (
+                <Typography marginRight={1} sx={{ color: "var(--color4a)" }}>
+                  Quantity: {qty}
+                </Typography>
+              ) : (
+                ""
+              )}
             </Box>
           </Box>
           <Box

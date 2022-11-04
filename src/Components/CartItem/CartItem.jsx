@@ -1,5 +1,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+
 import { Avatar, Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -17,8 +19,13 @@ import OutOfStock from "../Button/OutOfStock";
 import "./CartItem.scss";
 
 function CartItem(props) {
-  const { closeCart, getLineItemQty, removeFromCart, updateQtyLineItemQty } =
-    useShoppingCart();
+  const {
+    closeCart,
+    getLineItemQty,
+    removeFromCart,
+    updateQtyLineItemQty,
+    fetchCart,
+  } = useShoppingCart();
   const {
     variantImage,
     variantId,
@@ -33,13 +40,16 @@ function CartItem(props) {
   const selectionlineItemQtyArray = [...Array(qtyInStock).keys()].map(
     (i) => i + 1
   );
+  const axiosPrivate = useAxiosPrivate();
   const currentLineItemQty = getLineItemQty(variantId);
   const [lineItemQty, setlineItemQty] = useState(currentLineItemQty);
   const [openSelect, setOpenSelect] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const handleSelectChange = async (event) => {
     const qtyChange = event.target.value;
     await updateQtyLineItemQty(variantId, qtyChange);
+    await fetchCart();
     setlineItemQty(qtyChange);
     return;
   };
@@ -56,6 +66,7 @@ function CartItem(props) {
     setIsLoading(true);
     try {
       await removeFromCart(variantId);
+      await fetchCart();
       setIsLoading(false);
       return;
     } catch (error) {}
