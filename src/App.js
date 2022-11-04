@@ -14,7 +14,6 @@ import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import ProductShowPage from "./Pages/ProductShowPage/ProductShowPage";
 import Layout from "./Components/Layout/Layout";
 import CategoriesIndex from "./Pages/Categories/CategoriesIndex";
-import BreadcrumbsCustom from "./Components/BreadcrumbsCustom/BreadcrumbsCustom";
 import OrderPage from "./Pages/OrderPage/OrderPage";
 import RequireAuth from "./Components/RequireAuth/RequireAuth";
 
