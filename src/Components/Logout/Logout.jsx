@@ -6,10 +6,9 @@ import axios from "../../api/axios";
 
 export default function LogOut() {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
   const refreshToken = cookies.refreshToken;
   const { setAuth } = useContext(AuthContext);
-  console.log("Logout done");
   useEffect(() => {
     removeCookie("refreshToken");
     removeCookie("accessToken");
@@ -24,6 +23,8 @@ export default function LogOut() {
 
     navigate("/", { replace: true });
   }, []);
+  console.log(refreshToken);
+  console.log(cookies);
 
   return <></>;
 }

@@ -1,5 +1,5 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState, useContext } from "react";
 
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -22,13 +22,9 @@ export default function LoginForm() {
   const [severity, setSeverity] = useState("success");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const [cookies, setCookie] = useCookies();
   const { auth, setAuth } = useContext(AuthContext);
-
-  const from = location.state?.from?.pathname || "/"; // to get where they came from
   const userRef = useRef();
-
   const formObj = {
     emailRef: useRef(),
     passwordRef: useRef(),

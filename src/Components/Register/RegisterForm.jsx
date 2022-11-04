@@ -1,5 +1,5 @@
 import { useRef, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -9,10 +9,12 @@ import Grid from "@mui/material/Grid";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Button, Divider } from "@mui/material";
+import LoadingBtn from "../Button/LoadingBtn";
 
 import styles from "../Login/LoginGrid.scss";
 import axios from "../../api/axios";
 import AuthContext from "../../Context/AuthProvider";
+import { useCookies } from "react-cookie";
 
 function RegisterForm() {
   const formObj = {
@@ -21,12 +23,16 @@ function RegisterForm() {
     passwordRef: useRef(),
     confirmPasswordRef: useRef(),
   };
+  const [cookies, setCookie] = useCookies();
+  const navigate = useNavigate();
   const [openSnack, setOpenSnack] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("success");
-  const { auth } = useContext(AuthContext);
-  const registerSubmit = (event) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { auth, setAuth } = useContext(AuthContext);
+  const registerSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const email = formObj.emailRef.current.value;
     const username = formObj.usernameRef.current.value;
     const password = formObj.passwordRef.current.value;
@@ -37,24 +43,47 @@ function RegisterForm() {
       setSeverity("error");
       return;
     }
-    axios
-      .post("/auth/register", {
+    try {
+      await axios.post("/auth/register", {
         username,
         email,
         password,
-      })
-      .then((response) => {
+      });
+
+      setOpenSnack(true);
+      setMessage("Success");
+      setSeverity("success");
+      setIsLoading(false);
+      try {
+        const response = await axios.post("/auth/login", {
+          email,
+          password,
+        });
+        const { accessToken, refreshToken } = response?.data;
+        setCookie("refreshToken", refreshToken);
+        setCookie("accessToken", accessToken);
+        setCookie("email", email);
+        setAuth({ accessToken, email });
+        setIsLoading(false);
         setOpenSnack(true);
-        setMessage("Success");
+        setMessage("Login successful. Redirecting to homepage...");
         setSeverity("success");
-        return;
-      })
-      .catch((error) => {
+        navigate("/", { replace: true });
+      } catch (error) {
+        setIsLoading(false);
         setOpenSnack(true);
-        setMessage(error.response.data.error);
+        setMessage(error?.response?.data?.error);
         setSeverity("error");
         return;
-      });
+      }
+      return;
+    } catch (error) {
+      setOpenSnack(true);
+      setMessage(error.response.data.error);
+      setSeverity("error");
+      setIsLoading(false);
+      return;
+    }
   };
 
   if (auth?.email) {
@@ -176,20 +205,15 @@ function RegisterForm() {
             inputRef={formObj.confirmPasswordRef}
           />
           <Box textAlign={"center"}>
-            <Button
+            <LoadingBtn
+              className="auth-btn"
+              loading={isLoading}
               onClick={registerSubmit}
               variant="contained"
-              fullWidth
-              sx={{
-                backgroundColor: "var(--color4)",
-                marginTop: 2,
-                ":hover": {
-                  bgcolor: "var(--color4a)",
-                },
-              }}
-            >
-              Sign up
-            </Button>
+              fullWidth={true}
+              marginTop="2"
+              title="Sign up"
+            />
           </Box>
           <Box textAlign={"center"} mt={2} mb={2}>
             <Typography

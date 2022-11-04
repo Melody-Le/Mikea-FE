@@ -35,7 +35,6 @@ export default function LabTabs() {
       MuiTabs: {
         styleOverrides: {
           indicator: {
-            // display: "none",
             backgroundColor: "var(--color4a)",
           },
         },
@@ -109,6 +108,8 @@ export default function LabTabs() {
                 border: "1",
                 display: "flex",
                 justifyContent: "center",
+                paddingBottom: 3,
+                minHeight: "calc(100% - 5rem)",
               }}
               className="tab-box"
             >

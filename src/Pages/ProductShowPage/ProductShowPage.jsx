@@ -16,8 +16,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import("./ProductShowPage.scss");
 
 function ProductShowPage() {
-  const { getLineItemQty, addToCart, isLoadingCard, setIsLoadingCart } =
-    useShoppingCart();
+  const { getLineItemQty, addToCart, isLoadingCard } = useShoppingCart();
 
   const location = useLocation();
   const currentLocationState = location.state;
@@ -56,7 +55,6 @@ function ProductShowPage() {
     }
     getData();
   }, []);
-  console.log(productImgs);
   const cartItemQty = getLineItemQty(variantDetail?.variantId);
 
   let variantBox = [];

@@ -26,6 +26,7 @@ function ShoppingCart({ isOpen }) {
   const toggleVariantOrder = (index) => (event) => {
     const newVariants = [...variantsOrder];
     newVariants[index] = event.target.checked;
+    console.log(event.target.checked);
     setVariantsOrder(newVariants);
   };
 
@@ -141,7 +142,6 @@ function ShoppingCart({ isOpen }) {
             >
               Your Cart
             </Typography>
-            {/* <Box role="group" aria-labelledby="member"> */}
             <List
               sx={{
                 [`& .${checkboxClasses.root}`]: {
@@ -155,7 +155,6 @@ function ShoppingCart({ isOpen }) {
             >
               {cartItemToShow}
             </List>
-            {/* </Box> */}
           </Grid>
           <Box sx={{ paddingX: 3, marginTop: 1, height: "5rem" }}>
             <Typography variant="subtitle1" sx={{ fontSize: "1.2rem" }}>

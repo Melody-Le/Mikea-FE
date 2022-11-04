@@ -15,7 +15,7 @@ import ProductShowPage from "./Pages/ProductShowPage/ProductShowPage";
 import Layout from "./Components/Layout/Layout";
 import CategoriesIndex from "./Pages/Categories/CategoriesIndex";
 import BreadcrumbsCustom from "./Components/BreadcrumbsCustom/BreadcrumbsCustom";
-
+import LoginAuto from "./Components/Login/LoginAuto";
 function App() {
   return (
     <div className="App">
@@ -31,6 +31,7 @@ function App() {
               />
               <Route path="/login" element={<AuthGrid formType="login" />} />
               <Route path="/logout" element={<LogOut />} />
+              <Route path="/loginAuto" element={<LoginAuto />} />
               <Route path="/breadcrumbs" element={<BreadcrumbsCustom />} />
               <Route path="/categories/:slug" element={<CategoriesIndex />} />
               <Route path="/products" element={<ProductsIndex />} />
