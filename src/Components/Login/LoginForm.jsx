@@ -47,7 +47,7 @@ export default function LoginForm() {
       setOpenSnack(true);
       setMessage("Login successful. Redirecting to homepage...");
       setSeverity("success");
-      navigate(-1, { replace: true });
+      navigate("/", { replace: true });
     } catch (err) {
       setIsLoading(false);
       setOpenSnack(true);
@@ -70,10 +70,10 @@ export default function LoginForm() {
           <span className="highlight-text">{auth.email}</span>
         </Typography>
         <Box textAlign={"center"}>
-          <Button variant="contained" route="/">
+          <Button variant="contained" to="/" component={Link}>
             Back to Home
           </Button>
-          <Button variant="outlined" href="/user">
+          <Button variant="outlined" to="/user" component={Link}>
             Visit your Dashboard
           </Button>
         </Box>
