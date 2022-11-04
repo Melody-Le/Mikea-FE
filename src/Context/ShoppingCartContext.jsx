@@ -101,7 +101,7 @@ export function ShoppingCartProvider({ children }) {
       await axiosPrivate.post(`/orders`, {
         variantIds: orderVariantIDs,
       });
-      // await fetchCart();
+      await fetchCart();
       return;
     } catch (error) {}
   };

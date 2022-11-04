@@ -16,14 +16,15 @@ import ImageListItem from "@mui/material/ImageListItem";
 import("./ProductShowPage.scss");
 
 function ProductShowPage() {
-  const { getLineItemQty, addToCart, isLoadingCard } = useShoppingCart();
+  const { getLineItemQty, addToCart } = useShoppingCart();
 
   const location = useLocation();
   const currentLocationState = location.state;
   const params = useParams();
 
   const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAddToCartLoading, setIsAddToCartLoading] = useState(false);
 
   const [variantDetail, setVariantDetail] = useState(null);
   const [productImage, setProductImage] = useState(
@@ -104,8 +105,10 @@ function ProductShowPage() {
   }
   const handleAddToCart = async (evnt) => {
     evnt.preventDefault();
+    setIsAddToCartLoading(true);
     try {
       await addToCart(variantDetail?.id);
+      setIsAddToCartLoading(false);
       return;
     } catch (error) {
       return;
@@ -170,7 +173,7 @@ function ProductShowPage() {
                 ) : (
                   <LoadingButton
                     variant="rounded"
-                    loading={isLoadingCard}
+                    loading={isAddToCartLoading}
                     onClick={handleAddToCart}
                     sx={{
                       backgroundColor: "var(--color4-transparent)",
@@ -218,16 +221,17 @@ function ProductShowPage() {
                 aspectRatio: 1 / 1,
               }}
             >
-              {productImgs.map((item, idx) => (
-                <ImageListItem key={idx}>
-                  <img
-                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={product?.productSlug}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
+              {!!productImgs?.length &&
+                productImgs?.map((item, idx) => (
+                  <ImageListItem key={idx}>
+                    <img
+                      src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                      srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                      alt={product?.productSlug}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
             </ImageList>
           </Grid>
         </>
