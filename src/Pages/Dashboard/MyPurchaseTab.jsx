@@ -14,8 +14,7 @@ function MyPurchaseTab() {
     async function getData() {
       try {
         const response = await axiosPrivate.get("/orders");
-        // setOrders(response?.data?.orderList);
-        setOrders([]);
+        setOrders(response?.data?.orderList);
         setIsLoading(false);
       } catch (err) {}
     }
