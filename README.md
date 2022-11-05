@@ -9,6 +9,8 @@ A Website to purchase furniture
 ## Tech Stack: PERN STACK
 
 - PERN stack with Typescript NodeJs Express, React, MUI, PostgresQL, Sequelize ORM,
+- Deploy backend on heroku
+- Deploy front end Netlify
 
 ## Experimented
 
@@ -36,3 +38,6 @@ A Website to purchase furniture
 ## Possible Improvements
 
 - Payment with Stribe
+- Inspiration tab for images with price
+- Admin role
+- Search product
