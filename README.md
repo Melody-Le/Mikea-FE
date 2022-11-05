@@ -6,6 +6,10 @@ A Website to purchase furniture
 
 - [Mikea - Demo Link](https://mikea.netlify.app/)
 
+## Backend Link
+
+- [Backend link](https://github.com/Melody-Le/Mikea-BE)
+
 ## Tech Stack: PERN STACK
 
 - PERN stack with Typescript NodeJs Express, React, MUI, PostgresQL, Sequelize ORM,
@@ -20,20 +24,16 @@ A Website to purchase furniture
 
 ---
 
-## Approach
+## Challenge:
 
-- wireframing
-- FlowChart
-- Buil UI | CSS
-- setting up database structure
-- Build Schema
-- Seed Data to data base
-- Refactor into Ejs file
-- set up mvc structure with crud routes
-- create login/logout/authentication/authorisation
-- testing of upload function with multer and imageKit.io
-- final check
-- deploy on Heroku
+- Sequelize ORM with Typescript
+- Bug guide me somewhere very far
+- Deploy Typescript with Sequelize
+
+## Win:
+
+- MUI document
+- Give a try for typescript Backend within 4 days prior learning by the link on Udemy
 
 ## Possible Improvements
 
