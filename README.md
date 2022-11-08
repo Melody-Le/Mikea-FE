@@ -16,7 +16,7 @@ A Website to purchase furniture
 - Deploy backend on heroku
 - Deploy front end Netlify
 
-## Experimented
+## Preparation
 
 - [Schema](https://app.sqldbm.com/PostgreSQL/Edit/p234722/#)
 - [Route](https://docs.google.com/spreadsheets/d/1tlVpViLMk9KHwaxIAti7m5beCwsczXfL/edit?usp=sharing&ouid=101496739868947993019&rtpof=true&sd=true)
