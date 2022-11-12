@@ -40,4 +40,4 @@ A Website to purchase furniture
 - Payment with Stribe
 - Inspiration tab for images with price
 - Admin role
-- Search product
+- Search product.
