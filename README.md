@@ -6,7 +6,7 @@ A Website to purchase furniture
 
 - [Mikea - Demo Link](https://mikea.netlify.app/)
 
-## Backend Link
+## Backend Link:
 
 - [Backend link](https://github.com/Melody-Le/Mikea-BE)
 
