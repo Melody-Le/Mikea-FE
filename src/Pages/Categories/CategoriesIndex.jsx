@@ -50,8 +50,7 @@ function CategoriesIndex() {
   let catToShow = [];
   if (subCategories?.length) {
     catToShow = subCategories?.map((cat, idx) => {
-      const { categoryLabel, categorySlug, parentCategoryId, categoryImg } =
-        cat;
+      const { categoryLabel, categorySlug, categoryImg } = cat;
       return (
         <Grid key={idx} xs={4} sm={2} md={2} item>
           <Link

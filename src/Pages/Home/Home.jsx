@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Avatar, Box, Grid, Typography, Button, Skeleton } from "@mui/material";
-import AspectRatio from "@mui/joy/AspectRatio";
-import "./Home.scss";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import axios from "../../api/axios";
 import CategorySkeleton from "../Categories/CategorySkeleton";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -26,13 +24,8 @@ export default function Home() {
   let catToShow = [];
   if (categories?.length) {
     catToShow = categories?.map((cat, idx) => {
-      const {
-        categoryLabel,
-        categorySlug,
-        parentCategoryId,
-        categoryImg,
-        subCategory,
-      } = cat;
+      const { categoryLabel, categorySlug, parentCategoryId, categoryImg } =
+        cat;
       return (
         !parentCategoryId && (
           <Grid key={idx} xs={4} sm={2} md={2} item>

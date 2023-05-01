@@ -19,7 +19,6 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import "./SiteHeader.css";
 import DrawerComponent from "./DrawerComponent";
 import MenuBar from "./MenuBar";
-import SearchBar from "./SearchBar";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";

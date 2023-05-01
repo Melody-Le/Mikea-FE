@@ -72,8 +72,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-  const navigate = useNavigate();
-
   const handleSearchSubmit = (evnt) => {
     evnt.preventDefault();
     // navigate(`/search?q=${evnt.target.value}`);

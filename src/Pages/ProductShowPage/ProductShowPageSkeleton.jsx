@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button } from "@mui/material";
 
 import AspectRatio from "@mui/joy/AspectRatio";
 import { Skeleton } from "@mui/material";

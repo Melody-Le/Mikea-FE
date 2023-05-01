@@ -15,7 +15,6 @@ export default function PageNotFound() {
           type="video/mp4"
           muted=""
           autoPlay
-          muted
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography sx={{ marginX: "auto", marginTop: "1rem" }} variant="h6">

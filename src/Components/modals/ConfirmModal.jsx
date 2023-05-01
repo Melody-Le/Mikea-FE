@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import "./Modal.scss";
 
-import AuthContext from "../../Context/AuthProvider";
 import { Button } from "@mui/material";
 
 export default function ConfirmModal(props) {
