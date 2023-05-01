@@ -14,6 +14,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
+import { Container } from "@mui/material";
 
 const steps = ["Check Information", "Review Order Item", "Payment"];
 function OrderPage() {
@@ -49,7 +50,7 @@ function OrderPage() {
   };
 
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       {orderList?.length ? (
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -145,7 +146,7 @@ function OrderPage() {
       ) : (
         <EmptyBox />
       )}
-    </>
+    </Container>
   );
 }
 

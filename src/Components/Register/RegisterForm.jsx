@@ -112,16 +112,24 @@ function RegisterForm() {
   }
 
   return (
-    <Box className={styles["form"]}>
+    <Box
+      className={styles["form"]}
+      sx={{
+        width: "fit-content",
+        border: "1px solid #FFEAD2",
+        padding: 2,
+      }}
+    >
       <Typography
-        variant="subtitle1"
+        variant="h6"
         textAlign={"center"}
         className={styles["title"]}
         gutterBottom
+        color="#FFEAD2"
       >
-        Sign up by
+        SIGN UP
       </Typography>
-      <Grid container direction="row" justifyContent={"center"}>
+      {/* <Grid container direction="row" justifyContent={"center"}>
         <Grid item>
           <GitHubIcon sx={{ marginY: 1 }} fontSize={"large"} />
         </Grid>
@@ -130,7 +138,7 @@ function RegisterForm() {
       <Box textAlign={"center"} mt={2} mb={2}>
         Or
         <Divider sx={{ marginLeft: "5%", marginRight: "5%", marginY: 3 }} />
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
@@ -144,7 +152,7 @@ function RegisterForm() {
         }}
       >
         <form id="registration-form">
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Username
           </Typography>
           <TextField
@@ -158,8 +166,9 @@ function RegisterForm() {
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
             inputRef={formObj.usernameRef}
+            color="#FFEAD2"
           />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Email
           </Typography>
           <TextField
@@ -173,8 +182,9 @@ function RegisterForm() {
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
             inputRef={formObj.emailRef}
+            color="#FFEAD2"
           />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Password
           </Typography>
           <TextField
@@ -188,8 +198,9 @@ function RegisterForm() {
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
             inputRef={formObj.passwordRef}
+            color="#FFEAD2"
           />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Confirm Password
           </Typography>
           <TextField
@@ -203,6 +214,7 @@ function RegisterForm() {
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
             inputRef={formObj.confirmPasswordRef}
+            color="#FFEAD2"
           />
           <Box textAlign={"center"}>
             <LoadingBtn
@@ -222,11 +234,12 @@ function RegisterForm() {
               display={"inline"}
               paddingX={1}
               gutterBottom
+              color="#FFEAD2"
             >
               Already have an account?
             </Typography>
             <Link className={styles["link"]} to="/login">
-              <Typography>Log in here</Typography>
+              <Typography color="#FFEAD2">Log in here</Typography>
             </Link>
           </Box>
         </form>

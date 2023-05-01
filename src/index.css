@@ -39,3 +39,12 @@ html {
   padding: 0px;
   margin: 0px;
 }
+.auth-page {
+  background-image: url("../public/backround.jpeg");
+  background-repeat: no-repeat;
+  /* object-fit: fill; */
+  background-size: cover;
+  /* background-position: center center; */
+  height: calc(100vh - 64px);
+  width: 100vw;
+}

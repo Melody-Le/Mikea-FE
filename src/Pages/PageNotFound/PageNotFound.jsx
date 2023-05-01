@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import { Box } from "@mui/system";
 export default function PageNotFound() {
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       <Box sx={{ marginX: "auto" }}>
         <CardMedia
           sx={{ height: "30vh", marginX: "auto" }}
@@ -42,6 +42,6 @@ export default function PageNotFound() {
           </Typography>
         </Box>
       </Box>
-    </>
+    </Container>
   );
 }

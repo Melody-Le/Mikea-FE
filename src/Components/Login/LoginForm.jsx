@@ -82,17 +82,25 @@ export default function LoginForm() {
   }
 
   return (
-    <Box className={styles["form"]}>
+    <Box
+      className={styles["form"]}
+      sx={{
+        width: "fit-content",
+        border: "1px solid #FFEAD2",
+        padding: 2,
+      }}
+    >
       <Typography
         variant="h6"
         component="h1"
         textAlign={"center"}
         className={styles["title"]}
         gutterBottom
+        color="#FFEAD2"
       >
-        Log in by
+        LOG IN
       </Typography>
-      <Grid container direction="row" justifyContent={"center"}>
+      {/* <Grid container direction="row" justifyContent={"center"}>
         <Grid item>
           <GitHubIcon sx={{ marginY: 1 }} fontSize={"large"} />
         </Grid>
@@ -100,7 +108,7 @@ export default function LoginForm() {
       <Box textAlign={"center"} mt={2} mb={2}>
         Or
         <Divider sx={{ marginLeft: "5%", marginRight: "5%", marginY: 3 }} />
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
@@ -114,7 +122,7 @@ export default function LoginForm() {
         }}
       >
         <form>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Email
           </Typography>
           <TextField
@@ -129,8 +137,9 @@ export default function LoginForm() {
             className={styles["input-text"]}
             inputRef={formObj.emailRef}
             ref={userRef}
+            color="#FFEAD2"
           />
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom color="#FFEAD2">
             Password
           </Typography>
           <TextField
@@ -144,6 +153,7 @@ export default function LoginForm() {
             sx={{ marginBottom: 2 }}
             className={styles["input-text"]}
             inputRef={formObj.passwordRef}
+            color="#FFEAD2"
           />
           <Box textAlign={"center"}>
             <LoadingBtn
@@ -164,12 +174,13 @@ export default function LoginForm() {
             display={"inline"}
             paddingX={1}
             gutterBottom
+            color="#FFEAD2"
           >
             Don't have an account?
           </Typography>
 
           <Link className={styles["link"]} to="/register">
-            <Typography>Sign up</Typography>
+            <Typography color="#FFEAD2">Sign up</Typography>
           </Link>
         </Box>
         <Snackbar

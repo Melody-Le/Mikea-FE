@@ -6,6 +6,7 @@ import axios from "../../api/axios";
 import CategorySkeleton from "../Categories/CategorySkeleton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CategoryBox from "../../Components/Category/CategoryBox";
+import Container from "@mui/material/Container";
 
 export default function Home() {
   const matches = useMediaQuery("(max-width:600px)");
@@ -47,7 +48,7 @@ export default function Home() {
     });
   }
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       <Typography
         sx={{
           fontSize: "1.5rem",
@@ -92,6 +93,6 @@ export default function Home() {
       <Grid container spacing={1}>
         {!isLoading ? catToShow : <CategorySkeleton />}
       </Grid>
-    </>
+    </Container>
   );
 }

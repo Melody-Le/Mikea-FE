@@ -12,6 +12,7 @@ import MyPurchaseTab from "./MyPurchaseTab";
 import "./Dashboard.scss";
 import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import AuthContext from "../../Context/AuthProvider";
+import { Container } from "@mui/material";
 
 export default function LabTabs() {
   const [value, setValue] = useState("1");
@@ -78,46 +79,51 @@ export default function LabTabs() {
 
   return (
     <ThemeProvider theme={themeTab}>
-      <Box sx={{ width: "100%", typography: "body1" }}>
-        <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="My profile" value="1" />
-              <Tab label="My purchase" value="2" />
-            </TabList>
-          </Box>
-          <TabPanel value="1" padding={0}>
-            <Box
-              border={"solid 1px var(--color4)"}
-              sx={{
-                borderRadius: 1,
-                height: "100vh",
-                maxHeight: "calc(100vh - 12rem)",
-                border: "1",
-              }}
-              className="tab-box"
-            >
-              <ProfileTab profile={profile} />
+      <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="My profile" value="1" />
+                <Tab label="My purchase" value="2" />
+              </TabList>
             </Box>
-          </TabPanel>
-          <TabPanel value="2" padding={0}>
-            <Box
-              border={"solid 1px var(--color4)"}
-              sx={{
-                borderRadius: 1,
-                border: "1",
-                display: "flex",
-                justifyContent: "center",
-                paddingBottom: 3,
-                minHeight: "calc(100% - 15rem)",
-              }}
-              className="tab-box"
-            >
-              <MyPurchaseTab />
-            </Box>
-          </TabPanel>
-        </TabContext>
-      </Box>
+            <TabPanel value="1" padding={0}>
+              <Box
+                border={"solid 1px var(--color4)"}
+                sx={{
+                  borderRadius: 1,
+                  height: "100vh",
+                  maxHeight: "calc(100vh - 12rem)",
+                  border: "1",
+                }}
+                className="tab-box"
+              >
+                <ProfileTab profile={profile} />
+              </Box>
+            </TabPanel>
+            <TabPanel value="2" padding={0}>
+              <Box
+                border={"solid 1px var(--color4)"}
+                sx={{
+                  borderRadius: 1,
+                  border: "1",
+                  display: "flex",
+                  justifyContent: "center",
+                  paddingBottom: 3,
+                  minHeight: "calc(100% - 15rem)",
+                }}
+                className="tab-box"
+              >
+                <MyPurchaseTab />
+              </Box>
+            </TabPanel>
+          </TabContext>
+        </Box>
+      </Container>
     </ThemeProvider>
   );
 }

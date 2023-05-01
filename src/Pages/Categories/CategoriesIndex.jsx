@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useParams, useLocation, Link } from "react-router-dom";
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "../../api/axios";
 import CategoryBox from "../../Components/Category/CategoryBox";
@@ -101,16 +101,16 @@ function CategoriesIndex() {
     });
   }
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       <BreadcrumbsCustom locationState={currentLocationState} />
       <Grid container spacing={1}>
         {!isLoading ? catToShow : <CategorySkeleton />}
       </Grid>
-      <Grid container spacing={3} marginTop={5}>
+      <Grid container spacing={3} marginTop={3}>
         {/* {productCardsToShow} */}
         {!isLoading ? productCardsToShow : <ProductsSkeleton />}
       </Grid>
-    </>
+    </Container>
   );
 }
 

@@ -22,31 +22,31 @@ function App() {
     <div className="App">
       <ShoppingCartProvider>
         <SiteHeader />
-        <Container mb={1}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              {/* Public Routes:  */}
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/register"
-                element={<AuthGrid formType="register" />}
-              />
-              <Route path="/login" element={<AuthGrid formType="login" />} />
-              <Route path="/categories/:slug" element={<CategoriesIndex />} />
-              <Route path="/products" element={<ProductsIndex />} />
-              <Route path="/products/:slug" element={<ProductShowPage />} />
-              {/* Protected route  */}
-              <Route element={<RequireAuth />}>
-                <Route path="/order" element={<OrderPage />} />
-                <Route path="/logout" element={<LogOut />} />
-                <Route path="/user" element={<Dashboard />} />
-                <Route path="/user/edit" element={<ProfileEdit />} />
-              </Route>
-              {/* Catch all  */}
-              <Route path="*" element={<PageNotFound />} />
+        {/* <Container> */}
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* Public Routes:  */}
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/register"
+              element={<AuthGrid formType="register" />}
+            />
+            <Route path="/login" element={<AuthGrid formType="login" />} />
+            <Route path="/categories/:slug" element={<CategoriesIndex />} />
+            <Route path="/products" element={<ProductsIndex />} />
+            <Route path="/products/:slug" element={<ProductShowPage />} />
+            {/* Protected route  */}
+            <Route element={<RequireAuth />}>
+              <Route path="/order" element={<OrderPage />} />
+              <Route path="/logout" element={<LogOut />} />
+              <Route path="/user" element={<Dashboard />} />
+              <Route path="/user/edit" element={<ProfileEdit />} />
             </Route>
-          </Routes>
-        </Container>
+            {/* Catch all  */}
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+        {/* </Container> */}
       </ShoppingCartProvider>
     </div>
   );

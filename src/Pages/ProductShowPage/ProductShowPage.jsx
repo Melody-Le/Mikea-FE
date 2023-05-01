@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import axios from "../../api/axios";
 
-import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Grid,
+  Typography,
+  Button,
+  Container,
+} from "@mui/material";
 import OutOfStock from "../../Components/Button/OutOfStock";
 import { useShoppingCart } from "../../Context/ShoppingCartContext";
 import { formatCurrency } from "../../Utilities/formatCurrency";
@@ -128,7 +135,7 @@ function ProductShowPage() {
   };
 
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       <BreadcrumbsCustom locationState={currentLocationState} />
       {!isLoading ? (
         <>
@@ -238,7 +245,7 @@ function ProductShowPage() {
       ) : (
         <ProductShowPageSkeleton />
       )}
-    </>
+    </Container>
   );
 }
 

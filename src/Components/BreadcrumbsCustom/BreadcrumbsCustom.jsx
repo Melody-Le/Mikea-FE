@@ -11,7 +11,7 @@ function BreadcrumbsCustom({ locationState }) {
     .filter((x) => x);
 
   return (
-    <Stack spacing={2} marginBottom={2}>
+    <Stack spacing={2} marginBottom={1}>
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
