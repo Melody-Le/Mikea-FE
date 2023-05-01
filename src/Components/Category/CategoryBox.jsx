@@ -1,12 +1,19 @@
 import React from "react";
 
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, Paper, Typography } from "@mui/material";
 import AspectRatio from "@mui/joy/AspectRatio";
 
 function CategoryBox(props) {
   const { categoryLabel, categoryImg, matches } = props;
   return (
-    <Box position={"relative"}>
+    // <Box position={"relative"}>
+    <Paper
+      elevation={5}
+      position={"relative"}
+      sx={{
+        borderRadius: 3,
+      }}
+    >
       <AspectRatio ratio="1" objectFit="cover" variant="square">
         <Avatar
           alt={categoryLabel}
@@ -38,7 +45,8 @@ function CategoryBox(props) {
       >
         {categoryLabel}
       </Typography>
-    </Box>
+    </Paper>
+    // </Box>
   );
 }
 

@@ -11,12 +11,6 @@ function ProductsSkeleton() {
       );
     }
   );
-  return (
-    <>
-      <Grid container spacing={3}>
-        {productCardsToShow}
-      </Grid>
-    </>
-  );
+  return <>{productCardsToShow}</>;
 }
 export default ProductsSkeleton;

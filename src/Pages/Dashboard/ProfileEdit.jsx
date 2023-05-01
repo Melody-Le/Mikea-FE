@@ -94,6 +94,7 @@ function ProfileEdit() {
             required
             hiddenLabel
             fullWidth
+            disabled
             value={formData?.username || ""}
             variant="filled"
             size="small"

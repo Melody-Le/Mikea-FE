@@ -119,7 +119,7 @@ function SiteHeader() {
                   alignItems: "center",
                 }}
               >
-                <SearchBar />
+                {/* <SearchBar /> */}
                 <DrawerComponent
                   isAuth={isAuth}
                   pageLinks={pageLinks}
@@ -152,7 +152,7 @@ function SiteHeader() {
                     alignItems: "center",
                   }}
                 >
-                  <SearchBar />
+                  {/* <SearchBar /> */}
                   <List
                     sx={{
                       display: "flex",

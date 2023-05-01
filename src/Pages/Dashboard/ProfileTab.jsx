@@ -64,6 +64,7 @@ function ProfileTab({ profile }) {
           <TextField
             hiddenLabel
             fullWidth
+            disabled
             value={profile?.username || ""}
             size="small"
             type="text"
@@ -89,6 +90,7 @@ function ProfileTab({ profile }) {
           <TextField
             hiddenLabel
             fullWidth
+            disabled
             value={profile?.address || ""}
             size="small"
             type="text"
@@ -102,6 +104,7 @@ function ProfileTab({ profile }) {
             hiddenLabel
             fullWidth
             value={profile?.postalCode || ""}
+            disabled
             size="small"
             type="text"
           />
@@ -114,6 +117,7 @@ function ProfileTab({ profile }) {
             hiddenLabel
             fullWidth
             value={profile?.phone || ""}
+            disabled
             size="small"
             type="text"
           />
