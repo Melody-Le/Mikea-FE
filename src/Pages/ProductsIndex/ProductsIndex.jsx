@@ -2,7 +2,7 @@ import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 
 import ProductCard from "../../Components/ProductCard/ProductCard";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import ProductsSkeleton from "./ProductsSkeleton";
 
 function ProductsIndex() {
@@ -46,11 +46,11 @@ function ProductsIndex() {
     });
   }
   return (
-    <>
+    <Container sx={{ marginTop: 4, paddingBottom: 5 }}>
       <Grid container spacing={3}>
         {!isLoading ? productCardsToShow : <ProductsSkeleton />}
       </Grid>
-    </>
+    </Container>
   );
 }
 
