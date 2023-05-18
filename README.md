@@ -1,6 +1,6 @@
 # Mikea
 
-A Website to purchase furniture
+A Website to purchase furniture - clone from Ikea website
 
 ## Demo link
 
