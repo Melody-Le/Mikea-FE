@@ -1,7 +1,11 @@
 import axios from "axios";
+
+// Production
 // const BASE_URL = "https://mikea-be.onrender.com/api/v1";
-const BASE_URL = "https://mikea-ikea-clone.herokuapp.com/api/v1";
-// const BASE_URL = "http://localhost:8800/api/v1";
+// const BASE_URL = "https://mikea-ikea-clone.herokuapp.com/api/v1";
+
+// Local development
+const BASE_URL = "http://localhost:8800/api/v1";
 
 export default axios.create({
   baseURL: BASE_URL,

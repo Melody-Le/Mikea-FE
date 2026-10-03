@@ -165,11 +165,11 @@ function SiteHeader() {
                         to={`${page.pageLink}`}
                         component={Link}
                         sx={{
-                          borderBottom: 0,
+                          border: "solid 1px transparent",
                           borderRadius: 1,
                           "&:hover": {
                             backgroundColor: "var(--colorGreen)",
-                            border: "solid 1px var(--colorGreenBorder)",
+                            borderColor: "var(--colorGreenBorder)",
                           },
                         }}
                         divider
@@ -200,11 +200,12 @@ function SiteHeader() {
                         backgroundColor: "var(--colorGreen)",
                         color: "var(--color4a)",
                         borderRadius: 1,
+                        border: "solid 1px transparent",
                         position: "relative",
                         "&:hover": {
                           transition: "all 0.3s ease",
                           backgroundColor: "var(--colorGreen)",
-                          border: "solid 1px var(--colorGreenBorder)",
+                          borderColor: "var(--colorGreenBorder)",
                         },
                       }}
                     >

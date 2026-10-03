@@ -139,6 +139,12 @@ function ShoppingCart({ isOpen }) {
           {cartItemToShow?.length ? (
             <List
               sx={{
+                px: 2,
+                "& .MuiFormControlLabel-root": {
+                  m: 0,
+                  p: 1,
+                  flexShrink: 0,
+                },
                 [`& .${checkboxClasses.root}`]: {
                   mr: "auto",
                   flexGrow: 1,
